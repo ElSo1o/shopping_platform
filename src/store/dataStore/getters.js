@@ -7,3 +7,6 @@ export const getSpinner = (state) => {
 export const getItemsWelcome = (state) => {
   return state.itemsWelcome
 }
+export const getAuthUser = (state) => {
+  return state.authUser
+}

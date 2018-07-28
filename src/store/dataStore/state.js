@@ -37,5 +37,7 @@ export default {
       active: false,
       complete: false
     }
-  ]
+  ],
+  settingUser: null,
+  authUser: {}
 }
