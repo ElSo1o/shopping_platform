@@ -67,8 +67,16 @@ export default {
     },
     signInWithGoogle () {
       const provider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithRedirect(provider).then((result) => {
+      firebase.auth().signInWithRedirect(provider).then(result => {
+        console.log('11')
         console.log(result)
+        // function writeUserData(userId, name, email, imageUrl) {
+        //   firebase.database().ref('users/' + userId).set({
+        //     username: name,
+        //     email: email,
+        //     profilePicture : imageUrl
+        //   })
+        // }
         this.$store.dispatch('dataStore/singInUser', result)
         // setTimeout(() => { this.$router.push({name: 'AuthUser'}) }, 0)
         // this.user = result.user

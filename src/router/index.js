@@ -5,31 +5,7 @@ import AuthUser from '../components/layout/AuthUser'
 import UserProfile from '../components/pages/UserProfile'
 import Welcome from '../components/pages/Welcome'
 import Balance from '../components/pages/Balance'
-// import firebaseApp from "../firebase";
-import firebaseApp from '../firebase'
-import store from '../store'
-const authUser = (to, from, next) => {
-  store.commit('dataStore/stateSpinner', true)
-  console.log(from)
-  firebaseApp.auth().onAuthStateChanged((user) => {
-    if (user) {
-      if (to.name === 'MainSection') {
-        store.dispatch('dataStore/singInUser', user)
-        next({name: 'AuthUser'})
-      } else {
-        next()
-        store.dispatch('dataStore/singInUser', user)
-      }
-    } else {
-      if (to.name === 'MainSection') {
-        next()
-      } else {
-        next({name: 'MainSection'})
-      }
-    }
-    store.commit('dataStore/stateSpinner', false)
-  })
-}
+import authUser from './verificationUser'
 Vue.use(Router)
 
 export default new Router({

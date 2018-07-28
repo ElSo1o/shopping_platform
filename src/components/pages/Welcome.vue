@@ -38,7 +38,7 @@
                   v-model="chip3"
                   color="green"
                   outline
-                  @click="t"
+                  @click="routerPush"
                 >{{item.btn.title}}<span :data-link="item.btn.link"></span></v-chip>
               </div>
             </div>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+// import firebase from 'firebase'
 export default {
   name: 'welcome',
   data () {
@@ -63,10 +64,21 @@ export default {
     }
   },
   methods: {
-    t (e) {
+    routerPush (e) {
       this.$router.push({name: e.target.children[0].dataset.link})
-      // console.log(e.target.children[0].dataset.link)
     }
+  },
+  mounted: function () {
+    // const user = firebase.auth().currentUser
+    // if (user != null) {
+    //   user.providerData.forEach(function (profile) {
+    //     console.log(profile.providerId)
+    //     console.log(profile.uid)
+    //     console.log(profile.displayName)
+    //     console.log(profile.email)
+    //     console.log(profile.photoURL)
+    //   })
+    // }
   }
 }
 </script>
@@ -96,7 +108,7 @@ export default {
     /*height: 275px;*/
     /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05); */
     box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-    z-index: 9;
+    z-index: 1;
   }
   .itemWelcome{
     display: flex;
