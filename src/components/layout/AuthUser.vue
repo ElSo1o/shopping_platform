@@ -82,9 +82,18 @@
             <v-card
               color="grey lighten-5"
             >
+              <div class="warningSection" v-if="getProfileData.profile.stepper === 1">
+                <router-link :to="{name: 'UserProfile'}">
+                  <v-icon dark class="warningSectionIcon">info</v-icon>
+                  <h4>Для начала работы Вам необходимо заполнить профиль</h4>
+                </router-link>
+              </div>
+            </v-card>
+            <v-card
+              color="grey lighten-5"
+            >
               <router-view></router-view>
             </v-card>
-
           </v-flex>
         </v-layout>
       </v-container>
@@ -122,6 +131,9 @@ export default {
   computed: {
     getUserData () {
       return this.$store.getters['dataStore/getUser']
+    },
+    getProfileData () {
+      return this.$store.getters['dataStore/getAuthUser']
     }
   },
   methods: {
@@ -208,5 +220,27 @@ export default {
   .contentPage{
     background: #e9eaed;
     padding-top: 48px!important;
+  }
+  .warningSection{
+    margin-bottom: 12px;
+    text-align: left;
+    padding: 16px;
+  }
+  .warningSection > a{
+    text-decoration: none;
+    color: inherit;
+    transition: 0.5s;
+    display: inline-flex;
+    align-items: center;
+  }
+  .warningSection > a:hover{
+    color: #1e88e5;
+  }
+  h4{
+    font-weight: 400;
+  }
+  .warningSectionIcon{
+    color: red!important;
+    margin-right: 4px;
   }
 </style>

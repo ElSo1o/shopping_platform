@@ -41,6 +41,9 @@
             </div>
           </div>
         </div>
+        <div>
+          <h4 class="text-center">Зарабатывай и улучшай сервис с MSP4! Твои друзья, Тайные Покупатели</h4>
+        </div>
       </v-card-text>
     </div>
   </div>
@@ -92,10 +95,13 @@ export default {
     font-size: 28px;
     font-weight: 400;
   }
-  h3{
+  h3, h4{
     font-weight: 400;
     margin-top: 20px;
     margin-bottom: 10px;
+  }
+  h4{
+    font-size: 18px;
   }
   .item{
     position: relative;
