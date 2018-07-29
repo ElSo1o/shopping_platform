@@ -1,9 +1,9 @@
 import firebaseApp from '../firebase'
 import store from '../store'
 
-const authUser = (to, from, next) => {
+const authUser = async (to, from, next) => {
   store.commit('dataStore/stateSpinner', true)
-  firebaseApp.auth().onAuthStateChanged((user) => {
+  await firebaseApp.auth().onAuthStateChanged((user) => {
     if (user) {
       if (to.name === 'MainSection') {
         next({name: 'AuthUser'})

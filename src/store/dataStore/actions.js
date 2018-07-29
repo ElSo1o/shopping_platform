@@ -28,8 +28,6 @@ const defaultTemplateUser = data => {
 }
 export const singInUser = (state, user) => {
   state.commit('sinInUser', user)
-  // console.log(state)
-  // console.log(user)
 }
 export const checkUserFromFireStore = (state, user) => {
   firebaseApp.firestore().collection(`users`).doc(user.uid).get().then((querySnapshot) => {
@@ -44,7 +42,6 @@ export const checkUserFromFireStore = (state, user) => {
 }
 export const writeUserToFireStore = (state, user) => {
   firebaseApp.firestore().collection(`users`).doc(user.uid).set(defaultTemplateUser(user)).then((result) => {
-    // console.log(result)
     state.commit('dataUser', defaultTemplateUser(user))
   }).catch((error) => {
     console.error('Error adding document: ', error)

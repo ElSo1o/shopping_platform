@@ -14,23 +14,20 @@
         </div>
       </div>
       <v-card-text >
-        <v-stepper value="1" style="box-shadow: none">
-          <v-stepper-header>
-            <v-stepper-step step="1" complete>Профиль</v-stepper-step>
-
-            <v-divider></v-divider>
-
-            <v-stepper-step step="2">Азбука</v-stepper-step>
-
-            <v-divider></v-divider>
-
-            <v-stepper-step step="3">Вакансии</v-stepper-step>
+        <v-stepper :value="getProfileData.profile.stepper" style="box-shadow: none">
+          <v-stepper-header class="redeFineStepper">
+            <div v-for="(item, i ,key) in getItemsWelcome" :key="key">
+              <v-stepper-step :step="getProfileData.profile.welcome[i].stepperNumber" :complete="getProfileData.profile.welcome[i].complete" class="bgStepper">
+                {{item.title}}
+              </v-stepper-step>
+            </div>
+            <div class="hr"></div>
           </v-stepper-header>
         </v-stepper>
         <div class="itemWelcome" >
           <div class="item" v-for="(item, i ,key) in getItemsWelcome" :key="key">
-            <div class="barrier" v-if="!item.active"></div>
-            <div :class="{ notActive: !item.active}">
+            <div class="barrier" v-if="!getProfileData.profile.welcome[i].active"></div>
+            <div :class="{ notActive: !getProfileData.profile.welcome[i].active}">
               <h3>{{item.title}}</h3>
               <p>{{item.description}}</p>
               <div class="btnWelcome">
@@ -61,6 +58,9 @@ export default {
   computed: {
     getItemsWelcome () {
       return this.$store.getters['dataStore/getItemsWelcome']
+    },
+    getProfileData () {
+      return this.$store.getters['dataStore/getAuthUser']
     }
   },
   methods: {
@@ -137,6 +137,26 @@ export default {
   }
   .notActive{
     opacity: 0.7;
+  }
+  .redeFineStepper{
+    /*flex-basis: 33%;*/
+    box-shadow: none;
+    position: relative;
+    background: #fafafa;
+  }
+  .redeFineStepper > .hr{
+    border:solid #0000001f;
+    background: #0000001f;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 1px;
+  }
+  .bgStepper{
+    z-index: 3;
+    background-color: #fafafa
   }
   @media screen and (max-width: 800px) {
     .itemWelcome{
