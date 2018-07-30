@@ -14,6 +14,21 @@
           :rules="nameRules"
           label="E-mail"
           required
+        ></v-text-field><v-text-field
+          v-model="valueProfile.location.dob.value"
+          :rules="nameRules"
+          label="E-mail"
+          required
+        ></v-text-field><v-text-field
+          v-model="valueProfile.location.dob.value"
+          :rules="nameRules"
+          label="E-mail"
+          required
+        ></v-text-field><v-text-field
+          v-model="valueProfile.location.dob.value"
+          :rules="nameRules"
+          label="E-mail"
+          required
         ></v-text-field>
       </v-form>
     </div>

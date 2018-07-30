@@ -82,8 +82,17 @@
 
               <v-card-text class="contentInputs">
                 <keep-alive>
-                  <component v-bind:is="nowComponent"></component>
+                  <component v-bind:is="nowComponent" class="inputsGroup"></component>
                 </keep-alive>
+                <div class="btnSave">
+                  <v-btn outline color="success">Сохранить</v-btn>
+                  <div>
+                    <p>
+                      Вы можете
+                      <a>Удалить профиль</a>
+                    </p>
+                  </div>
+                </div>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -163,5 +172,21 @@ export default {
   .contentInputs{
     height: 100%;
     padding: 0 24px;
+  }
+  .btnSave{
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+  .inputsGroup{
+    padding-bottom: 80px;
+  }
+  button{
+    margin: 0;
   }
 </style>
