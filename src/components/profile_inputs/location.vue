@@ -1,36 +1,6 @@
 <template>
     <div>
       <h1>Location</h1>
-      <v-form v-model="valid">
-        <v-text-field
-          v-model="valueProfile.location.dob.value"
-          :rules="nameRules"
-          :counter="10"
-          label="Name"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="valueProfile.location.dob.value"
-          :rules="nameRules"
-          label="E-mail"
-          required
-        ></v-text-field><v-text-field
-          v-model="valueProfile.location.dob.value"
-          :rules="nameRules"
-          label="E-mail"
-          required
-        ></v-text-field><v-text-field
-          v-model="valueProfile.location.dob.value"
-          :rules="nameRules"
-          label="E-mail"
-          required
-        ></v-text-field><v-text-field
-          v-model="valueProfile.location.dob.value"
-          :rules="nameRules"
-          label="E-mail"
-          required
-        ></v-text-field>
-      </v-form>
     </div>
 </template>
 

@@ -85,7 +85,7 @@
                   <component v-bind:is="nowComponent" class="inputsGroup"></component>
                 </keep-alive>
                 <div class="btnSave">
-                  <v-btn outline color="success">Сохранить</v-btn>
+                  <v-btn outline color="success" @click="updateProfile">Сохранить</v-btn>
                   <div>
                     <p>
                       Вы можете
@@ -97,7 +97,6 @@
             </v-card>
           </v-flex>
         </v-layout>
-
       </div>
     </div>
   </div>
@@ -134,7 +133,7 @@ export default {
       console.log(component)
     },
     updateProfile (e) {
-      console.log(this.$store.getters['dataStore/getDataInputProfile'].location.dob)
+      console.log(this.$store.getters['dataStore/getDataInputProfile'].personal)
       this.$store.dispatch('dataStore/updateUserProfile', this.nowComponent)
     }
   },
@@ -175,16 +174,20 @@ export default {
   }
   .btnSave{
     position: absolute;
-    bottom: 5%;
+    bottom: 15px;
     left: 0;
     right: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     padding: 0 24px;
   }
+  .btnSave p {
+    margin: 0;
+  }
   .inputsGroup{
     padding-bottom: 80px;
+    /*padding-top: 15px;*/
   }
   button{
     margin: 0;

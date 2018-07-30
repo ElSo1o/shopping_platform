@@ -30,9 +30,30 @@ export default {
     }
   ],
   settingUser: null,
-  authUser: {},
+  authUser: {
+    profile: {
+      welcome: [
+        {
+          active: true,
+          complete: false,
+          stepperNumber: 1
+        },
+        {
+          active: false,
+          complete: false,
+          stepperNumber: 2
+        },
+        {
+          active: false,
+          complete: false,
+          stepperNumber: 3
+        }
+      ],
+      stepper: 1
+    }
+  },
   dataInputProfile: {
-    location: {
+    personal: {
       dob: {
         value: ''
       },
@@ -46,18 +67,18 @@ export default {
         value: ''
       },
       height: {
-        value: ''
+        value: 180
       },
       hair: {
         value: ''
       },
       weight: {
-        value: ''
+        value: 75
       },
       marital: {
-        value: ''
+        value: false
       }
     },
-    personal: {}
+    location: {}
   }
 }

@@ -13,7 +13,8 @@ import colors from 'vuetify/es5/util/colors'
 // const db = firebaseApp.database()
 Vue.use(Vuetify, {
   theme: {
-    primary: colors.teal.darken1
+    primary: colors.blue.lighten2,
+    secondary: colors.green.lighten1
   }
 })
 Vue.use(Vuex)
