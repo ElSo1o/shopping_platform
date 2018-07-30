@@ -56,13 +56,9 @@ export const writeUserToFireStore = async (state, user) => {
 }
 export const updateUserProfile = async (state, data) => {
   console.log(data)
-  // firebaseApp.firestore().collection(`users`).doc(data.uid).doc('profile').get().then((querySnapshot) => {
-  //   console.log(querySnapshot.data())
-  // }).catch((error) => {
-  //   console.error(error)
-  // })
   await firebaseApp.firestore().collection(`users`).doc(data.uid).collection('info').doc('personal').set(data.data).then(() => {
     console.log('Document successfully written!')
+    state.commit('switchLoadingInput', false)
   }).catch((error) => {
     console.error('Error adding document: ', error)
   })

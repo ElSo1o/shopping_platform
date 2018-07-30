@@ -84,7 +84,19 @@
                   <component v-bind:is="nowComponent" class="inputsGroup" ref="component"></component>
                 </keep-alive>
                 <div class="btnSave">
-                  <v-btn outline color="success" @click="updateProfile">Сохранить</v-btn>
+                  <v-btn
+                    outline
+                    color="primary"
+                    @click="updateProfile">
+                    <p>Сохранить</p>
+                    <v-progress-circular
+                      :size="20"
+                      color="primary"
+                      indeterminate
+                      style="margin-left: 8px"
+                      v-show="loading"
+                    ></v-progress-circular>
+                  </v-btn>
                   <div>
                     <p>
                       Вы можете
@@ -155,6 +167,7 @@ export default {
       console.log(component)
     },
     updateProfile (e) {
+      this.$store.commit('dataStore/switchLoadingInput', true)
       if (this.$refs.component.$refs.form.validate()) {
         console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
         this.$store.dispatch('dataStore/updateUserProfile',
@@ -164,6 +177,7 @@ export default {
             uid: this.$store.getters['dataStore/getUser'].uid
           })
       } else {
+        this.$store.commit('dataStore/switchLoadingInput', true)
         this.snackbar = true
       }
     }
@@ -171,6 +185,9 @@ export default {
   computed: {
     getProfileData () {
       return this.$store.getters['dataStore/getAuthUser']
+    },
+    loading () {
+      return this.$store.getters['dataStore/getLoadingInput']
     }
   }
 }

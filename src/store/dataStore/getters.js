@@ -13,3 +13,6 @@ export const getAuthUser = (state) => {
 export const getDataInputProfile = (state) => {
   return state.dataInputProfile
 }
+export const getLoadingInput = (state) => {
+  return state.loadingInput.loading
+}

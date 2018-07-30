@@ -26,6 +26,6 @@ export const profileUserFromDb = (state, data) => {
     }
   })
 }
-// export const toggleSuccessNotifyLogin = (state, data) => {
-//   state.successNotify = data
-// }
+export const switchLoadingInput = (state, boolean) => {
+  state.loadingInput.loading = boolean
+}

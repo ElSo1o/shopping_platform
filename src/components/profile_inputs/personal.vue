@@ -4,12 +4,14 @@
       <div>
         <v-text-field
           v-model="valueProfile.dob.value"
+          :loading="loading"
           :rules="nameRules"
           label="ФИО"
           required
         ></v-text-field>
         <v-text-field
           v-model="valueProfile.tel.value"
+          :loading="loading"
           :counter="15"
           :rules="mobRules"
           label="Мобильный телефон"
@@ -30,12 +32,14 @@
           <v-text-field
             slot="activator"
             v-model="valueProfile.birthday.value"
+            :loading="loading"
             label="Дата Рождения"
             :rules="nameRules"
             readonly
           ></v-text-field>
           <v-date-picker
             v-model="valueProfile.birthday.value"
+            :loading="loading"
             no-title
             locale="ru-ru"
             first-day-of-week="1"
@@ -47,6 +51,7 @@
         </v-menu>
         <v-select
           :items="itemsGender"
+          :loading="loading"
           v-model="valueProfile.gender.value"
           label="Пол"
         ></v-select>
@@ -54,11 +59,13 @@
       <div>
         <v-select
           :items="itemsHair"
+          :loading="loading"
           v-model="valueProfile.hair.value"
           label="Цвет волос"
         ></v-select>
         <v-slider
           min="120"
+          :loading="loading"
           label="Рост,см"
           v-model="valueProfile.height.value"
           :value="valueProfile.height.value"
@@ -67,6 +74,7 @@
         ></v-slider>
         <v-slider
           label="Вес"
+          :loading="loading"
           min="50"
           v-model="valueProfile.weight.value"
           :value="valueProfile.weight.value"
@@ -90,7 +98,6 @@
         slider: 160,
         nameRules: [
           v => !!v || 'Обязательное поле'
-          // v => v.length <= 10 || 'Name must be less than 10 characters'
         ],
         mobRules: [
           v => !!v || 'Обязательное поле',
@@ -115,6 +122,9 @@
       displayDataMarital () {
         this.valueProfile.marital.isMarital = !this.valueProfile.marital.isMarital
         return this.valueProfile.marital.value ? 'Женат/замужем' : 'Холост/не замужем'
+      },
+      loading () {
+        return this.$store.getters['dataStore/getLoadingInput']
       }
     }
   }

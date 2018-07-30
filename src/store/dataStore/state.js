@@ -81,5 +81,8 @@ export default {
       }
     },
     location: {}
+  },
+  loadingInput: {
+    loading: false
   }
 }
