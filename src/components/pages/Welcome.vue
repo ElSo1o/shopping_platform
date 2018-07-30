@@ -26,7 +26,7 @@
         </v-stepper>
         <div class="itemWelcome" >
           <div class="item" v-for="(item, i ,key) in getItemsWelcome" :key="key">
-            <div class="barrier" v-if="!getProfileData.profile.welcome[i].active"></div>
+            <v-card class="barrier" v-if="!getProfileData.profile.welcome[i].active" :ripple ="true"></v-card>
             <div :class="{ notActive: !getProfileData.profile.welcome[i].active}">
               <h3>{{item.title}}</h3>
               <p>{{item.description}}</p>
@@ -113,8 +113,9 @@ export default {
     padding: 0 12px 36px 12px;
     /*height: 275px;*/
     /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05); */
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    /*box-shadow: inset 0 1px 1px rgba(0,0,0,.05);*/
     z-index: 1;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
   }
   .itemWelcome{
     display: flex;

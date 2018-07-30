@@ -94,7 +94,7 @@ export default {
   font-size: 14px;
   line-height: 1.42857143;
 }
-h1, h2 {
+h1, h2, h3, h4, h5 {
   font-weight: normal;
   margin: 20px 0 10px 0;
 }

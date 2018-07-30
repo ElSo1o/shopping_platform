@@ -4,6 +4,7 @@ const defaultTemplateUser = data => {
     name: data.displayName,
     email: data.email,
     phoneNumber: data.phoneNumber,
+    photoURL: data.photoURL,
     profile: {
       welcome: [
         {
@@ -22,7 +23,8 @@ const defaultTemplateUser = data => {
           stepperNumber: 3
         }
       ],
-      stepper: 1
+      stepper: 1,
+      info: null
     }
   }
 }
@@ -46,4 +48,12 @@ export const writeUserToFireStore = (state, user) => {
   }).catch((error) => {
     console.error('Error adding document: ', error)
   })
+}
+export const updateUserProfile = (state, user) => {
+  console.log(user)
+  // firebaseApp.firestore().collection(`users`).doc(user.uid).set(defaultTemplateUser(user)).then((result) => {
+  //   state.commit('dataUser', defaultTemplateUser(user))
+  // }).catch((error) => {
+  //   console.error('Error adding document: ', error)
+  // })
 }

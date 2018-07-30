@@ -10,3 +10,6 @@ export const getItemsWelcome = (state) => {
 export const getAuthUser = (state) => {
   return state.authUser
 }
+export const getDataInputProfile = (state) => {
+  return state.dataInputProfile
+}
