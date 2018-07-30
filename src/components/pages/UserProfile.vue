@@ -157,7 +157,7 @@ export default {
     width: 100%;
   }
   .warningIcon{
-    color: #ff9800;
+    color: #ff9800!important;
   }
   .menuProfile{
     display: flex;

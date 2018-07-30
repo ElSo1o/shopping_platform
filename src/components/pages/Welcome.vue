@@ -139,7 +139,7 @@ export default {
     height: 100%;
     left: 0;
     right: 0;
-    background: #d0c9c96e;
+    background: #d0c9c96e!important;
     z-index: 10;
   }
   .notActive{
@@ -164,6 +164,9 @@ export default {
   .bgStepper{
     z-index: 3;
     background-color: #fafafa
+  }
+  .warningSection h4{
+    margin: 0;
   }
   @media screen and (max-width: 800px) {
     .itemWelcome{
