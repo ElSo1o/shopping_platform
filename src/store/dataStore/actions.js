@@ -31,8 +31,13 @@ const defaultTemplateUser = data => {
 export const singInUser = (state, user) => {
   state.commit('sinInUser', user)
 }
-export const checkUserFromFireStore = (state, user) => {
-  firebaseApp.firestore().collection(`users`).doc(user.uid).get().then((querySnapshot) => {
+export const checkUserFromFireStore = async (state, user) => {
+  await firebaseApp.firestore().collection(`users`).doc(user.uid).get().then((querySnapshot) => {
+    console.log(querySnapshot.data())
+    firebaseApp.firestore().collection(`users`).doc(user.uid).collection('info').get().then((querySnapshots) => {
+      state.commit('profileUserFromDb', querySnapshots.docs)
+      // console.log(querySnapshots.docs[0].data())
+    })
     if (typeof querySnapshot.data() === 'undefined') {
       state.dispatch('writeUserToFireStore', user)
     } else {
@@ -42,18 +47,23 @@ export const checkUserFromFireStore = (state, user) => {
     console.error(error)
   })
 }
-export const writeUserToFireStore = (state, user) => {
-  firebaseApp.firestore().collection(`users`).doc(user.uid).set(defaultTemplateUser(user)).then((result) => {
+export const writeUserToFireStore = async (state, user) => {
+  await firebaseApp.firestore().collection(`users`).doc(user.uid).set(defaultTemplateUser(user)).then(() => {
     state.commit('dataUser', defaultTemplateUser(user))
   }).catch((error) => {
     console.error('Error adding document: ', error)
   })
 }
-export const updateUserProfile = (state, user) => {
-  console.log(user)
-  // firebaseApp.firestore().collection(`users`).doc(user.uid).set(defaultTemplateUser(user)).then((result) => {
-  //   state.commit('dataUser', defaultTemplateUser(user))
+export const updateUserProfile = async (state, data) => {
+  console.log(data)
+  // firebaseApp.firestore().collection(`users`).doc(data.uid).doc('profile').get().then((querySnapshot) => {
+  //   console.log(querySnapshot.data())
   // }).catch((error) => {
-  //   console.error('Error adding document: ', error)
+  //   console.error(error)
   // })
+  await firebaseApp.firestore().collection(`users`).doc(data.uid).collection('info').doc('personal').set(data.data).then(() => {
+    console.log('Document successfully written!')
+  }).catch((error) => {
+    console.error('Error adding document: ', error)
+  })
 }

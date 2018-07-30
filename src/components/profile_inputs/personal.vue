@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form v-model="valid" class="formInput">
+    <v-form v-model="valid" ref="form" class="formInput">
       <div>
         <v-text-field
           v-model="valueProfile.dob.value"
@@ -52,11 +52,11 @@
         ></v-select>
       </div>
       <div>
-        <!--<v-select-->
-          <!--:items="itemsWeight"-->
-          <!--v-model="valueProfile.weight.value"-->
-          <!--label="Рост, см"-->
-        <!--&gt;</v-select>-->
+        <v-select
+          :items="itemsHair"
+          v-model="valueProfile.hair.value"
+          label="Цвет волос"
+        ></v-select>
         <v-slider
           min="120"
           label="Рост,см"
@@ -65,11 +65,6 @@
           max="220"
           thumb-label
         ></v-slider>
-        <v-select
-          :items="itemsHair"
-          v-model="valueProfile.hair.value"
-          label="Цвет волос"
-        ></v-select>
         <v-slider
           label="Вес"
           min="50"
@@ -78,7 +73,7 @@
           max="120"
           thumb-label
         ></v-slider>
-        <v-switch :label="`Семейное положение ${displayDataMarital}`" v-model="valueProfile.marital.value"></v-switch>
+        <v-switch :label="`${displayDataMarital}`" v-model="valueProfile.marital.value"></v-switch>
       </div>
     </v-form>
   </div>
@@ -118,8 +113,8 @@
         return this.$store.getters['dataStore/getDataInputProfile'].personal
       },
       displayDataMarital () {
-        const result = this.valueProfile.marital.value ? 'Женат/замужем' : 'Холост/не замужем'
-        return result
+        this.valueProfile.marital.isMarital = !this.valueProfile.marital.isMarital
+        return this.valueProfile.marital.value ? 'Женат/замужем' : 'Холост/не замужем'
       }
     }
   }

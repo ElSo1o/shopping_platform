@@ -72,7 +72,6 @@
 
                 <v-btn
                   icon
-                  @click="updateProfile"
                 >
                   <v-icon>more_vert</v-icon>
                 </v-btn>
@@ -82,7 +81,7 @@
 
               <v-card-text class="contentInputs">
                 <keep-alive>
-                  <component v-bind:is="nowComponent" class="inputsGroup"></component>
+                  <component v-bind:is="nowComponent" class="inputsGroup" ref="component"></component>
                 </keep-alive>
                 <div class="btnSave">
                   <v-btn outline color="success" @click="updateProfile">Сохранить</v-btn>
@@ -93,6 +92,24 @@
                     </p>
                   </div>
                 </div>
+                <v-snackbar
+                  v-model="snackbar"
+                  :color="color"
+                  top
+                  right
+                  :multi-line="mode === 'multi-line'"
+                  :timeout="timeout"
+                  :vertical="mode === 'vertical'"
+                >
+                  {{ text }}
+                  <v-btn
+                    dark
+                    flat
+                    @click="snackbar = false"
+                  >
+                    Закрыть
+                  </v-btn>
+                </v-snackbar>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -123,6 +140,11 @@ export default {
         { title: 'Личный транспорт', icon: 'directions_car', component: 'car' },
         { title: 'Дисконтные программы', icon: 'timeline', component: 'discount' }
       ],
+      snackbar: false,
+      color: 'error',
+      mode: '',
+      timeout: 6000,
+      text: 'Заполните все обязательные поля',
       mini: false,
       right: null,
       nowComponent: 'personal'
@@ -133,8 +155,17 @@ export default {
       console.log(component)
     },
     updateProfile (e) {
-      console.log(this.$store.getters['dataStore/getDataInputProfile'].personal)
-      this.$store.dispatch('dataStore/updateUserProfile', this.nowComponent)
+      if (this.$refs.component.$refs.form.validate()) {
+        console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
+        this.$store.dispatch('dataStore/updateUserProfile',
+          {
+            data: this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent],
+            key: this.nowComponent,
+            uid: this.$store.getters['dataStore/getUser'].uid
+          })
+      } else {
+        this.snackbar = true
+      }
     }
   },
   computed: {

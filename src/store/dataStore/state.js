@@ -67,16 +67,17 @@ export default {
         value: ''
       },
       height: {
-        value: 180
+        value: 120
       },
       hair: {
         value: ''
       },
       weight: {
-        value: 75
+        value: 50
       },
       marital: {
-        value: false
+        value: '',
+        isMarital: false
       }
     },
     location: {}
