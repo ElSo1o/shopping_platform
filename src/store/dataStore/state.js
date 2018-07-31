@@ -80,7 +80,11 @@ export default {
         isMarital: false
       }
     },
-    location: {}
+    location: {
+      value: '',
+      lat: null,
+      lng: null
+    }
   },
   loadingInput: {
     loading: false

@@ -1,4 +1,7 @@
 import firebaseApp from '../../firebase'
+import axios from 'axios'
+import {API_KEY} from '../../components/API_KEY'
+
 const defaultTemplateUser = data => {
   return {
     name: data.displayName,
@@ -56,10 +59,20 @@ export const writeUserToFireStore = async (state, user) => {
 }
 export const updateUserProfile = async (state, data) => {
   console.log(data)
-  await firebaseApp.firestore().collection(`users`).doc(data.uid).collection('info').doc('personal').set(data.data).then(() => {
+  await firebaseApp.firestore().collection(`users`).doc(data.uid).collection('info').doc(data.key).set(data.data).then(() => {
     console.log('Document successfully written!')
     state.commit('switchLoadingInput', false)
   }).catch((error) => {
     console.error('Error adding document: ', error)
   })
+}
+export const getFullAddress = (state, data) => {
+  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${data.lat},${data.lng}&key=${API_KEY}`)
+    .then((response) => {
+      console.log(response)
+      state.commit('setGeoAddress', response)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }

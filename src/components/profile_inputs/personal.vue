@@ -134,8 +134,17 @@
   .formInput{
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .formInput > div{
     flex-basis: 45%;
+  }
+  @media screen and (max-width: 768px) {
+    .formInput{
+      flex-wrap: wrap;
+    }
+    .formInput > div {
+      flex-basis: 100%;
+    }
   }
 </style>

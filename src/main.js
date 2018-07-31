@@ -4,6 +4,8 @@ import App from './App'
 import router from './router'
 import Vuex from 'vuex'
 import dataStore from './store/dataStore'
+import * as VueGoogleMaps from 'vue2-google-maps'
+import {API_KEY} from './components/API_KEY'
 // import firebaseApp from './firebase'
 
 import 'vuetify/dist/vuetify.min.css'
@@ -15,6 +17,12 @@ Vue.use(Vuetify, {
   theme: {
     primary: colors.blue.lighten2,
     secondary: colors.green.lighten1
+  }
+})
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: API_KEY,
+    libraries: 'places'
   }
 })
 Vue.use(Vuex)
