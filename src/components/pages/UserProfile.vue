@@ -134,11 +134,15 @@
 <script>
 import personal from '../profile_inputs/personal'
 import location from '../profile_inputs/location'
+import education from '../profile_inputs/education'
+import language from '../profile_inputs/language'
 export default {
   name: 'registration',
   components: {
     personal,
-    location
+    location,
+    education,
+    language
   },
   data () {
     return {
@@ -147,6 +151,7 @@ export default {
         { title: 'Основная информация', icon: 'dashboard', sure: true, component: 'personal' },
         { title: 'Местанахождения', icon: 'room', sure: true, component: 'location' },
         { title: 'Образование', icon: 'school', component: 'education' },
+        { title: 'Язык', icon: 'language', component: 'language' },
         { title: 'Работа', icon: 'work', component: 'work' },
         { title: 'Интересы', icon: 'nature_people', component: 'hobby' },
         { title: 'Личный транспорт', icon: 'directions_car', component: 'car' },
@@ -177,6 +182,7 @@ export default {
             uid: this.$store.getters['dataStore/getUser'].uid
           })
       } else {
+        console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
         this.$store.commit('dataStore/switchLoadingInput', false)
         this.snackbar = true
       }

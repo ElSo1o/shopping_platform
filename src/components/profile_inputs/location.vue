@@ -27,7 +27,6 @@
 </template>
 
 <script>
-  import {gmapApi} from 'vue2-google-maps'
   export default {
     name: 'location',
     data () {
@@ -83,7 +82,6 @@
       }
     },
     computed: {
-      Google: gmapApi,
       valueProfile () {
         return this.$store.getters['dataStore/getDataInputProfile'].location
       },

@@ -84,6 +84,19 @@ export default {
       value: '',
       lat: null,
       lng: null
+    },
+    education: {
+      type: '',
+      level: '',
+      institute: '',
+      specialty: ''
+    },
+    language: {
+      lng: '',
+      level: {
+        template: ['Начальный', 'Средний', 'Продвинутый', 'Владею в совершенстве', 'Родной'],
+        value: 0
+      }
     }
   },
   loadingInput: {
