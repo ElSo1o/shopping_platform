@@ -197,6 +197,9 @@ export default {
   h3{
     font-weight: 400;
   }
+  h5{
+    margin: 0!important;
+  }
   .contentProfileUser{
     display: flex;
     justify-content: space-between;

@@ -165,9 +165,6 @@ export default {
     z-index: 3;
     background-color: #fafafa
   }
-  .warningSection h4{
-    margin: 0;
-  }
   @media screen and (max-width: 800px) {
     .itemWelcome{
       flex-wrap: wrap;

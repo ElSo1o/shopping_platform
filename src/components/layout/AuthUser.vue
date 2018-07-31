@@ -236,7 +236,8 @@ export default {
   .warningSection > a:hover{
     color: #1e88e5;
   }
-  h4{
+  .warningSection h4{
+    margin: 0;
     font-weight: 400;
   }
   .warningSectionIcon{
