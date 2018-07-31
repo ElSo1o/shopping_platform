@@ -11,8 +11,7 @@
           <v-list-tile
             v-for="(item, i, key) in itemToolbar"
             :key="key"
-            @click=""
-          >
+            @click="">
             <v-list-tile-title v-text="item.title" @click="dialog = true" bottom></v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -23,8 +22,7 @@
         <v-dialog v-model="dialog"
                   width="600px"
                   color="blue lighten-4"
-                  transition="dialog-bottom-transition"
-        >
+                  transition="dialog-bottom-transition">
           <div class="modal-content">
             <div class="modal-header">
               <h3 class="headline">Войти с помощью</h3>
@@ -68,7 +66,6 @@ export default {
     signInWithGoogle () {
       const provider = new firebase.auth.GoogleAuthProvider()
       firebase.auth().signInWithRedirect(provider).then(result => {
-        console.log('11')
         console.log(result)
         // function writeUserData(userId, name, email, imageUrl) {
         //   firebase.database().ref('users/' + userId).set({
@@ -88,7 +85,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 *{
   font-size: 14px;

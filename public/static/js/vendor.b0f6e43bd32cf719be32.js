@@ -126,7 +126,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 "use strict";
 
 
-var bind = __webpack_require__(72);
+var bind = __webpack_require__(69);
 var isBuffer = __webpack_require__(187);
 
 /*global toString:true*/
@@ -433,8 +433,8 @@ module.exports = {
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(60)('wks');
-var uid = __webpack_require__(61);
+var store = __webpack_require__(57)('wks');
+var uid = __webpack_require__(58);
 var Symbol = __webpack_require__(1).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -537,13 +537,13 @@ exports.default = function (options) {
 
 exports.mappedPropsToVueProps = mappedPropsToVueProps;
 
-var _bindEvents = __webpack_require__(22);
+var _bindEvents = __webpack_require__(31);
 
 var _bindEvents2 = _interopRequireDefault(_bindEvents);
 
-var _bindProps = __webpack_require__(9);
+var _bindProps = __webpack_require__(12);
 
-var _mapElementMixin = __webpack_require__(44);
+var _mapElementMixin = __webpack_require__(75);
 
 var _mapElementMixin2 = _interopRequireDefault(_mapElementMixin);
 
@@ -642,7 +642,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(10);
+var isObject = __webpack_require__(9);
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
@@ -681,8 +681,8 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(17);
-var createDesc = __webpack_require__(58);
-module.exports = __webpack_require__(11) ? function (object, key, value) {
+var createDesc = __webpack_require__(55);
+module.exports = __webpack_require__(10) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -692,6 +692,32 @@ module.exports = __webpack_require__(11) ? function (object, key, value) {
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(54)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = {};
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -703,7 +729,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getPropsValues = getPropsValues;
 exports.bindProps = bindProps;
 
-var _WatchPrimitiveProperties = __webpack_require__(23);
+var _WatchPrimitiveProperties = __webpack_require__(32);
 
 var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
 
@@ -784,32 +810,6 @@ function bindProps(vueInst, googleMapsInst, props) {
     if (_ret === 'continue') continue;
   }
 }
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(57)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = {};
-
 
 /***/ }),
 /* 13 */
@@ -11864,7 +11864,7 @@ var IE8_DOM_DEFINE = __webpack_require__(143);
 var toPrimitive = __webpack_require__(144);
 var dP = Object.defineProperty;
 
-exports.f = __webpack_require__(11) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(10) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -11907,7 +11907,7 @@ module.exports = function (it) {
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-__webpack_require__(89);
+__webpack_require__(94);
 var firebase = _interopDefault(__webpack_require__(21));
 
 /**
@@ -11938,7 +11938,7 @@ module.exports = firebase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var util = __webpack_require__(91);
+var util = __webpack_require__(96);
 
 /**
  * Copyright 2017 Google Inc.
@@ -12336,182 +12336,6 @@ exports.default = firebase;
 
 /***/ }),
 /* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (vueInst, googleMapsInst, events) {
-  var _loop = function (eventName) {
-    if (vueInst.$gmapOptions.autobindAllEvents || vueInst.$listeners[eventName]) {
-      googleMapsInst.addListener(eventName, function (ev) {
-        vueInst.$emit(eventName, ev);
-      });
-    }
-  };
-
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = events[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var eventName = _step.value;
-
-      _loop(eventName);
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
-  }
-};
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = WatchPrimitiveProperties;
-/**
- * Watch the individual properties of a PoD object, instead of the object
- * per se. This is different from a deep watch where both the reference
- * and the individual values are watched.
- *
- * In effect, it throttles the multiple $watch to execute at most once per tick.
- */
-function WatchPrimitiveProperties(vueInst, propertiesToTrack, handler) {
-  var immediate = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-
-  var isHandled = false;
-
-  function requestHandle() {
-    if (!isHandled) {
-      isHandled = true;
-      vueInst.$nextTick(function () {
-        isHandled = false;
-        handler();
-      });
-    }
-  }
-
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = propertiesToTrack[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var prop = _step.value;
-
-      vueInst.$watch(prop, requestHandle, { immediate: immediate });
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
-  }
-}
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/*
-Mixin for objects that are mounted by Google Maps
-Javascript API.
-
-These are objects that are sensitive to element resize
-operations so it exposes a property which accepts a bus
-
-*/
-
-exports.default = {
-  props: ['resizeBus'],
-
-  data: function data() {
-    return {
-      _actualResizeBus: null
-    };
-  },
-  created: function created() {
-    if (typeof this.resizeBus === 'undefined') {
-      this.$data._actualResizeBus = this.$gmapDefaultResizeBus;
-    } else {
-      this.$data._actualResizeBus = this.resizeBus;
-    }
-  },
-
-
-  methods: {
-    _resizeCallback: function _resizeCallback() {
-      this.resize();
-    },
-    _delayedResizeCallback: function _delayedResizeCallback() {
-      var _this = this;
-
-      this.$nextTick(function () {
-        return _this._resizeCallback();
-      });
-    }
-  },
-
-  watch: {
-    resizeBus: function resizeBus(newVal) {
-      // eslint-disable-line no-unused-vars
-      this.$data._actualResizeBus = newVal;
-    },
-    '$data._actualResizeBus': function $data_actualResizeBus(newVal, oldVal) {
-      if (oldVal) {
-        oldVal.$off('resize', this._delayedResizeCallback);
-      }
-      if (newVal) {
-        newVal.$on('resize', this._delayedResizeCallback);
-      }
-    }
-  },
-
-  destroyed: function destroyed() {
-    if (this.$data._actualResizeBus) {
-      this.$data._actualResizeBus.$off('resize', this._delayedResizeCallback);
-    }
-  }
-};
-
-/***/ }),
-/* 25 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -12523,7 +12347,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 26 */
+/* 23 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -12534,17 +12358,17 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 27 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = true;
 
 
 /***/ }),
-/* 28 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(10);
+var isObject = __webpack_require__(9);
 var document = __webpack_require__(1).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
@@ -12554,30 +12378,30 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 29 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = __webpack_require__(151);
-var defined = __webpack_require__(26);
+var defined = __webpack_require__(23);
 module.exports = function (it) {
   return IObject(defined(it));
 };
 
 
 /***/ }),
-/* 30 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(60)('keys');
-var uid = __webpack_require__(61);
+var shared = __webpack_require__(57)('keys');
+var uid = __webpack_require__(58);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
 
 /***/ }),
-/* 31 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(17).f;
@@ -12590,7 +12414,7 @@ module.exports = function (it, tag, stat) {
 
 
 /***/ }),
-/* 32 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12615,7 +12439,7 @@ module.exports.f = function (C) {
 
 
 /***/ }),
-/* 33 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12638,10 +12462,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(73);
+    adapter = __webpack_require__(70);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(73);
+    adapter = __webpack_require__(70);
   }
   return adapter;
 }
@@ -12719,6 +12543,182 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(35)))
 
 /***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (vueInst, googleMapsInst, events) {
+  var _loop = function (eventName) {
+    if (vueInst.$gmapOptions.autobindAllEvents || vueInst.$listeners[eventName]) {
+      googleMapsInst.addListener(eventName, function (ev) {
+        vueInst.$emit(eventName, ev);
+      });
+    }
+  };
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = events[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var eventName = _step.value;
+
+      _loop(eventName);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+};
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = WatchPrimitiveProperties;
+/**
+ * Watch the individual properties of a PoD object, instead of the object
+ * per se. This is different from a deep watch where both the reference
+ * and the individual values are watched.
+ *
+ * In effect, it throttles the multiple $watch to execute at most once per tick.
+ */
+function WatchPrimitiveProperties(vueInst, propertiesToTrack, handler) {
+  var immediate = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+  var isHandled = false;
+
+  function requestHandle() {
+    if (!isHandled) {
+      isHandled = true;
+      vueInst.$nextTick(function () {
+        isHandled = false;
+        handler();
+      });
+    }
+  }
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = propertiesToTrack[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var prop = _step.value;
+
+      vueInst.$watch(prop, requestHandle, { immediate: immediate });
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+}
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/*
+Mixin for objects that are mounted by Google Maps
+Javascript API.
+
+These are objects that are sensitive to element resize
+operations so it exposes a property which accepts a bus
+
+*/
+
+exports.default = {
+  props: ['resizeBus'],
+
+  data: function data() {
+    return {
+      _actualResizeBus: null
+    };
+  },
+  created: function created() {
+    if (typeof this.resizeBus === 'undefined') {
+      this.$data._actualResizeBus = this.$gmapDefaultResizeBus;
+    } else {
+      this.$data._actualResizeBus = this.resizeBus;
+    }
+  },
+
+
+  methods: {
+    _resizeCallback: function _resizeCallback() {
+      this.resize();
+    },
+    _delayedResizeCallback: function _delayedResizeCallback() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        return _this._resizeCallback();
+      });
+    }
+  },
+
+  watch: {
+    resizeBus: function resizeBus(newVal) {
+      // eslint-disable-line no-unused-vars
+      this.$data._actualResizeBus = newVal;
+    },
+    '$data._actualResizeBus': function $data_actualResizeBus(newVal, oldVal) {
+      if (oldVal) {
+        oldVal.$off('resize', this._delayedResizeCallback);
+      }
+      if (newVal) {
+        newVal.$on('resize', this._delayedResizeCallback);
+      }
+    }
+  },
+
+  destroyed: function destroyed() {
+    if (this.$data._actualResizeBus) {
+      this.$data._actualResizeBus.$off('resize', this._delayedResizeCallback);
+    }
+  }
+};
+
+/***/ }),
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12775,7 +12775,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(79);
+__webpack_require__(84);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -13190,476 +13190,22 @@ function __importDefault(mod) {
 /* 40 */,
 /* 41 */,
 /* 42 */,
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.StreetViewPanorama = exports.MountableMixin = exports.Autocomplete = exports.MapElementFactory = exports.MapElementMixin = exports.PlaceInput = exports.Map = exports.InfoWindow = exports.Rectangle = exports.Cluster = exports.Circle = exports.Polygon = exports.Polyline = exports.Marker = exports.loadGmapApi = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-// Vue component imports
-
-
-exports.install = install;
-exports.gmapApi = gmapApi;
-
-var _lazyValue = __webpack_require__(104);
-
-var _lazyValue2 = _interopRequireDefault(_lazyValue);
-
-var _manager = __webpack_require__(105);
-
-var _marker = __webpack_require__(106);
-
-var _marker2 = _interopRequireDefault(_marker);
-
-var _polyline = __webpack_require__(107);
-
-var _polyline2 = _interopRequireDefault(_polyline);
-
-var _polygon = __webpack_require__(108);
-
-var _polygon2 = _interopRequireDefault(_polygon);
-
-var _circle = __webpack_require__(109);
-
-var _circle2 = _interopRequireDefault(_circle);
-
-var _rectangle = __webpack_require__(110);
-
-var _rectangle2 = _interopRequireDefault(_rectangle);
-
-var _infoWindow = __webpack_require__(111);
-
-var _infoWindow2 = _interopRequireDefault(_infoWindow);
-
-var _map = __webpack_require__(114);
-
-var _map2 = _interopRequireDefault(_map);
-
-var _streetViewPanorama = __webpack_require__(118);
-
-var _streetViewPanorama2 = _interopRequireDefault(_streetViewPanorama);
-
-var _placeInput = __webpack_require__(122);
-
-var _placeInput2 = _interopRequireDefault(_placeInput);
-
-var _autocomplete = __webpack_require__(124);
-
-var _autocomplete2 = _interopRequireDefault(_autocomplete);
-
-var _mapElementMixin = __webpack_require__(44);
-
-var _mapElementMixin2 = _interopRequireDefault(_mapElementMixin);
-
-var _mapElementFactory = __webpack_require__(4);
-
-var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
-
-var _mountableMixin = __webpack_require__(24);
-
-var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// HACK: Cluster should be loaded conditionally
-// However in the web version, it's not possible to write
-// `import 'vue2-google-maps/src/components/cluster'`, so we need to
-// import it anyway (but we don't have to register it)
-// Therefore we use babel-plugin-transform-inline-environment-variables to
-// set BUILD_DEV to truthy / falsy
-var Cluster = undefined;
-
-var GmapApi = null;
-
-// export everything
-exports.loadGmapApi = _manager.loadGmapApi;
-exports.Marker = _marker2.default;
-exports.Polyline = _polyline2.default;
-exports.Polygon = _polygon2.default;
-exports.Circle = _circle2.default;
-exports.Cluster = Cluster;
-exports.Rectangle = _rectangle2.default;
-exports.InfoWindow = _infoWindow2.default;
-exports.Map = _map2.default;
-exports.PlaceInput = _placeInput2.default;
-exports.MapElementMixin = _mapElementMixin2.default;
-exports.MapElementFactory = _mapElementFactory2.default;
-exports.Autocomplete = _autocomplete2.default;
-exports.MountableMixin = _mountableMixin2.default;
-exports.StreetViewPanorama = _streetViewPanorama2.default;
-function install(Vue, options) {
-  // Set defaults
-  options = _extends({
-    installComponents: true,
-    autobindAllEvents: false
-  }, options);
-
-  // Update the global `GmapApi`. This will allow
-  // components to use the `google` global reactively
-  // via:
-  //   import {gmapApi} from 'vue2-google-maps'
-  //   export default {  computed: { google: gmapApi }  }
-  GmapApi = new Vue({ data: { gmapApi: null } });
-
-  var defaultResizeBus = new Vue();
-
-  // Use a lazy to only load the API when
-  // a VGM component is loaded
-  var gmapApiPromiseLazy = makeGmapApiPromiseLazy(options);
-
-  Vue.mixin({
-    created: function created() {
-      this.$gmapDefaultResizeBus = defaultResizeBus;
-      this.$gmapOptions = options;
-      this.$gmapApiPromiseLazy = gmapApiPromiseLazy;
-    }
-  });
-  Vue.$gmapDefaultResizeBus = defaultResizeBus;
-  Vue.$gmapApiPromiseLazy = gmapApiPromiseLazy;
-
-  if (options.installComponents) {
-    Vue.component('GmapMap', _map2.default);
-    Vue.component('GmapMarker', _marker2.default);
-    Vue.component('GmapInfoWindow', _infoWindow2.default);
-    Vue.component('GmapPolyline', _polyline2.default);
-    Vue.component('GmapPolygon', _polygon2.default);
-    Vue.component('GmapCircle', _circle2.default);
-    Vue.component('GmapRectangle', _rectangle2.default);
-    Vue.component('GmapAutocomplete', _autocomplete2.default);
-    Vue.component('GmapPlaceInput', _placeInput2.default);
-    Vue.component('GmapStreetViewPanorama', _streetViewPanorama2.default);
-  }
-}
-
-function makeGmapApiPromiseLazy(options) {
-  // Things to do once the API is loaded
-  function onApiLoaded() {
-    GmapApi.gmapApi = {};
-    return window.google;
-  }
-
-  if (options.load) {
-    // If library should load the API
-    return (0, _lazyValue2.default)(function () {
-      // Load the
-      // This will only be evaluated once
-      if (typeof window === 'undefined') {
-        // server side -- never resolve this promise
-        return new Promise(function () {}).then(onApiLoaded);
-      } else {
-        return new Promise(function (resolve, reject) {
-          try {
-            window['vueGoogleMapsInit'] = resolve;
-            (0, _manager.loadGmapApi)(options.load, options.loadCn);
-          } catch (err) {
-            reject(err);
-          }
-        }).then(onApiLoaded);
-      }
-    });
-  } else {
-    // If library should not handle API, provide
-    // end-users with the global `vueGoogleMapsInit: () => undefined`
-    // when the Google Maps API has been loaded
-    var promise = new Promise(function (resolve) {
-      if (typeof window === 'undefined') {
-        // Do nothing if run from server-side
-        return;
-      }
-      window['vueGoogleMapsInit'] = resolve;
-    }).then(onApiLoaded);
-
-    return (0, _lazyValue2.default)(function () {
-      return promise;
-    });
-  }
-}
-
-function gmapApi() {
-  return GmapApi.gmapApi && window.google;
-}
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/**
- * @class MapElementMixin
- *
- * Extends components to include the following fields:
- *
- * @property $map        The Google map (valid only after the promise returns)
- *
- *
- * */
-exports.default = {
-  inject: {
-    '$mapPromise': { default: 'abcdef' }
-  },
-
-  provide: function provide() {
-    var _this = this;
-
-    // Note: although this mixin is not "providing" anything,
-    // components' expect the `$map` property to be present on the component.
-    // In order for that to happen, this mixin must intercept the $mapPromise
-    // .then(() =>) first before its component does so.
-    //
-    // Since a provide() on a mixin is executed before a provide() on the
-    // component, putting this code in provide() ensures that the $map is
-    // already set by the time the
-    // component's provide() is called.
-    this.$mapPromise.then(function (map) {
-      _this.$map = map;
-    });
-
-    return {};
-  }
-};
-
-/***/ }),
+/* 43 */,
+/* 44 */,
 /* 45 */,
 /* 46 */,
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = TwoWayBindingWrapper;
-/**
- * When you have two-way bindings, but the actual bound value will not equal
- * the value you initially passed in, then to avoid an infinite loop you
- * need to increment a counter every time you pass in a value, decrement the
- * same counter every time the bound value changed, but only bubble up
- * the event when the counter is zero.
- *
-Example:
-
-Let's say DrawingRecognitionCanvas is a deep-learning backed canvas
-that, when given the name of an object (e.g. 'dog'), draws a dog.
-But whenever the drawing on it changes, it also sends back its interpretation
-of the image by way of the @newObjectRecognized event.
-
-<input
-  type="text"
-  placeholder="an object, e.g. Dog, Cat, Frog"
-  v-model="identifiedObject" />
-<DrawingRecognitionCanvas
-  :object="identifiedObject"
-  @newObjectRecognized="identifiedObject = $event"
-  />
-
-new TwoWayBindingWrapper((increment, decrement, shouldUpdate) => {
-  this.$watch('identifiedObject', () => {
-    // new object passed in
-    increment()
-  })
-  this.$deepLearningBackend.on('drawingChanged', () => {
-    recognizeObject(this.$deepLearningBackend)
-      .then((object) => {
-        decrement()
-        if (shouldUpdate()) {
-          this.$emit('newObjectRecognized', object.name)
-        }
-      })
-  })
-})
- */
-function TwoWayBindingWrapper(fn) {
-  var counter = 0;
-
-  fn(function () {
-    counter += 1;
-  }, function () {
-    counter = Math.max(0, counter - 1);
-  }, function () {
-    return counter === 0;
-  });
-}
-
-/***/ }),
+/* 47 */,
 /* 48 */,
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _bindProps = __webpack_require__(9);
-
-var _simulateArrowDown = __webpack_require__(50);
-
-var _simulateArrowDown2 = _interopRequireDefault(_simulateArrowDown);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-
-function _objectWithoutProperties(obj, keys) {
-  var target = {};for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-  }return target;
-}
-
-var props = {
-  bounds: {
-    type: Object
-  },
-  defaultPlace: {
-    type: String,
-    default: ''
-  },
-  componentRestrictions: {
-    type: Object,
-    default: null
-  },
-  types: {
-    type: Array,
-    default: function _default() {
-      return [];
-    }
-  },
-  placeholder: {
-    required: false,
-    type: String
-  },
-  className: {
-    required: false,
-    type: String
-  },
-  label: {
-    required: false,
-    type: String,
-    default: null
-  },
-  selectFirstOnEnter: {
-    require: false,
-    type: Boolean,
-    default: false
-  }
-};
-
-exports.default = {
-  mounted: function mounted() {
-    var _this = this;
-
-    var input = this.$refs.input;
-
-    // Allow default place to be set
-    input.value = this.defaultPlace;
-    this.$watch('defaultPlace', function () {
-      input.value = _this.defaultPlace;
-    });
-
-    this.$gmapApiPromiseLazy().then(function () {
-      var options = (0, _bindProps.getPropsValues)(_this, props);
-      if (_this.selectFirstOnEnter) {
-        (0, _simulateArrowDown2.default)(_this.$refs.input);
-      }
-
-      if (typeof google.maps.places.Autocomplete !== 'function') {
-        throw new Error('google.maps.places.Autocomplete is undefined. Did you add \'places\' to libraries when loading Google Maps?');
-      }
-
-      _this.autoCompleter = new google.maps.places.Autocomplete(_this.$refs.input, options);
-
-      var placeholder = props.placeholder,
-          place = props.place,
-          defaultPlace = props.defaultPlace,
-          className = props.className,
-          label = props.label,
-          selectFirstOnEnter = props.selectFirstOnEnter,
-          rest = _objectWithoutProperties(props, ['placeholder', 'place', 'defaultPlace', 'className', 'label', 'selectFirstOnEnter']); // eslint-disable-line
-
-
-      (0, _bindProps.bindProps)(_this, _this.autoCompleter, rest);
-
-      _this.autoCompleter.addListener('place_changed', function () {
-        _this.$emit('place_changed', _this.autoCompleter.getPlace());
-      });
-    });
-  },
-  created: function created() {
-    console.warn('The PlaceInput class is deprecated! Please consider using the Autocomplete input instead'); // eslint-disable-line no-console
-  },
-
-  props: props
-};
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-// This piece of code was orignally written by amirnissim and can be seen here
-// http://stackoverflow.com/a/11703018/2694653
-// This has been ported to Vanilla.js by GuillaumeLeclerc
-exports.default = function (input) {
-  var _addEventListener = input.addEventListener ? input.addEventListener : input.attachEvent;
-
-  function addEventListenerWrapper(type, listener) {
-    // Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
-    // and then trigger the original listener.
-    if (type === 'keydown') {
-      var origListener = listener;
-      listener = function (event) {
-        var suggestionSelected = document.getElementsByClassName('pac-item-selected').length > 0;
-        if (event.which === 13 && !suggestionSelected) {
-          var simulatedEvent = document.createEvent('Event');
-          simulatedEvent.keyCode = 40;
-          simulatedEvent.which = 40;
-          origListener.apply(input, [simulatedEvent]);
-        }
-        origListener.apply(input, [event]);
-      };
-    }
-    _addEventListener.apply(input, [type, listener]);
-  }
-
-  input.addEventListener = addEventListenerWrapper;
-  input.attachEvent = addEventListenerWrapper;
-};
-
-/***/ }),
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */
+/* 49 */,
+/* 50 */,
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(136);
 
 
 /***/ }),
-/* 55 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13703,18 +13249,18 @@ exports.default = function (fn) {
 };
 
 /***/ }),
-/* 56 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(27);
+var LIBRARY = __webpack_require__(24);
 var $export = __webpack_require__(14);
 var redefine = __webpack_require__(145);
 var hide = __webpack_require__(8);
-var Iterators = __webpack_require__(12);
+var Iterators = __webpack_require__(11);
 var $iterCreate = __webpack_require__(146);
-var setToStringTag = __webpack_require__(31);
+var setToStringTag = __webpack_require__(28);
 var getPrototypeOf = __webpack_require__(154);
 var ITERATOR = __webpack_require__(3)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
@@ -13779,7 +13325,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 
 /***/ }),
-/* 57 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -13792,7 +13338,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 58 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -13806,11 +13352,11 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 59 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(25);
+var toInteger = __webpack_require__(22);
 var min = Math.min;
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -13818,7 +13364,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 60 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var core = __webpack_require__(5);
@@ -13830,13 +13376,13 @@ var store = global[SHARED] || (global[SHARED] = {});
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
   version: core.version,
-  mode: __webpack_require__(27) ? 'pure' : 'global',
+  mode: __webpack_require__(24) ? 'pure' : 'global',
   copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
 });
 
 
 /***/ }),
-/* 61 */
+/* 58 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -13847,7 +13393,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 62 */
+/* 59 */
 /***/ (function(module, exports) {
 
 // IE 8- don't enum bug keys
@@ -13857,7 +13403,7 @@ module.exports = (
 
 
 /***/ }),
-/* 63 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var document = __webpack_require__(1).document;
@@ -13865,7 +13411,7 @@ module.exports = document && document.documentElement;
 
 
 /***/ }),
-/* 64 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
@@ -13894,7 +13440,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 65 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
@@ -13909,13 +13455,13 @@ module.exports = function (O, D) {
 
 
 /***/ }),
-/* 66 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(15);
 var invoke = __webpack_require__(166);
-var html = __webpack_require__(63);
-var cel = __webpack_require__(28);
+var html = __webpack_require__(60);
+var cel = __webpack_require__(25);
 var global = __webpack_require__(1);
 var process = global.process;
 var setTask = global.setImmediate;
@@ -13999,7 +13545,7 @@ module.exports = {
 
 
 /***/ }),
-/* 67 */
+/* 64 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -14012,12 +13558,12 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 68 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(6);
-var isObject = __webpack_require__(10);
-var newPromiseCapability = __webpack_require__(32);
+var isObject = __webpack_require__(9);
+var newPromiseCapability = __webpack_require__(29);
 
 module.exports = function (C, x) {
   anObject(C);
@@ -14030,8 +13576,8 @@ module.exports = function (C, x) {
 
 
 /***/ }),
-/* 69 */,
-/* 70 */
+/* 66 */,
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14975,8 +14521,8 @@ var index_esm = {
 
 
 /***/ }),
-/* 71 */,
-/* 72 */
+/* 68 */,
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14994,7 +14540,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 73 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15005,7 +14551,7 @@ var settle = __webpack_require__(190);
 var buildURL = __webpack_require__(192);
 var parseHeaders = __webpack_require__(193);
 var isURLSameOrigin = __webpack_require__(194);
-var createError = __webpack_require__(74);
+var createError = __webpack_require__(71);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(195);
 
 module.exports = function xhrAdapter(config) {
@@ -15181,7 +14727,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 74 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15206,7 +14752,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 75 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15218,7 +14764,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 76 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15244,9 +14790,271 @@ module.exports = Cancel;
 
 
 /***/ }),
+/* 74 */,
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * @class MapElementMixin
+ *
+ * Extends components to include the following fields:
+ *
+ * @property $map        The Google map (valid only after the promise returns)
+ *
+ *
+ * */
+exports.default = {
+  inject: {
+    '$mapPromise': { default: 'abcdef' }
+  },
+
+  provide: function provide() {
+    var _this = this;
+
+    // Note: although this mixin is not "providing" anything,
+    // components' expect the `$map` property to be present on the component.
+    // In order for that to happen, this mixin must intercept the $mapPromise
+    // .then(() =>) first before its component does so.
+    //
+    // Since a provide() on a mixin is executed before a provide() on the
+    // component, putting this code in provide() ensures that the $map is
+    // already set by the time the
+    // component's provide() is called.
+    this.$mapPromise.then(function (map) {
+      _this.$map = map;
+    });
+
+    return {};
+  }
+};
+
+/***/ }),
+/* 76 */,
 /* 77 */,
-/* 78 */,
-/* 79 */
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = TwoWayBindingWrapper;
+/**
+ * When you have two-way bindings, but the actual bound value will not equal
+ * the value you initially passed in, then to avoid an infinite loop you
+ * need to increment a counter every time you pass in a value, decrement the
+ * same counter every time the bound value changed, but only bubble up
+ * the event when the counter is zero.
+ *
+Example:
+
+Let's say DrawingRecognitionCanvas is a deep-learning backed canvas
+that, when given the name of an object (e.g. 'dog'), draws a dog.
+But whenever the drawing on it changes, it also sends back its interpretation
+of the image by way of the @newObjectRecognized event.
+
+<input
+  type="text"
+  placeholder="an object, e.g. Dog, Cat, Frog"
+  v-model="identifiedObject" />
+<DrawingRecognitionCanvas
+  :object="identifiedObject"
+  @newObjectRecognized="identifiedObject = $event"
+  />
+
+new TwoWayBindingWrapper((increment, decrement, shouldUpdate) => {
+  this.$watch('identifiedObject', () => {
+    // new object passed in
+    increment()
+  })
+  this.$deepLearningBackend.on('drawingChanged', () => {
+    recognizeObject(this.$deepLearningBackend)
+      .then((object) => {
+        decrement()
+        if (shouldUpdate()) {
+          this.$emit('newObjectRecognized', object.name)
+        }
+      })
+  })
+})
+ */
+function TwoWayBindingWrapper(fn) {
+  var counter = 0;
+
+  fn(function () {
+    counter += 1;
+  }, function () {
+    counter = Math.max(0, counter - 1);
+  }, function () {
+    return counter === 0;
+  });
+}
+
+/***/ }),
+/* 79 */,
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _bindProps = __webpack_require__(12);
+
+var _simulateArrowDown = __webpack_require__(81);
+
+var _simulateArrowDown2 = _interopRequireDefault(_simulateArrowDown);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+var props = {
+  bounds: {
+    type: Object
+  },
+  defaultPlace: {
+    type: String,
+    default: ''
+  },
+  componentRestrictions: {
+    type: Object,
+    default: null
+  },
+  types: {
+    type: Array,
+    default: function _default() {
+      return [];
+    }
+  },
+  placeholder: {
+    required: false,
+    type: String
+  },
+  className: {
+    required: false,
+    type: String
+  },
+  label: {
+    required: false,
+    type: String,
+    default: null
+  },
+  selectFirstOnEnter: {
+    require: false,
+    type: Boolean,
+    default: false
+  }
+};
+
+exports.default = {
+  mounted: function mounted() {
+    var _this = this;
+
+    var input = this.$refs.input;
+
+    // Allow default place to be set
+    input.value = this.defaultPlace;
+    this.$watch('defaultPlace', function () {
+      input.value = _this.defaultPlace;
+    });
+
+    this.$gmapApiPromiseLazy().then(function () {
+      var options = (0, _bindProps.getPropsValues)(_this, props);
+      if (_this.selectFirstOnEnter) {
+        (0, _simulateArrowDown2.default)(_this.$refs.input);
+      }
+
+      if (typeof google.maps.places.Autocomplete !== 'function') {
+        throw new Error('google.maps.places.Autocomplete is undefined. Did you add \'places\' to libraries when loading Google Maps?');
+      }
+
+      _this.autoCompleter = new google.maps.places.Autocomplete(_this.$refs.input, options);
+
+      var placeholder = props.placeholder,
+          place = props.place,
+          defaultPlace = props.defaultPlace,
+          className = props.className,
+          label = props.label,
+          selectFirstOnEnter = props.selectFirstOnEnter,
+          rest = _objectWithoutProperties(props, ['placeholder', 'place', 'defaultPlace', 'className', 'label', 'selectFirstOnEnter']); // eslint-disable-line
+
+
+      (0, _bindProps.bindProps)(_this, _this.autoCompleter, rest);
+
+      _this.autoCompleter.addListener('place_changed', function () {
+        _this.$emit('place_changed', _this.autoCompleter.getPlace());
+      });
+    });
+  },
+  created: function created() {
+    console.warn('The PlaceInput class is deprecated! Please consider using the Autocomplete input instead'); // eslint-disable-line no-console
+  },
+
+  props: props
+};
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+// This piece of code was orignally written by amirnissim and can be seen here
+// http://stackoverflow.com/a/11703018/2694653
+// This has been ported to Vanilla.js by GuillaumeLeclerc
+exports.default = function (input) {
+  var _addEventListener = input.addEventListener ? input.addEventListener : input.attachEvent;
+
+  function addEventListenerWrapper(type, listener) {
+    // Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+    // and then trigger the original listener.
+    if (type === 'keydown') {
+      var origListener = listener;
+      listener = function (event) {
+        var suggestionSelected = document.getElementsByClassName('pac-item-selected').length > 0;
+        if (event.which === 13 && !suggestionSelected) {
+          var simulatedEvent = document.createEvent('Event');
+          simulatedEvent.keyCode = 40;
+          simulatedEvent.which = 40;
+          origListener.apply(input, [simulatedEvent]);
+        }
+        origListener.apply(input, [event]);
+      };
+    }
+    _addEventListener.apply(input, [type, listener]);
+  }
+
+  input.addEventListener = addEventListenerWrapper;
+  input.attachEvent = addEventListenerWrapper;
+};
+
+/***/ }),
+/* 82 */,
+/* 83 */,
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -15439,7 +15247,7 @@ module.exports = Cancel;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(35)))
 
 /***/ }),
-/* 80 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -35518,9 +35326,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_vue__;
 //# sourceMappingURL=vuetify.js.map
 
 /***/ }),
-/* 81 */,
-/* 82 */,
-/* 83 */
+/* 86 */,
+/* 87 */,
+/* 88 */
 /***/ (function(module, exports) {
 
 /**
@@ -35553,9 +35361,9 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 84 */,
-/* 85 */,
-/* 86 */
+/* 89 */,
+/* 90 */,
+/* 91 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38185,14 +37993,14 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 87 */,
-/* 88 */,
-/* 89 */
+/* 92 */,
+/* 93 */,
+/* 94 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(setImmediate, global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__ = __webpack_require__(90);
+/* WEBPACK VAR INJECTION */(function(setImmediate, global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__);
 
 
@@ -39727,7 +39535,7 @@ var iterator = _wksExt.f('iterator');
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(34).setImmediate, __webpack_require__(7)))
 
 /***/ }),
-/* 90 */
+/* 95 */
 /***/ (function(module, exports) {
 
 (function(self) {
@@ -40199,7 +40007,7 @@ var iterator = _wksExt.f('iterator');
 
 
 /***/ }),
-/* 91 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41986,11 +41794,6 @@ exports.stringToByteArray = stringToByteArray$1;
 
 
 /***/ }),
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
 /* 97 */,
 /* 98 */,
 /* 99 */,
@@ -41998,1158 +41801,28 @@ exports.stringToByteArray = stringToByteArray$1;
 /* 101 */,
 /* 102 */,
 /* 103 */,
-/* 104 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = fn => {
-	let called = false;
-	let ret;
-
-	return () => {
-		if (!called) {
-			called = true;
-			ret = fn();
-		}
-
-		return ret;
-	};
-};
-
-
-/***/ }),
-/* 105 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var isApiSetUp = false;
-
-/**
- * @param apiKey    API Key, or object with the URL parameters. For example
- *                  to use Google Maps Premium API, pass
- *                    `{ client: <YOUR-CLIENT-ID> }`.
- *                  You may pass the libraries and/or version (as `v`) parameter into
- *                  this parameter and skip the next two parameters
- * @param version   Google for Maps version
- * @param libraries Libraries to load (@see
- *                  https://developers.google.com/maps/documentation/javascript/libraries)
- * @param loadCn    Boolean. If set to true, the map will be loaded form goole maps China
- *                  (@see https://developers.google.com/maps/documentation/javascript/basics#GoogleMapsChina)
- *
- * Example:
- * ```
- *      import {load} from 'vue-google-maps'
- *
- *      load(<YOUR-API-KEY>)
- *
- *      load({
- *              key: <YOUR-API-KEY>,
- *      })
- *
- *      load({
- *              client: <YOUR-CLIENT-ID>,
- *              channel: <YOUR CHANNEL>
- *      })
- * ```
- */
-var loadGmapApi = exports.loadGmapApi = function (options, loadCn) {
-  if (typeof document === 'undefined') {
-    // Do nothing if run from server-side
-    return;
-  }
-  if (!isApiSetUp) {
-    isApiSetUp = true;
-
-    var googleMapScript = document.createElement('SCRIPT');
-
-    // Allow options to be an object.
-    // This is to support more esoteric means of loading Google Maps,
-    // such as Google for business
-    // https://developers.google.com/maps/documentation/javascript/get-api-key#premium-auth
-    if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) !== 'object') {
-      throw new Error('options should  be an object');
-    }
-
-    // libraries
-    if (Array.prototype.isPrototypeOf(options.libraries)) {
-      options.libraries = options.libraries.join(',');
-    }
-    options['callback'] = 'vueGoogleMapsInit';
-
-    var baseUrl = 'https://maps.googleapis.com/';
-
-    if (typeof loadCn === 'boolean' && loadCn === true) {
-      baseUrl = 'http://maps.google.cn/';
-    }
-
-    var url = baseUrl + 'maps/api/js?' + Object.keys(options).map(function (key) {
-      return encodeURIComponent(key) + '=' + encodeURIComponent(options[key]);
-    }).join('&');
-
-    googleMapScript.setAttribute('src', url);
-    googleMapScript.setAttribute('async', '');
-    googleMapScript.setAttribute('defer', '');
-    document.head.appendChild(googleMapScript);
-  } else {
-    throw new Error('You already started the loading of google maps');
-  }
-};
-
-/***/ }),
-/* 106 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _mapElementFactory = __webpack_require__(4);
-
-var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var props = {
-  animation: {
-    twoWay: true,
-    type: Number
-  },
-  attribution: {
-    type: Object
-  },
-  clickable: {
-    type: Boolean,
-    twoWay: true,
-    default: true
-  },
-  cursor: {
-    type: String,
-    twoWay: true
-  },
-  draggable: {
-    type: Boolean,
-    twoWay: true,
-    default: false
-  },
-  icon: {
-    twoWay: true
-  },
-  label: {},
-  opacity: {
-    type: Number,
-    default: 1
-  },
-  options: {
-    type: Object
-  },
-  place: {
-    type: Object
-  },
-  position: {
-    type: Object,
-    twoWay: true
-  },
-  shape: {
-    type: Object,
-    twoWay: true
-  },
-  title: {
-    type: String,
-    twoWay: true
-  },
-  zIndex: {
-    type: Number,
-    twoWay: true
-  },
-  visible: {
-    twoWay: true,
-    default: true
-  }
-};
-
-var events = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
-
-/**
- * @class Marker
- *
- * Marker class with extra support for
- *
- * - Embedded info windows
- * - Clustered markers
- *
- * Support for clustered markers is for backward-compatability
- * reasons. Otherwise we should use a cluster-marker mixin or
- * subclass.
- */
-exports.default = (0, _mapElementFactory2.default)({
-  mappedProps: props,
-  events: events,
-  name: 'marker',
-  ctr: function ctr() {
-    return google.maps.Marker;
-  },
-
-  inject: {
-    '$clusterPromise': {
-      default: null
-    }
-  },
-
-  render: function render(h) {
-    if (!this.$slots.default || this.$slots.default.length === 0) {
-      return '';
-    } else if (this.$slots.default.length === 1) {
-      // So that infowindows can have a marker parent
-      return this.$slots.default[0];
-    } else {
-      return h('div', this.$slots.default);
-    }
-  },
-  destroyed: function destroyed() {
-    if (!this.$markerObject) {
-      return;
-    }
-
-    if (this.$clusterObject) {
-      // Repaint will be performed in `updated()` of cluster
-      this.$clusterObject.removeMarker(this.$markerObject, true);
-    } else {
-      this.$markerObject.setMap(null);
-    }
-  },
-  beforeCreate: function beforeCreate(options) {
-    if (this.$clusterPromise) {
-      options.map = null;
-    }
-
-    return this.$clusterPromise;
-  },
-  afterCreate: function afterCreate(inst) {
-    var _this = this;
-
-    if (this.$clusterPromise) {
-      this.$clusterPromise.then(function (co) {
-        co.addMarker(inst);
-        _this.$clusterObject = co;
-      });
-    }
-  }
-});
-
-/***/ }),
-/* 107 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _mapElementFactory = __webpack_require__(4);
-
-var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var props = {
-  draggable: {
-    type: Boolean
-  },
-  editable: {
-    type: Boolean
-  },
-  options: {
-    twoWay: false,
-    type: Object
-  },
-  path: {
-    type: Array,
-    twoWay: true
-  }
-};
-
-var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
-
-exports.default = (0, _mapElementFactory2.default)({
-  mappedProps: props,
-  props: {
-    deepWatch: {
-      type: Boolean,
-      default: false
-    }
-  },
-  events: events,
-
-  name: 'polyline',
-  ctr: function ctr() {
-    return google.maps.Polyline;
-  },
-
-  afterCreate: function afterCreate() {
-    var _this = this;
-
-    var clearEvents = function () {};
-
-    this.$watch('path', function (path) {
-      if (path) {
-        clearEvents();
-
-        _this.$polylineObject.setPath(path);
-
-        var mvcPath = _this.$polylineObject.getPath();
-        var eventListeners = [];
-
-        var updatePaths = function () {
-          _this.$emit('path_changed', _this.$polylineObject.getPath());
-        };
-
-        eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
-        eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
-        eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
-
-        clearEvents = function () {
-          eventListeners.map(function (_ref) {
-            var _ref2 = _slicedToArray(_ref, 2),
-                obj = _ref2[0],
-                listenerHandle = _ref2[1];
-
-            return (// eslint-disable-line no-unused-vars
-              google.maps.event.removeListener(listenerHandle)
-            );
-          });
-        };
-      }
-    }, {
-      deep: this.deepWatch,
-      immediate: true
-    });
-  }
-});
-
-/***/ }),
-/* 108 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _mapElementFactory = __webpack_require__(4);
-
-var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var props = {
-  draggable: {
-    type: Boolean
-  },
-  editable: {
-    type: Boolean
-  },
-  options: {
-    type: Object
-  },
-  path: {
-    type: Array,
-    twoWay: true,
-    noBind: true
-  },
-  paths: {
-    type: Array,
-    twoWay: true,
-    noBind: true
-  }
-};
-
-var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
-
-exports.default = (0, _mapElementFactory2.default)({
-  props: {
-    deepWatch: {
-      type: Boolean,
-      default: false
-    }
-  },
-  events: events,
-  mappedProps: props,
-  name: 'polygon',
-  ctr: function ctr() {
-    return google.maps.Polygon;
-  },
-
-  beforeCreate: function beforeCreate(options) {
-    if (!options.path) delete options.path;
-    if (!options.paths) delete options.paths;
-  },
-  afterCreate: function afterCreate(inst) {
-    var _this = this;
-
-    var clearEvents = function () {};
-
-    // Watch paths, on our own, because we do not want to set either when it is
-    // empty
-    this.$watch('paths', function (paths) {
-      if (paths) {
-        clearEvents();
-
-        inst.setPaths(paths);
-
-        var updatePaths = function () {
-          _this.$emit('paths_changed', inst.getPaths());
-        };
-        var eventListeners = [];
-
-        var mvcArray = inst.getPaths();
-        for (var i = 0; i < mvcArray.getLength(); i++) {
-          var mvcPath = mvcArray.getAt(i);
-          eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
-          eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
-          eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
-        }
-        eventListeners.push([mvcArray, mvcArray.addListener('insert_at', updatePaths)]);
-        eventListeners.push([mvcArray, mvcArray.addListener('remove_at', updatePaths)]);
-        eventListeners.push([mvcArray, mvcArray.addListener('set_at', updatePaths)]);
-
-        clearEvents = function () {
-          eventListeners.map(function (_ref) {
-            var _ref2 = _slicedToArray(_ref, 2),
-                obj = _ref2[0],
-                listenerHandle = _ref2[1];
-
-            return (// eslint-disable-line no-unused-vars
-              google.maps.event.removeListener(listenerHandle)
-            );
-          });
-        };
-      }
-    }, {
-      deep: this.deepWatch,
-      immediate: true
-    });
-
-    this.$watch('path', function (path) {
-      if (path) {
-        clearEvents();
-
-        inst.setPaths(path);
-
-        var mvcPath = inst.getPath();
-        var eventListeners = [];
-
-        var updatePaths = function () {
-          _this.$emit('path_changed', inst.getPath());
-        };
-
-        eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
-        eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
-        eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
-
-        clearEvents = function () {
-          eventListeners.map(function (_ref3) {
-            var _ref4 = _slicedToArray(_ref3, 2),
-                obj = _ref4[0],
-                listenerHandle = _ref4[1];
-
-            return (// eslint-disable-line no-unused-vars
-              google.maps.event.removeListener(listenerHandle)
-            );
-          });
-        };
-      }
-    }, {
-      deep: this.deepWatch,
-      immediate: true
-    });
-  }
-});
-
-/***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _mapElementFactory = __webpack_require__(4);
-
-var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var props = {
-  center: {
-    type: Object,
-    twoWay: true,
-    required: true
-  },
-  radius: {
-    type: Number,
-    twoWay: true
-  },
-  draggable: {
-    type: Boolean,
-    default: false
-  },
-  editable: {
-    type: Boolean,
-    default: false
-  },
-  options: {
-    type: Object,
-    twoWay: false
-  }
-};
-
-var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
-
-exports.default = (0, _mapElementFactory2.default)({
-  mappedProps: props,
-  name: 'circle',
-  ctr: function ctr() {
-    return google.maps.Circle;
-  },
-  events: events
-});
-
-/***/ }),
-/* 110 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _mapElementFactory = __webpack_require__(4);
-
-var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var props = {
-  bounds: {
-    type: Object,
-    twoWay: true
-  },
-  draggable: {
-    type: Boolean,
-    default: false
-  },
-  editable: {
-    type: Boolean,
-    default: false
-  },
-  options: {
-    type: Object,
-    twoWay: false
-  }
-};
-
-var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
-
-exports.default = (0, _mapElementFactory2.default)({
-  mappedProps: props,
-  name: 'rectangle',
-  ctr: function ctr() {
-    return google.maps.Rectangle;
-  },
-  events: events
-});
-
-/***/ }),
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
 /* 111 */,
-/* 112 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _mapElementFactory = __webpack_require__(4);
-
-var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var props = {
-  options: {
-    type: Object,
-    required: false,
-    default: function _default() {
-      return {};
-    }
-  },
-  position: {
-    type: Object,
-    twoWay: true
-  },
-  zIndex: {
-    type: Number,
-    twoWay: true
-  }
-};
-
-var events = ['domready', 'closeclick', 'content_changed'];
-
-exports.default = (0, _mapElementFactory2.default)({
-  mappedProps: props,
-  events: events,
-  name: 'infoWindow',
-  ctr: function ctr() {
-    return google.maps.InfoWindow;
-  },
-  props: {
-    opened: {
-      type: Boolean,
-      default: true
-    }
-  },
-
-  inject: {
-    '$markerPromise': {
-      default: null
-    }
-  },
-
-  mounted: function mounted() {
-    var el = this.$refs.flyaway;
-    el.parentNode.removeChild(el);
-  },
-  beforeCreate: function beforeCreate(options) {
-    var _this = this;
-
-    options.content = this.$refs.flyaway;
-
-    if (this.$markerPromise) {
-      delete options.position;
-      return this.$markerPromise.then(function (mo) {
-        _this.$markerObject = mo;
-        return mo;
-      });
-    }
-  },
-
-
-  methods: {
-    _openInfoWindow: function _openInfoWindow() {
-      if (this.opened) {
-        if (this.$markerObject !== null) {
-          this.$infoWindowObject.open(this.$map, this.$markerObject);
-        } else {
-          this.$infoWindowObject.open(this.$map);
-        }
-      } else {
-        this.$infoWindowObject.close();
-      }
-    }
-  },
-
-  afterCreate: function afterCreate() {
-    var _this2 = this;
-
-    this._openInfoWindow();
-    this.$watch('opened', function () {
-      _this2._openInfoWindow();
-    });
-  }
-});
-
-/***/ }),
+/* 112 */,
 /* 113 */,
 /* 114 */,
 /* 115 */,
-/* 116 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _bindEvents = __webpack_require__(22);
-
-var _bindEvents2 = _interopRequireDefault(_bindEvents);
-
-var _bindProps = __webpack_require__(9);
-
-var _mountableMixin = __webpack_require__(24);
-
-var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
-
-var _TwoWayBindingWrapper = __webpack_require__(47);
-
-var _TwoWayBindingWrapper2 = _interopRequireDefault(_TwoWayBindingWrapper);
-
-var _WatchPrimitiveProperties = __webpack_require__(23);
-
-var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
-
-var _mapElementFactory = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var props = {
-  center: {
-    required: true,
-    twoWay: true,
-    type: Object,
-    noBind: true
-  },
-  zoom: {
-    required: false,
-    twoWay: true,
-    type: Number,
-    noBind: true
-  },
-  heading: {
-    type: Number,
-    twoWay: true
-  },
-  mapTypeId: {
-    twoWay: true,
-    type: String
-  },
-  tilt: {
-    twoWay: true,
-    type: Number
-  },
-  options: {
-    type: Object,
-    default: function _default() {
-      return {};
-    }
-  }
-};
-
-var events = ['bounds_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'mousemove', 'mouseout', 'mouseover', 'resize', 'rightclick', 'tilesloaded'];
-
-// Plain Google Maps methods exposed here for convenience
-var linkedMethods = ['panBy', 'panTo', 'panToBounds', 'fitBounds'].reduce(function (all, methodName) {
-  all[methodName] = function () {
-    if (this.$mapObject) {
-      this.$mapObject[methodName].apply(this.$mapObject, arguments);
-    }
-  };
-  return all;
-}, {});
-
-// Other convenience methods exposed by Vue Google Maps
-var customMethods = {
-  resize: function resize() {
-    if (this.$mapObject) {
-      google.maps.event.trigger(this.$mapObject, 'resize');
-    }
-  },
-  resizePreserveCenter: function resizePreserveCenter() {
-    if (!this.$mapObject) {
-      return;
-    }
-
-    var oldCenter = this.$mapObject.getCenter();
-    google.maps.event.trigger(this.$mapObject, 'resize');
-    this.$mapObject.setCenter(oldCenter);
-  },
-
-
-  /// Override mountableMixin::_resizeCallback
-  /// because resizePreserveCenter is usually the
-  /// expected behaviour
-  _resizeCallback: function _resizeCallback() {
-    this.resizePreserveCenter();
-  }
-};
-
-exports.default = {
-  mixins: [_mountableMixin2.default],
-  props: (0, _mapElementFactory.mappedPropsToVueProps)(props),
-
-  provide: function provide() {
-    var _this = this;
-
-    this.$mapPromise = new Promise(function (resolve, reject) {
-      _this.$mapPromiseDeferred = { resolve: resolve, reject: reject };
-    });
-    return {
-      '$mapPromise': this.$mapPromise
-    };
-  },
-
-
-  computed: {
-    finalLat: function finalLat() {
-      return this.center && typeof this.center.lat === 'function' ? this.center.lat() : this.center.lat;
-    },
-    finalLng: function finalLng() {
-      return this.center && typeof this.center.lng === 'function' ? this.center.lng() : this.center.lng;
-    },
-    finalLatLng: function finalLatLng() {
-      return { lat: this.finalLat, lng: this.finalLng };
-    }
-  },
-
-  watch: {
-    zoom: function zoom(_zoom) {
-      if (this.$mapObject) {
-        this.$mapObject.setZoom(_zoom);
-      }
-    }
-  },
-
-  mounted: function mounted() {
-    var _this2 = this;
-
-    return this.$gmapApiPromiseLazy().then(function () {
-      // getting the DOM element where to create the map
-      var element = _this2.$refs['vue-map'];
-
-      // creating the map
-      var options = _extends({}, _this2.options, (0, _bindProps.getPropsValues)(_this2, props));
-      delete options.options;
-      _this2.$mapObject = new google.maps.Map(element, options);
-
-      // binding properties (two and one way)
-      (0, _bindProps.bindProps)(_this2, _this2.$mapObject, props);
-      // binding events
-      (0, _bindEvents2.default)(_this2, _this2.$mapObject, events);
-
-      // manually trigger center and zoom
-      (0, _TwoWayBindingWrapper2.default)(function (increment, decrement, shouldUpdate) {
-        _this2.$mapObject.addListener('center_changed', function () {
-          if (shouldUpdate()) {
-            _this2.$emit('center_changed', _this2.$mapObject.getCenter());
-          }
-          decrement();
-        });
-
-        (0, _WatchPrimitiveProperties2.default)(_this2, ['finalLat', 'finalLng'], function updateCenter() {
-          increment();
-          _this2.$mapObject.setCenter(_this2.finalLatLng);
-        });
-      });
-      _this2.$mapObject.addListener('zoom_changed', function () {
-        _this2.$emit('zoom_changed', _this2.$mapObject.getZoom());
-      });
-      _this2.$mapObject.addListener('bounds_changed', function () {
-        _this2.$emit('bounds_changed', _this2.$mapObject.getBounds());
-      });
-
-      _this2.$mapPromiseDeferred.resolve(_this2.$mapObject);
-
-      return _this2.$mapObject;
-    }).catch(function (error) {
-      throw error;
-    });
-  },
-
-  methods: _extends({}, customMethods, linkedMethods)
-};
-
-/***/ }),
+/* 116 */,
 /* 117 */,
 /* 118 */,
 /* 119 */,
-/* 120 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _bindEvents = __webpack_require__(22);
-
-var _bindEvents2 = _interopRequireDefault(_bindEvents);
-
-var _bindProps = __webpack_require__(9);
-
-var _mountableMixin = __webpack_require__(24);
-
-var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
-
-var _TwoWayBindingWrapper = __webpack_require__(47);
-
-var _TwoWayBindingWrapper2 = _interopRequireDefault(_TwoWayBindingWrapper);
-
-var _WatchPrimitiveProperties = __webpack_require__(23);
-
-var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
-
-var _mapElementFactory = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var props = {
-  zoom: {
-    twoWay: true,
-    type: Number
-  },
-  pov: {
-    twoWay: true,
-    type: Object,
-    trackProperties: ['pitch', 'heading']
-  },
-  position: {
-    twoWay: true,
-    type: Object,
-    noBind: true
-  },
-  pano: {
-    twoWay: true,
-    type: String
-  },
-  motionTracking: {
-    twoWay: false,
-    type: Boolean
-  },
-  visible: {
-    twoWay: true,
-    type: Boolean,
-    default: true
-  },
-  options: {
-    twoWay: false,
-    type: Object,
-    default: function _default() {
-      return {};
-    }
-  }
-};
-
-var events = ['closeclick', 'status_changed'];
-
-exports.default = {
-  mixins: [_mountableMixin2.default],
-  props: (0, _mapElementFactory.mappedPropsToVueProps)(props),
-  replace: false, // necessary for css styles
-  methods: {
-    resize: function resize() {
-      if (this.$panoObject) {
-        google.maps.event.trigger(this.$panoObject, 'resize');
-      }
-    }
-  },
-
-  provide: function provide() {
-    var _this = this;
-
-    var promise = new Promise(function (resolve, reject) {
-      _this.$panoPromiseDeferred = { resolve: resolve, reject: reject };
-    });
-    return {
-      '$panoPromise': promise,
-      '$mapPromise': promise // so that we can use it with markers
-    };
-  },
-
-
-  computed: {
-    finalLat: function finalLat() {
-      return this.position && typeof this.position.lat === 'function' ? this.position.lat() : this.position.lat;
-    },
-    finalLng: function finalLng() {
-      return this.position && typeof this.position.lng === 'function' ? this.position.lng() : this.position.lng;
-    },
-    finalLatLng: function finalLatLng() {
-      return {
-        lat: this.finalLat,
-        lng: this.finalLng
-      };
-    }
-  },
-
-  watch: {
-    zoom: function zoom(_zoom) {
-      if (this.$panoObject) {
-        this.$panoObject.setZoom(_zoom);
-      }
-    }
-  },
-
-  mounted: function mounted() {
-    var _this2 = this;
-
-    return this.$gmapApiPromiseLazy().then(function () {
-      // getting the DOM element where to create the map
-      var element = _this2.$refs['vue-street-view-pano'];
-
-      // creating the map
-      var options = _extends({}, _this2.options, (0, _bindProps.getPropsValues)(_this2, props));
-      delete options.options;
-
-      _this2.$panoObject = new google.maps.StreetViewPanorama(element, options);
-
-      // binding properties (two and one way)
-      (0, _bindProps.bindProps)(_this2, _this2.$panoObject, props);
-      // binding events
-      (0, _bindEvents2.default)(_this2, _this2.$panoObject, events);
-
-      // manually trigger position
-      (0, _TwoWayBindingWrapper2.default)(function (increment, decrement, shouldUpdate) {
-        // Panos take a while to load
-        increment();
-
-        _this2.$panoObject.addListener('position_changed', function () {
-          if (shouldUpdate()) {
-            _this2.$emit('position_changed', _this2.$panoObject.getPosition());
-          }
-          decrement();
-        });
-
-        (0, _WatchPrimitiveProperties2.default)(_this2, ['finalLat', 'finalLng'], function updateCenter() {
-          increment();
-          _this2.$panoObject.setPosition(_this2.finalLatLng);
-        });
-      });
-
-      _this2.$panoPromiseDeferred.resolve(_this2.$panoObject);
-
-      return _this2.$panoPromise;
-    }).catch(function (error) {
-      throw error;
-    });
-  }
-};
-
-/***/ }),
+/* 120 */,
 /* 121 */,
 /* 122 */,
 /* 123 */,
 /* 124 */,
-/* 125 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _bindProps = __webpack_require__(9);
-
-var _simulateArrowDown = __webpack_require__(50);
-
-var _simulateArrowDown2 = _interopRequireDefault(_simulateArrowDown);
-
-var _mapElementFactory = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mappedProps = {
-  bounds: {
-    type: Object
-  },
-  componentRestrictions: {
-    type: Object,
-    // Do not bind -- must check for undefined
-    // in the property
-    noBind: true
-  },
-  types: {
-    type: Array,
-    default: function _default() {
-      return [];
-    }
-  }
-};
-
-var props = {
-  placeholder: {
-    required: false,
-    type: String
-  },
-  selectFirstOnEnter: {
-    require: false,
-    type: Boolean,
-    default: false
-  },
-  value: {
-    type: String,
-    default: ''
-  },
-  options: {
-    type: Object
-  }
-};
-
-exports.default = {
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$gmapApiPromiseLazy().then(function () {
-      if (_this.selectFirstOnEnter) {
-        (0, _simulateArrowDown2.default)(_this.$refs.input);
-      }
-
-      if (typeof google.maps.places.Autocomplete !== 'function') {
-        throw new Error('google.maps.places.Autocomplete is undefined. Did you add \'places\' to libraries when loading Google Maps?');
-      }
-
-      /* eslint-disable no-unused-vars */
-      var finalOptions = _extends({}, (0, _bindProps.getPropsValues)(_this, mappedProps), _this.options);
-
-      _this.$autocomplete = new google.maps.places.Autocomplete(_this.$refs.input, finalOptions);
-      (0, _bindProps.bindProps)(_this, _this.$autocomplete, mappedProps);
-
-      _this.$watch('componentRestrictions', function (v) {
-        if (v !== undefined) {
-          _this.$autocomplete.setComponentRestrictions(v);
-        }
-      });
-
-      // Not using `bindEvents` because we also want
-      // to return the result of `getPlace()`
-      _this.$autocomplete.addListener('place_changed', function () {
-        _this.$emit('place_changed', _this.$autocomplete.getPlace());
-      });
-    });
-  },
-
-  props: _extends({}, (0, _mapElementFactory.mappedPropsToVueProps)(mappedProps), props)
-};
-
-/***/ }),
+/* 125 */,
 /* 126 */,
 /* 127 */,
 /* 128 */,
@@ -43967,7 +42640,7 @@ module.exports = __webpack_require__(5).Promise;
 var $at = __webpack_require__(142)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(56)(String, 'String', function (iterated) {
+__webpack_require__(53)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -43986,8 +42659,8 @@ __webpack_require__(56)(String, 'String', function (iterated) {
 /* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(25);
-var defined = __webpack_require__(26);
+var toInteger = __webpack_require__(22);
+var defined = __webpack_require__(23);
 // true  -> String#at
 // false -> String#codePointAt
 module.exports = function (TO_STRING) {
@@ -44009,8 +42682,8 @@ module.exports = function (TO_STRING) {
 /* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(11) && !__webpack_require__(57)(function () {
-  return Object.defineProperty(__webpack_require__(28)('div'), 'a', { get: function () { return 7; } }).a != 7;
+module.exports = !__webpack_require__(10) && !__webpack_require__(54)(function () {
+  return Object.defineProperty(__webpack_require__(25)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
@@ -44019,7 +42692,7 @@ module.exports = !__webpack_require__(11) && !__webpack_require__(57)(function (
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(10);
+var isObject = __webpack_require__(9);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -44046,8 +42719,8 @@ module.exports = __webpack_require__(8);
 "use strict";
 
 var create = __webpack_require__(147);
-var descriptor = __webpack_require__(58);
-var setToStringTag = __webpack_require__(31);
+var descriptor = __webpack_require__(55);
+var setToStringTag = __webpack_require__(28);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
@@ -44066,21 +42739,21 @@ module.exports = function (Constructor, NAME, next) {
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(6);
 var dPs = __webpack_require__(148);
-var enumBugKeys = __webpack_require__(62);
-var IE_PROTO = __webpack_require__(30)('IE_PROTO');
+var enumBugKeys = __webpack_require__(59);
+var IE_PROTO = __webpack_require__(27)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(28)('iframe');
+  var iframe = __webpack_require__(25)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  __webpack_require__(63).appendChild(iframe);
+  __webpack_require__(60).appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -44114,7 +42787,7 @@ var dP = __webpack_require__(17);
 var anObject = __webpack_require__(6);
 var getKeys = __webpack_require__(149);
 
-module.exports = __webpack_require__(11) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(10) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -44131,7 +42804,7 @@ module.exports = __webpack_require__(11) ? Object.defineProperties : function de
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = __webpack_require__(150);
-var enumBugKeys = __webpack_require__(62);
+var enumBugKeys = __webpack_require__(59);
 
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
@@ -44143,9 +42816,9 @@ module.exports = Object.keys || function keys(O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(18);
-var toIObject = __webpack_require__(29);
+var toIObject = __webpack_require__(26);
 var arrayIndexOf = __webpack_require__(152)(false);
-var IE_PROTO = __webpack_require__(30)('IE_PROTO');
+var IE_PROTO = __webpack_require__(27)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -44179,8 +42852,8 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(29);
-var toLength = __webpack_require__(59);
+var toIObject = __webpack_require__(26);
+var toLength = __webpack_require__(56);
 var toAbsoluteIndex = __webpack_require__(153);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
@@ -44206,7 +42879,7 @@ module.exports = function (IS_INCLUDES) {
 /* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(25);
+var toInteger = __webpack_require__(22);
 var max = Math.max;
 var min = Math.min;
 module.exports = function (index, length) {
@@ -44222,7 +42895,7 @@ module.exports = function (index, length) {
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(18);
 var toObject = __webpack_require__(155);
-var IE_PROTO = __webpack_require__(30)('IE_PROTO');
+var IE_PROTO = __webpack_require__(27)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -44239,7 +42912,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(26);
+var defined = __webpack_require__(23);
 module.exports = function (it) {
   return Object(defined(it));
 };
@@ -44252,7 +42925,7 @@ module.exports = function (it) {
 __webpack_require__(157);
 var global = __webpack_require__(1);
 var hide = __webpack_require__(8);
-var Iterators = __webpack_require__(12);
+var Iterators = __webpack_require__(11);
 var TO_STRING_TAG = __webpack_require__(3)('toStringTag');
 
 var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
@@ -44278,14 +42951,14 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 var addToUnscopables = __webpack_require__(158);
 var step = __webpack_require__(159);
-var Iterators = __webpack_require__(12);
-var toIObject = __webpack_require__(29);
+var Iterators = __webpack_require__(11);
+var toIObject = __webpack_require__(26);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(56)(Array, 'Array', function (iterated, kind) {
+module.exports = __webpack_require__(53)(Array, 'Array', function (iterated, kind) {
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -44333,22 +43006,22 @@ module.exports = function (done, value) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(27);
+var LIBRARY = __webpack_require__(24);
 var global = __webpack_require__(1);
 var ctx = __webpack_require__(15);
-var classof = __webpack_require__(64);
+var classof = __webpack_require__(61);
 var $export = __webpack_require__(14);
-var isObject = __webpack_require__(10);
+var isObject = __webpack_require__(9);
 var aFunction = __webpack_require__(16);
 var anInstance = __webpack_require__(161);
 var forOf = __webpack_require__(162);
-var speciesConstructor = __webpack_require__(65);
-var task = __webpack_require__(66).set;
+var speciesConstructor = __webpack_require__(62);
+var task = __webpack_require__(63).set;
 var microtask = __webpack_require__(167)();
-var newPromiseCapabilityModule = __webpack_require__(32);
-var perform = __webpack_require__(67);
+var newPromiseCapabilityModule = __webpack_require__(29);
+var perform = __webpack_require__(64);
 var userAgent = __webpack_require__(168);
-var promiseResolve = __webpack_require__(68);
+var promiseResolve = __webpack_require__(65);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
@@ -44554,7 +43227,7 @@ if (!USE_NATIVE) {
 }
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-__webpack_require__(31)($Promise, PROMISE);
+__webpack_require__(28)($Promise, PROMISE);
 __webpack_require__(170)(PROMISE);
 Wrapper = __webpack_require__(5)[PROMISE];
 
@@ -44639,7 +43312,7 @@ var ctx = __webpack_require__(15);
 var call = __webpack_require__(163);
 var isArrayIter = __webpack_require__(164);
 var anObject = __webpack_require__(6);
-var toLength = __webpack_require__(59);
+var toLength = __webpack_require__(56);
 var getIterFn = __webpack_require__(165);
 var BREAK = {};
 var RETURN = {};
@@ -44685,7 +43358,7 @@ module.exports = function (iterator, fn, value, entries) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(12);
+var Iterators = __webpack_require__(11);
 var ITERATOR = __webpack_require__(3)('iterator');
 var ArrayProto = Array.prototype;
 
@@ -44698,9 +43371,9 @@ module.exports = function (it) {
 /* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(64);
+var classof = __webpack_require__(61);
 var ITERATOR = __webpack_require__(3)('iterator');
-var Iterators = __webpack_require__(12);
+var Iterators = __webpack_require__(11);
 module.exports = __webpack_require__(5).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
@@ -44735,7 +43408,7 @@ module.exports = function (fn, args, that) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(1);
-var macrotask = __webpack_require__(66).set;
+var macrotask = __webpack_require__(63).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
@@ -44837,7 +43510,7 @@ module.exports = function (target, src, safe) {
 var global = __webpack_require__(1);
 var core = __webpack_require__(5);
 var dP = __webpack_require__(17);
-var DESCRIPTORS = __webpack_require__(11);
+var DESCRIPTORS = __webpack_require__(10);
 var SPECIES = __webpack_require__(3)('species');
 
 module.exports = function (KEY) {
@@ -44887,8 +43560,8 @@ module.exports = function (exec, skipClosing) {
 var $export = __webpack_require__(14);
 var core = __webpack_require__(5);
 var global = __webpack_require__(1);
-var speciesConstructor = __webpack_require__(65);
-var promiseResolve = __webpack_require__(68);
+var speciesConstructor = __webpack_require__(62);
+var promiseResolve = __webpack_require__(65);
 
 $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   var C = speciesConstructor(this, core.Promise || global.Promise);
@@ -44912,8 +43585,8 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 
 // https://github.com/tc39/proposal-promise-try
 var $export = __webpack_require__(14);
-var newPromiseCapability = __webpack_require__(32);
-var perform = __webpack_require__(67);
+var newPromiseCapability = __webpack_require__(29);
+var perform = __webpack_require__(64);
 
 $export($export.S, 'Promise', { 'try': function (callbackfn) {
   var promiseCapability = newPromiseCapability.f(this);
@@ -63230,9 +61903,9 @@ module.exports = __webpack_require__(186);
 
 
 var utils = __webpack_require__(2);
-var bind = __webpack_require__(72);
+var bind = __webpack_require__(69);
 var Axios = __webpack_require__(188);
-var defaults = __webpack_require__(33);
+var defaults = __webpack_require__(30);
 
 /**
  * Create an instance of Axios
@@ -63265,9 +61938,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(76);
+axios.Cancel = __webpack_require__(73);
 axios.CancelToken = __webpack_require__(202);
-axios.isCancel = __webpack_require__(75);
+axios.isCancel = __webpack_require__(72);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -63315,7 +61988,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(33);
+var defaults = __webpack_require__(30);
 var utils = __webpack_require__(2);
 var InterceptorManager = __webpack_require__(197);
 var dispatchRequest = __webpack_require__(198);
@@ -63420,7 +62093,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(74);
+var createError = __webpack_require__(71);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -63853,8 +62526,8 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(2);
 var transformData = __webpack_require__(199);
-var isCancel = __webpack_require__(75);
-var defaults = __webpack_require__(33);
+var isCancel = __webpack_require__(72);
+var defaults = __webpack_require__(30);
 var isAbsoluteURL = __webpack_require__(200);
 var combineURLs = __webpack_require__(201);
 
@@ -64013,7 +62686,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(76);
+var Cancel = __webpack_require__(73);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -64105,9 +62778,1360 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 204 */,
-/* 205 */,
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StreetViewPanorama = exports.MountableMixin = exports.Autocomplete = exports.MapElementFactory = exports.MapElementMixin = exports.PlaceInput = exports.Map = exports.InfoWindow = exports.Rectangle = exports.Cluster = exports.Circle = exports.Polygon = exports.Polyline = exports.Marker = exports.loadGmapApi = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// Vue component imports
+
+
+exports.install = install;
+exports.gmapApi = gmapApi;
+
+var _lazyValue = __webpack_require__(205);
+
+var _lazyValue2 = _interopRequireDefault(_lazyValue);
+
+var _manager = __webpack_require__(206);
+
+var _marker = __webpack_require__(207);
+
+var _marker2 = _interopRequireDefault(_marker);
+
+var _polyline = __webpack_require__(208);
+
+var _polyline2 = _interopRequireDefault(_polyline);
+
+var _polygon = __webpack_require__(209);
+
+var _polygon2 = _interopRequireDefault(_polygon);
+
+var _circle = __webpack_require__(210);
+
+var _circle2 = _interopRequireDefault(_circle);
+
+var _rectangle = __webpack_require__(211);
+
+var _rectangle2 = _interopRequireDefault(_rectangle);
+
+var _infoWindow = __webpack_require__(212);
+
+var _infoWindow2 = _interopRequireDefault(_infoWindow);
+
+var _map = __webpack_require__(215);
+
+var _map2 = _interopRequireDefault(_map);
+
+var _streetViewPanorama = __webpack_require__(219);
+
+var _streetViewPanorama2 = _interopRequireDefault(_streetViewPanorama);
+
+var _placeInput = __webpack_require__(223);
+
+var _placeInput2 = _interopRequireDefault(_placeInput);
+
+var _autocomplete = __webpack_require__(225);
+
+var _autocomplete2 = _interopRequireDefault(_autocomplete);
+
+var _mapElementMixin = __webpack_require__(75);
+
+var _mapElementMixin2 = _interopRequireDefault(_mapElementMixin);
+
+var _mapElementFactory = __webpack_require__(4);
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+var _mountableMixin = __webpack_require__(33);
+
+var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// HACK: Cluster should be loaded conditionally
+// However in the web version, it's not possible to write
+// `import 'vue2-google-maps/src/components/cluster'`, so we need to
+// import it anyway (but we don't have to register it)
+// Therefore we use babel-plugin-transform-inline-environment-variables to
+// set BUILD_DEV to truthy / falsy
+var Cluster = undefined;
+
+var GmapApi = null;
+
+// export everything
+exports.loadGmapApi = _manager.loadGmapApi;
+exports.Marker = _marker2.default;
+exports.Polyline = _polyline2.default;
+exports.Polygon = _polygon2.default;
+exports.Circle = _circle2.default;
+exports.Cluster = Cluster;
+exports.Rectangle = _rectangle2.default;
+exports.InfoWindow = _infoWindow2.default;
+exports.Map = _map2.default;
+exports.PlaceInput = _placeInput2.default;
+exports.MapElementMixin = _mapElementMixin2.default;
+exports.MapElementFactory = _mapElementFactory2.default;
+exports.Autocomplete = _autocomplete2.default;
+exports.MountableMixin = _mountableMixin2.default;
+exports.StreetViewPanorama = _streetViewPanorama2.default;
+function install(Vue, options) {
+  // Set defaults
+  options = _extends({
+    installComponents: true,
+    autobindAllEvents: false
+  }, options);
+
+  // Update the global `GmapApi`. This will allow
+  // components to use the `google` global reactively
+  // via:
+  //   import {gmapApi} from 'vue2-google-maps'
+  //   export default {  computed: { google: gmapApi }  }
+  GmapApi = new Vue({ data: { gmapApi: null } });
+
+  var defaultResizeBus = new Vue();
+
+  // Use a lazy to only load the API when
+  // a VGM component is loaded
+  var gmapApiPromiseLazy = makeGmapApiPromiseLazy(options);
+
+  Vue.mixin({
+    created: function created() {
+      this.$gmapDefaultResizeBus = defaultResizeBus;
+      this.$gmapOptions = options;
+      this.$gmapApiPromiseLazy = gmapApiPromiseLazy;
+    }
+  });
+  Vue.$gmapDefaultResizeBus = defaultResizeBus;
+  Vue.$gmapApiPromiseLazy = gmapApiPromiseLazy;
+
+  if (options.installComponents) {
+    Vue.component('GmapMap', _map2.default);
+    Vue.component('GmapMarker', _marker2.default);
+    Vue.component('GmapInfoWindow', _infoWindow2.default);
+    Vue.component('GmapPolyline', _polyline2.default);
+    Vue.component('GmapPolygon', _polygon2.default);
+    Vue.component('GmapCircle', _circle2.default);
+    Vue.component('GmapRectangle', _rectangle2.default);
+    Vue.component('GmapAutocomplete', _autocomplete2.default);
+    Vue.component('GmapPlaceInput', _placeInput2.default);
+    Vue.component('GmapStreetViewPanorama', _streetViewPanorama2.default);
+  }
+}
+
+function makeGmapApiPromiseLazy(options) {
+  // Things to do once the API is loaded
+  function onApiLoaded() {
+    GmapApi.gmapApi = {};
+    return window.google;
+  }
+
+  if (options.load) {
+    // If library should load the API
+    return (0, _lazyValue2.default)(function () {
+      // Load the
+      // This will only be evaluated once
+      if (typeof window === 'undefined') {
+        // server side -- never resolve this promise
+        return new Promise(function () {}).then(onApiLoaded);
+      } else {
+        return new Promise(function (resolve, reject) {
+          try {
+            window['vueGoogleMapsInit'] = resolve;
+            (0, _manager.loadGmapApi)(options.load, options.loadCn);
+          } catch (err) {
+            reject(err);
+          }
+        }).then(onApiLoaded);
+      }
+    });
+  } else {
+    // If library should not handle API, provide
+    // end-users with the global `vueGoogleMapsInit: () => undefined`
+    // when the Google Maps API has been loaded
+    var promise = new Promise(function (resolve) {
+      if (typeof window === 'undefined') {
+        // Do nothing if run from server-side
+        return;
+      }
+      window['vueGoogleMapsInit'] = resolve;
+    }).then(onApiLoaded);
+
+    return (0, _lazyValue2.default)(function () {
+      return promise;
+    });
+  }
+}
+
+function gmapApi() {
+  return GmapApi.gmapApi && window.google;
+}
+
+/***/ }),
+/* 205 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = fn => {
+	let called = false;
+	let ret;
+
+	return () => {
+		if (!called) {
+			called = true;
+			ret = fn();
+		}
+
+		return ret;
+	};
+};
+
+
+/***/ }),
 /* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var isApiSetUp = false;
+
+/**
+ * @param apiKey    API Key, or object with the URL parameters. For example
+ *                  to use Google Maps Premium API, pass
+ *                    `{ client: <YOUR-CLIENT-ID> }`.
+ *                  You may pass the libraries and/or version (as `v`) parameter into
+ *                  this parameter and skip the next two parameters
+ * @param version   Google for Maps version
+ * @param libraries Libraries to load (@see
+ *                  https://developers.google.com/maps/documentation/javascript/libraries)
+ * @param loadCn    Boolean. If set to true, the map will be loaded form goole maps China
+ *                  (@see https://developers.google.com/maps/documentation/javascript/basics#GoogleMapsChina)
+ *
+ * Example:
+ * ```
+ *      import {load} from 'vue-google-maps'
+ *
+ *      load(<YOUR-API-KEY>)
+ *
+ *      load({
+ *              key: <YOUR-API-KEY>,
+ *      })
+ *
+ *      load({
+ *              client: <YOUR-CLIENT-ID>,
+ *              channel: <YOUR CHANNEL>
+ *      })
+ * ```
+ */
+var loadGmapApi = exports.loadGmapApi = function (options, loadCn) {
+  if (typeof document === 'undefined') {
+    // Do nothing if run from server-side
+    return;
+  }
+  if (!isApiSetUp) {
+    isApiSetUp = true;
+
+    var googleMapScript = document.createElement('SCRIPT');
+
+    // Allow options to be an object.
+    // This is to support more esoteric means of loading Google Maps,
+    // such as Google for business
+    // https://developers.google.com/maps/documentation/javascript/get-api-key#premium-auth
+    if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) !== 'object') {
+      throw new Error('options should  be an object');
+    }
+
+    // libraries
+    if (Array.prototype.isPrototypeOf(options.libraries)) {
+      options.libraries = options.libraries.join(',');
+    }
+    options['callback'] = 'vueGoogleMapsInit';
+
+    var baseUrl = 'https://maps.googleapis.com/';
+
+    if (typeof loadCn === 'boolean' && loadCn === true) {
+      baseUrl = 'http://maps.google.cn/';
+    }
+
+    var url = baseUrl + 'maps/api/js?' + Object.keys(options).map(function (key) {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(options[key]);
+    }).join('&');
+
+    googleMapScript.setAttribute('src', url);
+    googleMapScript.setAttribute('async', '');
+    googleMapScript.setAttribute('defer', '');
+    document.head.appendChild(googleMapScript);
+  } else {
+    throw new Error('You already started the loading of google maps');
+  }
+};
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mapElementFactory = __webpack_require__(4);
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  animation: {
+    twoWay: true,
+    type: Number
+  },
+  attribution: {
+    type: Object
+  },
+  clickable: {
+    type: Boolean,
+    twoWay: true,
+    default: true
+  },
+  cursor: {
+    type: String,
+    twoWay: true
+  },
+  draggable: {
+    type: Boolean,
+    twoWay: true,
+    default: false
+  },
+  icon: {
+    twoWay: true
+  },
+  label: {},
+  opacity: {
+    type: Number,
+    default: 1
+  },
+  options: {
+    type: Object
+  },
+  place: {
+    type: Object
+  },
+  position: {
+    type: Object,
+    twoWay: true
+  },
+  shape: {
+    type: Object,
+    twoWay: true
+  },
+  title: {
+    type: String,
+    twoWay: true
+  },
+  zIndex: {
+    type: Number,
+    twoWay: true
+  },
+  visible: {
+    twoWay: true,
+    default: true
+  }
+};
+
+var events = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
+
+/**
+ * @class Marker
+ *
+ * Marker class with extra support for
+ *
+ * - Embedded info windows
+ * - Clustered markers
+ *
+ * Support for clustered markers is for backward-compatability
+ * reasons. Otherwise we should use a cluster-marker mixin or
+ * subclass.
+ */
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  events: events,
+  name: 'marker',
+  ctr: function ctr() {
+    return google.maps.Marker;
+  },
+
+  inject: {
+    '$clusterPromise': {
+      default: null
+    }
+  },
+
+  render: function render(h) {
+    if (!this.$slots.default || this.$slots.default.length === 0) {
+      return '';
+    } else if (this.$slots.default.length === 1) {
+      // So that infowindows can have a marker parent
+      return this.$slots.default[0];
+    } else {
+      return h('div', this.$slots.default);
+    }
+  },
+  destroyed: function destroyed() {
+    if (!this.$markerObject) {
+      return;
+    }
+
+    if (this.$clusterObject) {
+      // Repaint will be performed in `updated()` of cluster
+      this.$clusterObject.removeMarker(this.$markerObject, true);
+    } else {
+      this.$markerObject.setMap(null);
+    }
+  },
+  beforeCreate: function beforeCreate(options) {
+    if (this.$clusterPromise) {
+      options.map = null;
+    }
+
+    return this.$clusterPromise;
+  },
+  afterCreate: function afterCreate(inst) {
+    var _this = this;
+
+    if (this.$clusterPromise) {
+      this.$clusterPromise.then(function (co) {
+        co.addMarker(inst);
+        _this.$clusterObject = co;
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _mapElementFactory = __webpack_require__(4);
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  draggable: {
+    type: Boolean
+  },
+  editable: {
+    type: Boolean
+  },
+  options: {
+    twoWay: false,
+    type: Object
+  },
+  path: {
+    type: Array,
+    twoWay: true
+  }
+};
+
+var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  props: {
+    deepWatch: {
+      type: Boolean,
+      default: false
+    }
+  },
+  events: events,
+
+  name: 'polyline',
+  ctr: function ctr() {
+    return google.maps.Polyline;
+  },
+
+  afterCreate: function afterCreate() {
+    var _this = this;
+
+    var clearEvents = function () {};
+
+    this.$watch('path', function (path) {
+      if (path) {
+        clearEvents();
+
+        _this.$polylineObject.setPath(path);
+
+        var mvcPath = _this.$polylineObject.getPath();
+        var eventListeners = [];
+
+        var updatePaths = function () {
+          _this.$emit('path_changed', _this.$polylineObject.getPath());
+        };
+
+        eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
+        eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
+        eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
+
+        clearEvents = function () {
+          eventListeners.map(function (_ref) {
+            var _ref2 = _slicedToArray(_ref, 2),
+                obj = _ref2[0],
+                listenerHandle = _ref2[1];
+
+            return (// eslint-disable-line no-unused-vars
+              google.maps.event.removeListener(listenerHandle)
+            );
+          });
+        };
+      }
+    }, {
+      deep: this.deepWatch,
+      immediate: true
+    });
+  }
+});
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _mapElementFactory = __webpack_require__(4);
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  draggable: {
+    type: Boolean
+  },
+  editable: {
+    type: Boolean
+  },
+  options: {
+    type: Object
+  },
+  path: {
+    type: Array,
+    twoWay: true,
+    noBind: true
+  },
+  paths: {
+    type: Array,
+    twoWay: true,
+    noBind: true
+  }
+};
+
+var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  props: {
+    deepWatch: {
+      type: Boolean,
+      default: false
+    }
+  },
+  events: events,
+  mappedProps: props,
+  name: 'polygon',
+  ctr: function ctr() {
+    return google.maps.Polygon;
+  },
+
+  beforeCreate: function beforeCreate(options) {
+    if (!options.path) delete options.path;
+    if (!options.paths) delete options.paths;
+  },
+  afterCreate: function afterCreate(inst) {
+    var _this = this;
+
+    var clearEvents = function () {};
+
+    // Watch paths, on our own, because we do not want to set either when it is
+    // empty
+    this.$watch('paths', function (paths) {
+      if (paths) {
+        clearEvents();
+
+        inst.setPaths(paths);
+
+        var updatePaths = function () {
+          _this.$emit('paths_changed', inst.getPaths());
+        };
+        var eventListeners = [];
+
+        var mvcArray = inst.getPaths();
+        for (var i = 0; i < mvcArray.getLength(); i++) {
+          var mvcPath = mvcArray.getAt(i);
+          eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
+          eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
+          eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
+        }
+        eventListeners.push([mvcArray, mvcArray.addListener('insert_at', updatePaths)]);
+        eventListeners.push([mvcArray, mvcArray.addListener('remove_at', updatePaths)]);
+        eventListeners.push([mvcArray, mvcArray.addListener('set_at', updatePaths)]);
+
+        clearEvents = function () {
+          eventListeners.map(function (_ref) {
+            var _ref2 = _slicedToArray(_ref, 2),
+                obj = _ref2[0],
+                listenerHandle = _ref2[1];
+
+            return (// eslint-disable-line no-unused-vars
+              google.maps.event.removeListener(listenerHandle)
+            );
+          });
+        };
+      }
+    }, {
+      deep: this.deepWatch,
+      immediate: true
+    });
+
+    this.$watch('path', function (path) {
+      if (path) {
+        clearEvents();
+
+        inst.setPaths(path);
+
+        var mvcPath = inst.getPath();
+        var eventListeners = [];
+
+        var updatePaths = function () {
+          _this.$emit('path_changed', inst.getPath());
+        };
+
+        eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
+        eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
+        eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
+
+        clearEvents = function () {
+          eventListeners.map(function (_ref3) {
+            var _ref4 = _slicedToArray(_ref3, 2),
+                obj = _ref4[0],
+                listenerHandle = _ref4[1];
+
+            return (// eslint-disable-line no-unused-vars
+              google.maps.event.removeListener(listenerHandle)
+            );
+          });
+        };
+      }
+    }, {
+      deep: this.deepWatch,
+      immediate: true
+    });
+  }
+});
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mapElementFactory = __webpack_require__(4);
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  center: {
+    type: Object,
+    twoWay: true,
+    required: true
+  },
+  radius: {
+    type: Number,
+    twoWay: true
+  },
+  draggable: {
+    type: Boolean,
+    default: false
+  },
+  editable: {
+    type: Boolean,
+    default: false
+  },
+  options: {
+    type: Object,
+    twoWay: false
+  }
+};
+
+var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  name: 'circle',
+  ctr: function ctr() {
+    return google.maps.Circle;
+  },
+  events: events
+});
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mapElementFactory = __webpack_require__(4);
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  bounds: {
+    type: Object,
+    twoWay: true
+  },
+  draggable: {
+    type: Boolean,
+    default: false
+  },
+  editable: {
+    type: Boolean,
+    default: false
+  },
+  options: {
+    type: Object,
+    twoWay: false
+  }
+};
+
+var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  name: 'rectangle',
+  ctr: function ctr() {
+    return google.maps.Rectangle;
+  },
+  events: events
+});
+
+/***/ }),
+/* 212 */,
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mapElementFactory = __webpack_require__(4);
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  options: {
+    type: Object,
+    required: false,
+    default: function _default() {
+      return {};
+    }
+  },
+  position: {
+    type: Object,
+    twoWay: true
+  },
+  zIndex: {
+    type: Number,
+    twoWay: true
+  }
+};
+
+var events = ['domready', 'closeclick', 'content_changed'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  events: events,
+  name: 'infoWindow',
+  ctr: function ctr() {
+    return google.maps.InfoWindow;
+  },
+  props: {
+    opened: {
+      type: Boolean,
+      default: true
+    }
+  },
+
+  inject: {
+    '$markerPromise': {
+      default: null
+    }
+  },
+
+  mounted: function mounted() {
+    var el = this.$refs.flyaway;
+    el.parentNode.removeChild(el);
+  },
+  beforeCreate: function beforeCreate(options) {
+    var _this = this;
+
+    options.content = this.$refs.flyaway;
+
+    if (this.$markerPromise) {
+      delete options.position;
+      return this.$markerPromise.then(function (mo) {
+        _this.$markerObject = mo;
+        return mo;
+      });
+    }
+  },
+
+
+  methods: {
+    _openInfoWindow: function _openInfoWindow() {
+      if (this.opened) {
+        if (this.$markerObject !== null) {
+          this.$infoWindowObject.open(this.$map, this.$markerObject);
+        } else {
+          this.$infoWindowObject.open(this.$map);
+        }
+      } else {
+        this.$infoWindowObject.close();
+      }
+    }
+  },
+
+  afterCreate: function afterCreate() {
+    var _this2 = this;
+
+    this._openInfoWindow();
+    this.$watch('opened', function () {
+      _this2._openInfoWindow();
+    });
+  }
+});
+
+/***/ }),
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _bindEvents = __webpack_require__(31);
+
+var _bindEvents2 = _interopRequireDefault(_bindEvents);
+
+var _bindProps = __webpack_require__(12);
+
+var _mountableMixin = __webpack_require__(33);
+
+var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
+
+var _TwoWayBindingWrapper = __webpack_require__(78);
+
+var _TwoWayBindingWrapper2 = _interopRequireDefault(_TwoWayBindingWrapper);
+
+var _WatchPrimitiveProperties = __webpack_require__(32);
+
+var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
+
+var _mapElementFactory = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  center: {
+    required: true,
+    twoWay: true,
+    type: Object,
+    noBind: true
+  },
+  zoom: {
+    required: false,
+    twoWay: true,
+    type: Number,
+    noBind: true
+  },
+  heading: {
+    type: Number,
+    twoWay: true
+  },
+  mapTypeId: {
+    twoWay: true,
+    type: String
+  },
+  tilt: {
+    twoWay: true,
+    type: Number
+  },
+  options: {
+    type: Object,
+    default: function _default() {
+      return {};
+    }
+  }
+};
+
+var events = ['bounds_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'mousemove', 'mouseout', 'mouseover', 'resize', 'rightclick', 'tilesloaded'];
+
+// Plain Google Maps methods exposed here for convenience
+var linkedMethods = ['panBy', 'panTo', 'panToBounds', 'fitBounds'].reduce(function (all, methodName) {
+  all[methodName] = function () {
+    if (this.$mapObject) {
+      this.$mapObject[methodName].apply(this.$mapObject, arguments);
+    }
+  };
+  return all;
+}, {});
+
+// Other convenience methods exposed by Vue Google Maps
+var customMethods = {
+  resize: function resize() {
+    if (this.$mapObject) {
+      google.maps.event.trigger(this.$mapObject, 'resize');
+    }
+  },
+  resizePreserveCenter: function resizePreserveCenter() {
+    if (!this.$mapObject) {
+      return;
+    }
+
+    var oldCenter = this.$mapObject.getCenter();
+    google.maps.event.trigger(this.$mapObject, 'resize');
+    this.$mapObject.setCenter(oldCenter);
+  },
+
+
+  /// Override mountableMixin::_resizeCallback
+  /// because resizePreserveCenter is usually the
+  /// expected behaviour
+  _resizeCallback: function _resizeCallback() {
+    this.resizePreserveCenter();
+  }
+};
+
+exports.default = {
+  mixins: [_mountableMixin2.default],
+  props: (0, _mapElementFactory.mappedPropsToVueProps)(props),
+
+  provide: function provide() {
+    var _this = this;
+
+    this.$mapPromise = new Promise(function (resolve, reject) {
+      _this.$mapPromiseDeferred = { resolve: resolve, reject: reject };
+    });
+    return {
+      '$mapPromise': this.$mapPromise
+    };
+  },
+
+
+  computed: {
+    finalLat: function finalLat() {
+      return this.center && typeof this.center.lat === 'function' ? this.center.lat() : this.center.lat;
+    },
+    finalLng: function finalLng() {
+      return this.center && typeof this.center.lng === 'function' ? this.center.lng() : this.center.lng;
+    },
+    finalLatLng: function finalLatLng() {
+      return { lat: this.finalLat, lng: this.finalLng };
+    }
+  },
+
+  watch: {
+    zoom: function zoom(_zoom) {
+      if (this.$mapObject) {
+        this.$mapObject.setZoom(_zoom);
+      }
+    }
+  },
+
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return this.$gmapApiPromiseLazy().then(function () {
+      // getting the DOM element where to create the map
+      var element = _this2.$refs['vue-map'];
+
+      // creating the map
+      var options = _extends({}, _this2.options, (0, _bindProps.getPropsValues)(_this2, props));
+      delete options.options;
+      _this2.$mapObject = new google.maps.Map(element, options);
+
+      // binding properties (two and one way)
+      (0, _bindProps.bindProps)(_this2, _this2.$mapObject, props);
+      // binding events
+      (0, _bindEvents2.default)(_this2, _this2.$mapObject, events);
+
+      // manually trigger center and zoom
+      (0, _TwoWayBindingWrapper2.default)(function (increment, decrement, shouldUpdate) {
+        _this2.$mapObject.addListener('center_changed', function () {
+          if (shouldUpdate()) {
+            _this2.$emit('center_changed', _this2.$mapObject.getCenter());
+          }
+          decrement();
+        });
+
+        (0, _WatchPrimitiveProperties2.default)(_this2, ['finalLat', 'finalLng'], function updateCenter() {
+          increment();
+          _this2.$mapObject.setCenter(_this2.finalLatLng);
+        });
+      });
+      _this2.$mapObject.addListener('zoom_changed', function () {
+        _this2.$emit('zoom_changed', _this2.$mapObject.getZoom());
+      });
+      _this2.$mapObject.addListener('bounds_changed', function () {
+        _this2.$emit('bounds_changed', _this2.$mapObject.getBounds());
+      });
+
+      _this2.$mapPromiseDeferred.resolve(_this2.$mapObject);
+
+      return _this2.$mapObject;
+    }).catch(function (error) {
+      throw error;
+    });
+  },
+
+  methods: _extends({}, customMethods, linkedMethods)
+};
+
+/***/ }),
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _bindEvents = __webpack_require__(31);
+
+var _bindEvents2 = _interopRequireDefault(_bindEvents);
+
+var _bindProps = __webpack_require__(12);
+
+var _mountableMixin = __webpack_require__(33);
+
+var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
+
+var _TwoWayBindingWrapper = __webpack_require__(78);
+
+var _TwoWayBindingWrapper2 = _interopRequireDefault(_TwoWayBindingWrapper);
+
+var _WatchPrimitiveProperties = __webpack_require__(32);
+
+var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
+
+var _mapElementFactory = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  zoom: {
+    twoWay: true,
+    type: Number
+  },
+  pov: {
+    twoWay: true,
+    type: Object,
+    trackProperties: ['pitch', 'heading']
+  },
+  position: {
+    twoWay: true,
+    type: Object,
+    noBind: true
+  },
+  pano: {
+    twoWay: true,
+    type: String
+  },
+  motionTracking: {
+    twoWay: false,
+    type: Boolean
+  },
+  visible: {
+    twoWay: true,
+    type: Boolean,
+    default: true
+  },
+  options: {
+    twoWay: false,
+    type: Object,
+    default: function _default() {
+      return {};
+    }
+  }
+};
+
+var events = ['closeclick', 'status_changed'];
+
+exports.default = {
+  mixins: [_mountableMixin2.default],
+  props: (0, _mapElementFactory.mappedPropsToVueProps)(props),
+  replace: false, // necessary for css styles
+  methods: {
+    resize: function resize() {
+      if (this.$panoObject) {
+        google.maps.event.trigger(this.$panoObject, 'resize');
+      }
+    }
+  },
+
+  provide: function provide() {
+    var _this = this;
+
+    var promise = new Promise(function (resolve, reject) {
+      _this.$panoPromiseDeferred = { resolve: resolve, reject: reject };
+    });
+    return {
+      '$panoPromise': promise,
+      '$mapPromise': promise // so that we can use it with markers
+    };
+  },
+
+
+  computed: {
+    finalLat: function finalLat() {
+      return this.position && typeof this.position.lat === 'function' ? this.position.lat() : this.position.lat;
+    },
+    finalLng: function finalLng() {
+      return this.position && typeof this.position.lng === 'function' ? this.position.lng() : this.position.lng;
+    },
+    finalLatLng: function finalLatLng() {
+      return {
+        lat: this.finalLat,
+        lng: this.finalLng
+      };
+    }
+  },
+
+  watch: {
+    zoom: function zoom(_zoom) {
+      if (this.$panoObject) {
+        this.$panoObject.setZoom(_zoom);
+      }
+    }
+  },
+
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return this.$gmapApiPromiseLazy().then(function () {
+      // getting the DOM element where to create the map
+      var element = _this2.$refs['vue-street-view-pano'];
+
+      // creating the map
+      var options = _extends({}, _this2.options, (0, _bindProps.getPropsValues)(_this2, props));
+      delete options.options;
+
+      _this2.$panoObject = new google.maps.StreetViewPanorama(element, options);
+
+      // binding properties (two and one way)
+      (0, _bindProps.bindProps)(_this2, _this2.$panoObject, props);
+      // binding events
+      (0, _bindEvents2.default)(_this2, _this2.$panoObject, events);
+
+      // manually trigger position
+      (0, _TwoWayBindingWrapper2.default)(function (increment, decrement, shouldUpdate) {
+        // Panos take a while to load
+        increment();
+
+        _this2.$panoObject.addListener('position_changed', function () {
+          if (shouldUpdate()) {
+            _this2.$emit('position_changed', _this2.$panoObject.getPosition());
+          }
+          decrement();
+        });
+
+        (0, _WatchPrimitiveProperties2.default)(_this2, ['finalLat', 'finalLng'], function updateCenter() {
+          increment();
+          _this2.$panoObject.setPosition(_this2.finalLatLng);
+        });
+      });
+
+      _this2.$panoPromiseDeferred.resolve(_this2.$panoObject);
+
+      return _this2.$panoPromise;
+    }).catch(function (error) {
+      throw error;
+    });
+  }
+};
+
+/***/ }),
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _bindProps = __webpack_require__(12);
+
+var _simulateArrowDown = __webpack_require__(81);
+
+var _simulateArrowDown2 = _interopRequireDefault(_simulateArrowDown);
+
+var _mapElementFactory = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mappedProps = {
+  bounds: {
+    type: Object
+  },
+  componentRestrictions: {
+    type: Object,
+    // Do not bind -- must check for undefined
+    // in the property
+    noBind: true
+  },
+  types: {
+    type: Array,
+    default: function _default() {
+      return [];
+    }
+  }
+};
+
+var props = {
+  placeholder: {
+    required: false,
+    type: String
+  },
+  selectFirstOnEnter: {
+    require: false,
+    type: Boolean,
+    default: false
+  },
+  value: {
+    type: String,
+    default: ''
+  },
+  options: {
+    type: Object
+  }
+};
+
+exports.default = {
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$gmapApiPromiseLazy().then(function () {
+      if (_this.selectFirstOnEnter) {
+        (0, _simulateArrowDown2.default)(_this.$refs.input);
+      }
+
+      if (typeof google.maps.places.Autocomplete !== 'function') {
+        throw new Error('google.maps.places.Autocomplete is undefined. Did you add \'places\' to libraries when loading Google Maps?');
+      }
+
+      /* eslint-disable no-unused-vars */
+      var finalOptions = _extends({}, (0, _bindProps.getPropsValues)(_this, mappedProps), _this.options);
+
+      _this.$autocomplete = new google.maps.places.Autocomplete(_this.$refs.input, finalOptions);
+      (0, _bindProps.bindProps)(_this, _this.$autocomplete, mappedProps);
+
+      _this.$watch('componentRestrictions', function (v) {
+        if (v !== undefined) {
+          _this.$autocomplete.setComponentRestrictions(v);
+        }
+      });
+
+      // Not using `bindEvents` because we also want
+      // to return the result of `getPlace()`
+      _this.$autocomplete.addListener('place_changed', function () {
+        _this.$emit('place_changed', _this.$autocomplete.getPlace());
+      });
+    });
+  },
+
+  props: _extends({}, (0, _mapElementFactory.mappedPropsToVueProps)(mappedProps), props)
+};
+
+/***/ }),
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64438,7 +64462,7 @@ exports.default = Object.freeze({
 //# sourceMappingURL=colors.js.map
 
 /***/ }),
-/* 207 */
+/* 231 */
 /***/ (function(module, exports) {
 
 /*
@@ -64520,7 +64544,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 208 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -64539,7 +64563,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(83)
+var listToStyles = __webpack_require__(88)
 
 /*
 type StyleObject = {
@@ -64748,7 +64772,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 209 */
+/* 233 */
 /***/ (function(module, exports) {
 
 module.exports = function escape(url) {
@@ -64771,4 +64795,4 @@ module.exports = function escape(url) {
 
 /***/ })
 ]);
-//# sourceMappingURL=vendor.09a7d412399d5929ec65.js.map
+//# sourceMappingURL=vendor.b0f6e43bd32cf719be32.js.map
