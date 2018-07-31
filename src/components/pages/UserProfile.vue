@@ -18,7 +18,7 @@
                 </v-list-tile-avatar>
 
                 <v-list-tile-content>
-                  <v-list-tile-title><h5>{{getProfileData.email}}</h5></v-list-tile-title>
+                  <v-list-tile-title color="primary"><h5>{{getProfileData.email}}</h5></v-list-tile-title>
                 </v-list-tile-content>
 
                 <v-list-tile-action>
@@ -177,7 +177,7 @@ export default {
             uid: this.$store.getters['dataStore/getUser'].uid
           })
       } else {
-        this.$store.commit('dataStore/switchLoadingInput', true)
+        this.$store.commit('dataStore/switchLoadingInput', false)
         this.snackbar = true
       }
     }
