@@ -148,9 +148,6 @@ export default {
 </script>
 
 <style scoped>
-  main {
-    text-align: center;
-  }
   .logoFlex{
     display: inline-flex;
     align-items: center;

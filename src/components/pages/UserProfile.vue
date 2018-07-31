@@ -139,6 +139,7 @@ import language from '../profile_inputs/language'
 import hobby from '../profile_inputs/hobby'
 import work from '../profile_inputs/work'
 import car from '../profile_inputs/car'
+import discount from '../profile_inputs/discount'
 export default {
   name: 'registration',
   components: {
@@ -148,7 +149,8 @@ export default {
     language,
     work,
     hobby,
-    car
+    car,
+    discount
   },
   data () {
     return {
@@ -254,5 +256,14 @@ export default {
   }
   button{
     margin: 0;
+  }
+  @media screen and (max-width: 768px) {
+    .btnSave{
+      flex-direction: column;
+      align-items: center;
+    }
+    .btnSave > div:last-child{
+      margin-top: 15px;
+    }
   }
 </style>

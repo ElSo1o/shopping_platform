@@ -1,4 +1,8 @@
 <template>
+  <div>
+    <div class="titleEducation">
+      <h2>Укажите ваши интересы</h2>
+    </div>
     <v-form v-model="valid" ref="form" class="formInput mainHobby">
       <div>
         <div v-for="(item, i, key) in valueProfile.itemsValueFirst" :key="key">
@@ -23,6 +27,7 @@
         </div>
       </div>
     </v-form>
+  </div>
 </template>
 
 <script>
@@ -42,6 +47,12 @@ export default {
 </script>
 
 <style scoped>
+  .titleEducation{
+    text-align: left;
+  }
+  .titleEducation h2{
+    font-weight: 400;
+  }
   .mainHobby{
     display: flex;
     justify-content: space-between;

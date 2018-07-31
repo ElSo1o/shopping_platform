@@ -203,6 +203,12 @@ export default {
         label: 'На гарантии',
         value: false
       }
+    },
+    discount: {
+      label: 'Дисконтная карта',
+      value: '',
+      dataArray: [
+      ]
     }
   },
   loadingInput: {

@@ -157,6 +157,7 @@ export default {
     z-index: 4;
   }
   .switchPicker{
+    text-align: center;
     position: absolute;
     left: 0;
     right: 0;

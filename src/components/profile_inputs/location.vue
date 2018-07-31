@@ -1,5 +1,8 @@
 <template>
     <div>
+      <div class="titleEducation">
+        <h2>Населенные пункты, в которых Вы готовы работать</h2>
+      </div>
       <v-form v-model="valid" ref="form" class="formInput">
         <div>
           <v-text-field
@@ -113,5 +116,10 @@
 </script>
 
 <style scoped>
-
+  .titleEducation{
+    text-align: left;
+  }
+  .titleEducation h2{
+    font-weight: 400;
+  }
 </style>
