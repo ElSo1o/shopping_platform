@@ -136,13 +136,15 @@ import personal from '../profile_inputs/personal'
 import location from '../profile_inputs/location'
 import education from '../profile_inputs/education'
 import language from '../profile_inputs/language'
+import work from '../profile_inputs/work'
 export default {
   name: 'registration',
   components: {
     personal,
     location,
     education,
-    language
+    language,
+    work
   },
   data () {
     return {

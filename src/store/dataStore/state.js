@@ -97,6 +97,22 @@ export default {
         template: ['Начальный', 'Средний', 'Продвинутый', 'Владею в совершенстве', 'Родной'],
         value: 0
       }
+    },
+    work: {
+      sphere: {
+        value: ''
+      },
+      organization: {
+        value: ''
+      },
+      position: {
+        value: ''
+      },
+      period: {
+        value: '',
+        nowPeriod: false,
+        periodTo: ''
+      }
     }
   },
   loadingInput: {

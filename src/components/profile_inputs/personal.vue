@@ -40,12 +40,17 @@
           <v-date-picker
             v-model="valueProfile.birthday.value"
             :loading="loading"
+            color="primary"
+            header-color="green lighten-1"
+            ref="picker"
+            :max="new Date().toISOString().substr(0, 10)"
+            min="1950-01-01"
             no-title
             locale="ru-ru"
             first-day-of-week="1"
             scrollable>
             <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+            <v-btn flat color="primary" @click="menu = false">Выйти</v-btn>
             <v-btn flat color="primary" @click="$refs.menu.save(valueProfile.birthday.value)">OK</v-btn>
           </v-date-picker>
         </v-menu>
@@ -125,6 +130,11 @@
       },
       loading () {
         return this.$store.getters['dataStore/getLoadingInput']
+      }
+    },
+    watch: {
+      menu (val) {
+        val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
       }
     }
   }
