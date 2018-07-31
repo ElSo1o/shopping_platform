@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="titleEducation">
-      <h2>Образование, специальность</h2>
+      <h2>Укажите языки, которыми владеете</h2>
     </div>
     <v-form v-model="valid" ref="form" class="formInput">
       <div>

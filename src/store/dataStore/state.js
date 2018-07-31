@@ -113,6 +113,96 @@ export default {
         nowPeriod: false,
         periodTo: ''
       }
+    },
+    hobby: {
+      itemsValueFirst: [
+        {
+          name: 'Автосалоны',
+          value: false
+        },
+        {
+          name: 'Аптечные сети',
+          value: false
+        },
+        {
+          name: 'Банки,кредитные услуги',
+          value: false
+        },
+        {
+          name: 'Безопасность, охрана',
+          value: false
+        },
+        {
+          name: 'Гостиницы и отели',
+          value: false
+        },
+        {
+          name: 'Зоотовары, ветеринарные услуги',
+          value: false
+        },
+        {
+          name: 'Издательства и СМИ',
+          value: false
+        },
+        {
+          name: 'Казино, игорный бизнес',
+          value: false
+        }
+      ],
+      itemsValueSecond: [
+        {
+          name: 'Мебельные салоны',
+          value: false
+        },
+        {
+          name: 'Медицинские учреждения и услуги',
+          value: false
+        },
+        {
+          name: 'Недвижимость',
+          value: false
+        },
+        {
+          name: 'Образование, воспитание',
+          value: false
+        },
+        {
+          name: 'Продуктовые сети',
+          value: false
+        },
+        {
+          name: 'Промышленность, производство',
+          value: false
+        },
+        {
+          name: 'Рестораны, кафе, бары',
+          value: false
+        },
+        {
+          name: 'Ритуальные услуги, салоны',
+          value: false
+        }
+      ]
+    },
+    car: {
+      inputs: {
+        mark: {
+          value: '',
+          label: 'Марка'
+        },
+        model: {
+          value: '',
+          label: 'Модель'
+        },
+        years: {
+          value: '',
+          label: 'Год выпуска'
+        }
+      },
+      guarantee: {
+        label: 'На гарантии',
+        value: false
+      }
     }
   },
   loadingInput: {

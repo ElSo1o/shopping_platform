@@ -136,7 +136,9 @@ import personal from '../profile_inputs/personal'
 import location from '../profile_inputs/location'
 import education from '../profile_inputs/education'
 import language from '../profile_inputs/language'
+import hobby from '../profile_inputs/hobby'
 import work from '../profile_inputs/work'
+import car from '../profile_inputs/car'
 export default {
   name: 'registration',
   components: {
@@ -144,7 +146,9 @@ export default {
     location,
     education,
     language,
-    work
+    work,
+    hobby,
+    car
   },
   data () {
     return {
