@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainSection from '../components/layout/MainSection'
-import AuthUser from '../components/layout/AuthUser'
-import UserProfile from '../components/pages/UserProfile'
-import Welcome from '../components/pages/Welcome'
-import Balance from '../components/pages/Balance'
+import MainSection from '@/components/layout/MainSection'
+import AuthUser from '@/components/layout/AuthUser'
+import UserProfile from '@/components/pages/UserProfile'
+import Welcome from '@/components/pages/Welcome'
+import Balance from '@/components/pages/Balance'
 import authUser from './verificationUser'
 Vue.use(Router)
 

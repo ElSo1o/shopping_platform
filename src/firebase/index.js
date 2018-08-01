@@ -5,12 +5,12 @@ import 'firebase/firestore'
 // initialise your app
 
 export default firebase.initializeApp({
-  apiKey: 'AIzaSyC07ivK0tRiDJA8xoZGogjLmdHsHLZ5OGU',
-  authDomain: 'msp4me-test.firebaseapp.com',
-  databaseURL: 'https://msp4me-test.firebaseio.com',
-  projectId: 'msp4me-test',
-  storageBucket: 'msp4me-test.appspot.com',
-  messagingSenderId: '585087806731'
+  apiKey: 'AIzaSyCxBuL2rOVJA3QsALRfG7LwlATVXaZFiXE',
+  authDomain: 'msp4-test.firebaseapp.com',
+  databaseURL: 'https://msp4-test.firebaseio.com',
+  projectId: 'msp4-test',
+  storageBucket: 'msp4-test.appspot.com',
+  messagingSenderId: '957335132314'
 })
 const settings = {timestampsInSnapshots: true}
 firebase.firestore().settings(settings)
