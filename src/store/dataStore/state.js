@@ -86,7 +86,8 @@ export default {
     location: {
       value: '',
       lat: null,
-      lng: null
+      lng: null,
+      dataTable: []
     },
     education: {
       type: '',

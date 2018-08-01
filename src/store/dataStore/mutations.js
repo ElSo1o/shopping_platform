@@ -39,3 +39,26 @@ export const updateIconMenu = (state, nameComponent) => {
     }
   })
 }
+export const addDataToTable = (state, data) => {
+  for (let key in state.dataInputProfile) {
+    if (key === data.key) {
+      console.log(state.dataInputProfile[key])
+      state.dataInputProfile[key].dataTable.unshift(data.value)
+    }
+  }
+}
+export const deleteDataTable = (state, info) => {
+  for (let key in state.dataInputProfile) {
+    if (key === info.key) {
+      state.dataInputProfile[key].dataTable.splice(info.index, 1)
+    }
+  }
+}
+export const saveDataTable = (state, data) => {
+  for (let key in state.dataInputProfile) {
+    if (key === data.key) {
+      state.dataInputProfile[key].dataTable.splice(data.index, 1)
+      state.dataInputProfile[key].dataTable.unshift(data.value)
+    }
+  }
+}

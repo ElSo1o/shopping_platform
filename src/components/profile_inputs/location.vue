@@ -3,29 +3,69 @@
       <div class="titleEducation">
         <h2>Населенные пункты, в которых Вы готовы работать</h2>
       </div>
-      <v-form v-model="valid" ref="form" class="formInput">
-        <div>
-          <v-text-field
-            v-model="valueProfile.value"
-            :loading="loading"
-            :rules="nameRules"
-            label="Местоположение"
-            required
-          >
-          </v-text-field>
-          <gmap-map
-            :center="center"
-            :zoom="11"
-            style="width:100%;  height: 400px;"
-            :options="options"
-            map-type-id="terrain"
-            ref="map"
-          >
-            <gmap-marker :position="center">
-            </gmap-marker>
-          </gmap-map>
-        </div>
-      </v-form>
+      <div class="headerLocation">
+        <v-form v-model="valid" ref="form" class="formInput">
+            <v-text-field
+              v-model="valueProfile.value"
+              :loading="loading"
+              :rules="nameRules"
+              label="Местоположение"
+              required
+            >
+            </v-text-field>
+        </v-form>
+        <v-btn
+          color="primary"
+          v-if="!showSaveTable"
+          @click="addItemToTable">
+          <span>Добавить</span>
+        </v-btn>
+        <v-btn
+          saveToTable
+          v-if="showSaveTable"
+          color="success"
+          style="margin-left: 25px"
+          @click="saveToTable(indexEditItem)">
+          <span>Сохранить в таблицу</span>
+        </v-btn>
+      </div>
+      <v-data-table
+        :items="valueProfile.dataTable"
+        hide-actions
+        class="elevation-1"
+        hide-headers
+        :loading="loading"
+      >
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item}}</td>
+          <td class="justify-center align-center layout px-0">
+            <v-icon
+              small
+              class="mr-2"
+              @click="editItem(props.item)"
+            >
+              edit
+            </v-icon>
+            <v-icon
+              small
+              @click="deleteItem(props.item)"
+            >
+              delete
+            </v-icon>
+          </td>
+        </template>
+      </v-data-table>
+      <gmap-map
+        :center="center"
+        :zoom="11"
+        style="width:100%;  height: 400px;"
+        :options="options"
+        map-type-id="terrain"
+        ref="map"
+      >
+        <gmap-marker :position="center">
+        </gmap-marker>
+      </gmap-map>
     </div>
 </template>
 
@@ -35,8 +75,16 @@
     data () {
       return {
         valid: false,
+        showSaveTable: false,
+        indexEditItem: null,
         nameRules: [
-          v => !!v || 'Введите адрес'
+          v => {
+            if (this.valueProfile.dataTable.length !== 0) {
+              return true
+            } else {
+              return 'Введите адрес'
+            }
+          }
         ],
         center: { lat: 45.508, lng: -73.587 },
         markers: [],
@@ -95,7 +143,7 @@
     methods: {
       geolocate: function () {
         navigator.geolocation.getCurrentPosition(position => {
-          console.log(position)
+          // console.log(position)
           this.center = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -107,6 +155,37 @@
             console.log('Geolocation off')
           }
         })
+      },
+      saveToTable (i) {
+        this.showSaveTable = false
+        // this.dataTableProfile.splice(i, 1)
+        // this.dataTableProfile.unshift({name: this.valueProfile.value})
+        // this.valueProfile.value = ''
+        this.$store.commit('dataStore/saveDataTable', {
+          key: 'location',
+          index: i,
+          value: this.valueProfile.value
+        })
+      },
+      editItem (item) {
+        this.indexEditItem = this.valueProfile.dataTable.indexOf(item)
+        this.showSaveTable = true
+        this.valueProfile.value = item
+      },
+      deleteItem (item) {
+        this.$store.commit('dataStore/deleteDataTable', {
+          key: 'location',
+          index: this.valueProfile.dataTable.indexOf(item)
+        })
+        this.valueProfile.value = ''
+      },
+      addItemToTable () {
+        if (this.valueProfile.value === '') {
+          return false
+        } else {
+          this.$store.commit('dataStore/addDataToTable', {key: 'location', value: this.valueProfile.value})
+          this.valueProfile.value = ''
+        }
       }
     },
     mounted: function () {
@@ -121,5 +200,13 @@
   }
   .titleEducation h2{
     font-weight: 400;
+  }
+  .headerLocation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .headerLocation > form{
+    flex-basis: 50%;
   }
 </style>
