@@ -56,6 +56,7 @@ export default {
   },
   dataInputProfile: {
     personal: {
+      filled: false,
       dob: {
         value: ''
       },
@@ -215,5 +216,15 @@ export default {
   },
   loadingInput: {
     loading: false
-  }
+  },
+  itemsMenu: [
+    { title: 'Основная информация', icon: 'dashboard', sure: true, component: 'personal', filled: false },
+    { title: 'Местанахождения', icon: 'room', sure: true, component: 'location', filled: false },
+    { title: 'Образование', icon: 'school', component: 'education', filled: false },
+    { title: 'Язык', icon: 'language', component: 'language', filled: false },
+    { title: 'Работа', icon: 'work', component: 'work', filled: false },
+    { title: 'Интересы', icon: 'nature_people', component: 'hobby', filled: false },
+    { title: 'Личный транспорт', icon: 'directions_car', component: 'car', filled: false },
+    { title: 'Дисконтные программы', icon: 'timeline', component: 'discount', filled: false }
+  ]
 }

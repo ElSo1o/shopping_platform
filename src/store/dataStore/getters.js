@@ -16,3 +16,6 @@ export const getDataInputProfile = (state) => {
 export const getLoadingInput = (state) => {
   return state.loadingInput.loading
 }
+export const getItemsMenu = (state) => {
+  return state.itemsMenu
+}

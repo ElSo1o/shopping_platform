@@ -51,8 +51,11 @@
                 <v-list-tile-title>
                   <div class="menuProfile">
                     <span>{{ item.title }}</span>
-                    <div v-if="item.sure">
+                    <div v-if="item.sure && !item.filled">
                       <v-icon class="warningIcon">warning</v-icon>
+                    </div>
+                    <div v-if="item.filled">
+                      <v-icon color="success">done</v-icon>
                     </div>
                   </div>
                 </v-list-tile-title>
@@ -183,16 +186,6 @@ export default {
     return {
       drawer: true,
       dialog: false,
-      itemsMenu: [
-        { title: 'Основная информация', icon: 'dashboard', sure: true, component: 'personal' },
-        { title: 'Местанахождения', icon: 'room', sure: true, component: 'location' },
-        { title: 'Образование', icon: 'school', component: 'education' },
-        { title: 'Язык', icon: 'language', component: 'language' },
-        { title: 'Работа', icon: 'work', component: 'work' },
-        { title: 'Интересы', icon: 'nature_people', component: 'hobby' },
-        { title: 'Личный транспорт', icon: 'directions_car', component: 'car' },
-        { title: 'Дисконтные программы', icon: 'timeline', component: 'discount' }
-      ],
       snackbar: false,
       color: 'error',
       mode: '',
@@ -210,13 +203,14 @@ export default {
     updateProfile (e) {
       this.$store.commit('dataStore/switchLoadingInput', true)
       if (this.$refs.component.$refs.form.validate()) {
-        console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
+        // console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
         this.$store.dispatch('dataStore/updateUserProfile',
           {
             data: this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent],
             key: this.nowComponent,
             uid: this.$store.getters['dataStore/getUser'].uid
           })
+        this.$store.commit('dataStore/updateIconMenu', this.nowComponent)
       } else {
         console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
         this.$store.commit('dataStore/switchLoadingInput', false)
@@ -236,6 +230,9 @@ export default {
     },
     userProfile () {
       return this.$store.getters['dataStore/getUser']
+    },
+    itemsMenu () {
+      return this.$store.getters['dataStore/getItemsMenu']
     }
   }
 }
