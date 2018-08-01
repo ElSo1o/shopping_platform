@@ -5,7 +5,8 @@
         :size="50"
         color="green"
         indeterminate
-      ></v-progress-circular>
+      >
+      </v-progress-circular>
     </div>
     <router-view></router-view>
   </div>

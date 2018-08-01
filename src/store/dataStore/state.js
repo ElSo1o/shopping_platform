@@ -1,5 +1,7 @@
 export default {
-  user: null,
+  user: {
+    displayName: null
+  },
   spinner: {
     show: false
   },

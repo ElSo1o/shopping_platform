@@ -98,10 +98,37 @@
                     ></v-progress-circular>
                   </v-btn>
                   <div>
-                    <p>
-                      Вы можете
-                      <a>Удалить профиль</a>
-                    </p>
+                    <v-dialog v-model="dialog" max-width="650px">
+                      <a slot="activator" style="color: #ff5252;">Удалить профиль</a>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">Удаление аккаунта</span>
+                        </v-card-title>
+
+                        <v-card-text>
+                          <v-container style="padding: 10px">
+                            <v-layout wrap>
+                              <v-flex>
+                                <v-alert
+                                  :value="true"
+                                  color="error"
+                                  icon="warning"
+                                  outline
+                                >
+                                  Вы уверены, что хотите удалить аккаунт? После удаления аккаунта, вам будет закрыт доступ к поиску новых вакансий. Также будет утеряна вся информация о выполненных заданиях, набранный рейтинг, информация вашего профиля и т.д
+                                </v-alert>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-card-text>
+
+                        <v-card-actions style="padding: 8px 24px;">
+                          <v-spacer></v-spacer>
+                          <v-btn color="success" @click.native="dialog = !dialog">Отмена</v-btn>
+                          <v-btn color="error" @click.native="deleteProfile">Удалить</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
                   </div>
                 </div>
                 <v-snackbar
@@ -155,6 +182,7 @@ export default {
   data () {
     return {
       drawer: true,
+      dialog: false,
       itemsMenu: [
         { title: 'Основная информация', icon: 'dashboard', sure: true, component: 'personal' },
         { title: 'Местанахождения', icon: 'room', sure: true, component: 'location' },
@@ -194,6 +222,9 @@ export default {
         this.$store.commit('dataStore/switchLoadingInput', false)
         this.snackbar = true
       }
+    },
+    deleteProfile (e) {
+      this.$store.dispatch('dataStore/deleteProfile', this.userProfile)
     }
   },
   computed: {
@@ -202,6 +233,9 @@ export default {
     },
     loading () {
       return this.$store.getters['dataStore/getLoadingInput']
+    },
+    userProfile () {
+      return this.$store.getters['dataStore/getUser']
     }
   }
 }

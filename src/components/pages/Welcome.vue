@@ -13,7 +13,7 @@
           <h3>Осталась сделать два шага к большому успеху!</h3>
         </div>
       </div>
-      <v-card-text >
+      <v-card-text style="text-align: center;">
         <v-stepper :value="getProfileData.profile.stepper" style="box-shadow: none">
           <v-stepper-header class="redeFineStepper">
             <div v-for="(item, i ,key) in getItemsWelcome" :key="key">
@@ -24,7 +24,7 @@
             <div class="hr"></div>
           </v-stepper-header>
         </v-stepper>
-        <div class="itemWelcome" >
+        <div class="itemWelcome">
           <div class="item" v-for="(item, i ,key) in getItemsWelcome" :key="key">
             <v-card class="barrier" v-if="!getProfileData.profile.welcome[i].active" :ripple ="true"></v-card>
             <div :class="{ notActive: !getProfileData.profile.welcome[i].active}">
@@ -50,7 +50,6 @@
 </template>
 
 <script>
-// import firebase from 'firebase'
 export default {
   name: 'welcome',
   data () {
@@ -72,16 +71,6 @@ export default {
     }
   },
   mounted: function () {
-    // const user = firebase.auth().currentUser
-    // if (user != null) {
-    //   user.providerData.forEach(function (profile) {
-    //     console.log(profile.providerId)
-    //     console.log(profile.uid)
-    //     console.log(profile.displayName)
-    //     console.log(profile.email)
-    //     console.log(profile.photoURL)
-    //   })
-    // }
   }
 }
 </script>
@@ -163,7 +152,7 @@ export default {
   }
   .bgStepper{
     z-index: 3;
-    background-color: #fafafa
+    background-color: #fafafa;
   }
   @media screen and (max-width: 800px) {
     .itemWelcome{

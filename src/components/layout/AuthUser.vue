@@ -139,7 +139,7 @@ export default {
   methods: {
     singOut () {
       firebase.auth().signOut().then(() => {
-        this.$store.dispatch('dataStore/singInUser', null)
+        this.$store.dispatch('dataStore/singInUser', {displayName: null})
         setTimeout(() => { this.$router.push({name: 'MainSection'}) }, 0)
       }).catch(err => console.log(err))
     }

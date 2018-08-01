@@ -1,5 +1,6 @@
 import firebaseApp from '../../firebase'
 import axios from 'axios'
+import router from '../../router/index'
 import {API_KEY} from '../../components/API_KEY'
 
 const defaultTemplateUser = data => {
@@ -75,4 +76,15 @@ export const getFullAddress = (state, data) => {
     .catch((err) => {
       console.log(err)
     })
+}
+export const deleteProfile = async (state, user) => {
+  await firebaseApp.firestore().collection(`users`).doc(user.uid).delete().then(() => {
+    console.log('Document successfully deleted!')
+    firebaseApp.auth().currentUser.delete().then(() => {
+      state.dispatch('singInUser', {displayName: null})
+      setTimeout(() => { router.push({name: 'MainSection'}) }, 0)
+    }).catch(err => console.log(err))
+  }).catch((error) => {
+    console.error('Error removing document: ', error)
+  })
 }
