@@ -93,14 +93,16 @@ export default {
       type: '',
       level: '',
       institute: '',
-      specialty: ''
+      specialty: '',
+      dataTable: []
     },
     language: {
       lng: '',
       level: {
         template: ['Начальный', 'Средний', 'Продвинутый', 'Владею в совершенстве', 'Родной'],
         value: 0
-      }
+      },
+      dataTable: []
     },
     work: {
       sphere: {

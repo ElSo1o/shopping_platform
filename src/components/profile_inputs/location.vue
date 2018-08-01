@@ -158,9 +158,6 @@
       },
       saveToTable (i) {
         this.showSaveTable = false
-        // this.dataTableProfile.splice(i, 1)
-        // this.dataTableProfile.unshift({name: this.valueProfile.value})
-        // this.valueProfile.value = ''
         this.$store.commit('dataStore/saveDataTable', {
           key: 'location',
           index: i,

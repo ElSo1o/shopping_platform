@@ -17,7 +17,7 @@
             :loading="loading"
             v-model="valueProfile.level"
             :rules="typeRules"
-            label="Тип"
+            label="Уровень"
           ></v-select>
           <v-text-field
             v-model="valueProfile.institute"
@@ -34,6 +34,52 @@
           ></v-text-field>
         </div>
       </v-form>
+      <div class="btnSection">
+        <v-btn
+          color="primary"
+          v-if="!showSaveTable"
+          @click="addItemToTable">
+          <span>Добавить</span>
+        </v-btn>
+        <v-btn
+          saveToTable
+          v-if="showSaveTable"
+          color="success"
+          style="margin-left: 25px"
+          @click="saveToTable(indexEditItem)">
+          <span>Сохранить в таблицу</span>
+        </v-btn>
+      </div>
+      <v-data-table
+        :items="valueProfile.dataTable"
+        hide-actions
+        class="elevation-1"
+        :headers="header"
+        :loading="loading"
+      >
+        <template slot="items" slot-scope="props">
+          <td v-for="(value, i, key) in props.item" :key="key">{{value}}</td>
+          <!--<td>{{ props.item.type}}</td>-->
+          <!--<td>{{ props.item.level}}</td>-->
+          <!--<td>{{ props.item.institute}}</td>-->
+          <!--<td>{{ props.item.specialty}}</td>-->
+          <td class="justify-center align-center layout px-0">
+            <v-icon
+              small
+              class="mr-2"
+              @click="editItem(props.item)"
+            >
+              edit
+            </v-icon>
+            <v-icon
+              small
+              @click="deleteItem(props.item)"
+            >
+              delete
+            </v-icon>
+          </td>
+        </template>
+      </v-data-table>
     </div>
 </template>
 
@@ -43,8 +89,21 @@ export default {
   data () {
     return {
       valid: false,
+      showSaveTable: false,
       itemsType: ['Техническое', 'Гуманитарное', 'Медицинское', 'Другое'],
       itemsLevel: ['Среднее', 'Средне-специальное', 'Неоконченное высшее', 'Высшее', 'Научная степень'],
+      header: [
+        {
+          text: 'Тип',
+          align: 'left',
+          sortable: false,
+          value: 'type'
+        },
+        { text: 'Уровень', value: 'level' },
+        { text: 'Учебное заведение', value: 'institute' },
+        { text: 'Специальность', value: 'specialty' },
+        { text: 'Actions', value: 'name', sortable: false }
+      ],
       typeRules: [
         v => !!v || 'Обязательное поле'
       ]
@@ -57,6 +116,47 @@ export default {
     loading () {
       return this.$store.getters['dataStore/getLoadingInput']
     }
+  },
+  methods: {
+    saveToTable (i) {
+      this.showSaveTable = false
+      this.$store.commit('dataStore/saveDataTable', {
+        key: 'location',
+        index: i,
+        value: this.valueProfile.value
+      })
+    },
+    editItem (item) {
+      this.indexEditItem = this.valueProfile.dataTable.indexOf(item)
+      this.showSaveTable = true
+      this.valueProfile.value = item
+    },
+    deleteItem (item) {
+      this.$store.commit('dataStore/deleteDataTable', {
+        key: 'education',
+        index: this.valueProfile.dataTable.indexOf(item)
+      })
+      this.valueProfile.value = ''
+    },
+    addItemToTable () {
+      if (this.valueProfile.type === '') {
+        return false
+      } else {
+        this.$store.commit('dataStore/addDataToTable',
+          {
+            key: 'education',
+            value: {
+              type: this.valueProfile.type,
+              level: this.valueProfile.level,
+              institute: this.valueProfile.institute,
+              specialty: this.valueProfile.specialty
+            }
+          })
+        // const keys = Object.keys(this.valueProfile)
+        // for (let key in this.valueProfile) {
+        // }
+      }
+    }
   }
 }
 </script>
@@ -67,5 +167,12 @@ export default {
   }
   .titleEducation h2{
     font-weight: 400;
+  }
+  .btnSection{
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  .btnSection > button{
+    margin: 0;
   }
 </style>
