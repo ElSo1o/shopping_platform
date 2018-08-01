@@ -102,7 +102,7 @@
                   </v-btn>
                   <div>
                     <v-dialog v-model="dialog" max-width="650px">
-                      <a slot="activator" style="color: #ff5252;">Удалить профиль</a>
+                      <a slot="activator" v-if="nowComponent === 'personal'" style="color: #ff5252;">Удалить профиль</a>
                       <v-card>
                         <v-card-title>
                           <span class="headline">Удаление аккаунта</span>
