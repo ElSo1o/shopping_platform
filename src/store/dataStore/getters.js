@@ -19,3 +19,6 @@ export const getLoadingInput = (state) => {
 export const getItemsMenu = (state) => {
   return state.itemsMenu
 }
+export const getShowRepeat = (state) => {
+  return state.showRepeat
+}

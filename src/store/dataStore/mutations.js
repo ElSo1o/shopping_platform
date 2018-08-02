@@ -42,7 +42,6 @@ export const updateIconMenu = (state, nameComponent) => {
 export const addDataToTable = (state, data) => {
   for (let key in state.dataInputProfile) {
     if (key === data.key) {
-      console.log(state.dataInputProfile[key])
       state.dataInputProfile[key].dataTable.unshift(data.value)
     }
   }
@@ -61,4 +60,7 @@ export const saveDataTable = (state, data) => {
       state.dataInputProfile[key].dataTable.unshift(data.value)
     }
   }
+}
+export const showRepeat = (state, boolean) => {
+  state.showRepeat.show = boolean
 }

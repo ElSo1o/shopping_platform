@@ -229,5 +229,8 @@ export default {
     { title: 'Интересы', icon: 'nature_people', component: 'hobby', filled: false },
     { title: 'Личный транспорт', icon: 'directions_car', component: 'car', filled: false },
     { title: 'Дисконтные программы', icon: 'timeline', component: 'discount', filled: false }
-  ]
+  ],
+  showRepeat: {
+    show: false
+  }
 }

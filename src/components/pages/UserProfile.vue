@@ -152,6 +152,24 @@
                     Закрыть
                   </v-btn>
                 </v-snackbar>
+                <v-snackbar
+                  v-model="showRepeat"
+                  :color="color"
+                  top
+                  right
+                  :multi-line="mode === 'multi-line'"
+                  :timeout="timeout"
+                  :vertical="mode === 'vertical'"
+                >
+                  {{repeatValue }}
+                  <v-btn
+                    dark
+                    flat
+                    @click="showRepeat = false "
+                  >
+                    Закрыть
+                  </v-btn>
+                </v-snackbar>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -187,6 +205,7 @@ export default {
       drawer: true,
       dialog: false,
       snackbar: false,
+      repeatValue: 'Такое поле уже существует в таблице',
       color: 'error',
       mode: '',
       timeout: 6000,
@@ -233,6 +252,14 @@ export default {
     },
     itemsMenu () {
       return this.$store.getters['dataStore/getItemsMenu']
+    },
+    showRepeat: {
+      get: function () {
+        return this.$store.getters['dataStore/getShowRepeat'].show
+      },
+      set: function (newValue) {
+        this.$store.commit('dataStore/showRepeat', newValue)
+      }
     }
   }
 }

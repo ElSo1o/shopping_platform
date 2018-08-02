@@ -58,11 +58,11 @@
         :loading="loading"
       >
         <template slot="items" slot-scope="props">
-          <td v-for="(value, i, key) in props.item" :key="key">{{value}}</td>
-          <!--<td>{{ props.item.type}}</td>-->
-          <!--<td>{{ props.item.level}}</td>-->
-          <!--<td>{{ props.item.institute}}</td>-->
-          <!--<td>{{ props.item.specialty}}</td>-->
+          <!--<td v-for="(value, i, key) in props.item" :key="key">{{value}}</td>-->
+          <td>{{props.item.type}}</td>
+          <td>{{props.item.level}}</td>
+          <td>{{props.item.institute}}</td>
+          <td>{{props.item.specialty}}</td>
           <td class="justify-center align-center layout px-0">
             <v-icon
               small
@@ -121,15 +121,29 @@ export default {
     saveToTable (i) {
       this.showSaveTable = false
       this.$store.commit('dataStore/saveDataTable', {
-        key: 'location',
+        key: 'education',
         index: i,
-        value: this.valueProfile.value
+        value: {
+          type: this.valueProfile.type,
+          level: this.valueProfile.level,
+          institute: this.valueProfile.institute,
+          specialty: this.valueProfile.specialty
+        }
       })
+      // for (let key in this.valueProfile) {
+      //   if (typeof this.valueProfile[key] === 'string') {
+      //     this.valueProfile[key] = ''
+      //   }
+      // }
     },
     editItem (item) {
       this.indexEditItem = this.valueProfile.dataTable.indexOf(item)
       this.showSaveTable = true
-      this.valueProfile.value = item
+      for (let key in this.valueProfile) {
+        if (typeof this.valueProfile[key] === 'string') {
+          this.valueProfile[key] = item[key]
+        }
+      }
     },
     deleteItem (item) {
       this.$store.commit('dataStore/deleteDataTable', {
@@ -139,22 +153,31 @@ export default {
       this.valueProfile.value = ''
     },
     addItemToTable () {
-      if (this.valueProfile.type === '') {
-        return false
-      } else {
-        this.$store.commit('dataStore/addDataToTable',
-          {
-            key: 'education',
-            value: {
-              type: this.valueProfile.type,
-              level: this.valueProfile.level,
-              institute: this.valueProfile.institute,
-              specialty: this.valueProfile.specialty
+      if (this.$refs.form.validate()) {
+        let repeadValue = this.valueProfile.dataTable.findIndex(item => {
+          for (let key in this.valueProfile) {
+            if (typeof this.valueProfile[key] === 'string') {
+              return this.valueProfile[key] === item[key]
             }
-          })
-        // const keys = Object.keys(this.valueProfile)
-        // for (let key in this.valueProfile) {
-        // }
+          }
+        })
+        console.log(repeadValue)
+        if (repeadValue === -1) {
+          this.$store.commit('dataStore/addDataToTable',
+            {
+              key: 'education',
+              value: {
+                type: this.valueProfile.type,
+                level: this.valueProfile.level,
+                institute: this.valueProfile.institute,
+                specialty: this.valueProfile.specialty
+              }
+            })
+        } else {
+          this.$store.commit('dataStore/showRepeat', true)
+        }
+      } else {
+        return false
       }
     }
   }
