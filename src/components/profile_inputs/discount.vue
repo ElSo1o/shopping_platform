@@ -4,15 +4,16 @@
       <div class="headerDiscount">
         <v-form v-model="valid" ref="form" class="formInput">
           <v-text-field
-            v-model="valueProfile.value"
+            v-model="valueProfile.data.discountValue"
             :loading="loading"
-            :label="valueProfile.label"
+            label="Дисконтная карта"
             required
           ></v-text-field>
         </v-form>
         <v-spacer></v-spacer>
         <v-btn
           color="primary"
+          v-if="!showSaveTable"
           @click="addItemToTable">
           <span>Добавить</span>
         </v-btn>
@@ -26,13 +27,13 @@
         </v-btn>
       </div>
       <v-data-table
-        :items="dataTableProfile"
+        :items="valueProfile.dataTable"
         hide-actions
         class="elevation-1"
         hide-headers
       >
         <template slot="items" slot-scope="props">
-          <td>{{ props.item.name }}</td>
+          <td>{{ props.item.discountValue }}</td>
           <td class="justify-center align-center layout px-0">
             <v-icon
               small
@@ -71,9 +72,6 @@ export default {
     },
     loading () {
       return this.$store.getters['dataStore/getLoadingInput']
-    },
-    dataTableProfile () {
-      return this.$store.getters['dataStore/getDataInputProfile'].discount.dataArray
     }
   },
   watch: {
@@ -82,30 +80,52 @@ export default {
     }
   },
   methods: {
-    editItem (item) {
-      this.indexEditItem = this.dataTableProfile.indexOf(item)
-      this.showSaveTable = true
-      this.valueProfile.value = item.name
-    },
-
-    deleteItem (item) {
-      const index = this.dataTableProfile.indexOf(item)
-      confirm('Вы уверен что хотите удалить данные из таблицы?') && this.dataTableProfile.splice(index, 1)
-      this.valueProfile.value = ''
-    },
-    addItemToTable () {
-      if (this.valueProfile.value === '') {
-        return false
-      } else {
-        this.dataTableProfile.unshift({name: this.valueProfile.value})
-        this.valueProfile.value = ''
-      }
-    },
     saveToTable (i) {
       this.showSaveTable = false
-      this.dataTableProfile.splice(i, 1)
-      this.dataTableProfile.unshift({name: this.valueProfile.value})
-      this.valueProfile.value = ''
+      this.$store.commit('dataStore/saveDataTable', {
+        key: 'discount',
+        index: i,
+        value: {
+          discountValue: this.valueProfile.data.discountValue
+        }
+      })
+    },
+    editItem (item) {
+      this.indexEditItem = this.valueProfile.dataTable.indexOf(item)
+      this.showSaveTable = true
+      for (let key in this.valueProfile.data) {
+        this.valueProfile.data[key] = item[key]
+      }
+    },
+    deleteItem (item) {
+      this.$store.commit('dataStore/deleteDataTable', {
+        key: 'discount',
+        index: this.valueProfile.dataTable.indexOf(item)
+      })
+      // this.valueProfile.value = ''
+    },
+    addItemToTable () {
+      if (this.$refs.form.validate()) {
+        let repeadValue = this.valueProfile.dataTable.findIndex((item, i) => {
+          for (let key in this.valueProfile.data) {
+            return this.valueProfile.data[key] === item[key]
+          }
+        })
+        console.log(repeadValue)
+        if (repeadValue === -1) {
+          this.$store.commit('dataStore/addDataToTable',
+            {
+              key: 'discount',
+              value: {
+                discountValue: this.valueProfile.data.discountValue
+              }
+            })
+        } else {
+          this.$store.commit('dataStore/showRepeat', true)
+        }
+      } else {
+        return false
+      }
     }
   },
   mounted () {

@@ -15,30 +15,31 @@
           ></v-text-field>
         </div>
       </div>
-      <div>
+      <div class="itemCarBtn">
         <v-checkbox
           v-model="valueProfile.data.guarantee.value"
           :label="label[label.length - 1]"
           hide-details
         ></v-checkbox>
+        <v-spacer></v-spacer>
+        <div class="btnSection">
+          <v-btn
+            color="primary"
+            v-if="!showSaveTable"
+            @click="addItemToTable">
+            <span>Добавить</span>
+          </v-btn>
+          <v-btn
+            saveToTable
+            v-if="showSaveTable"
+            color="success"
+            style="margin-left: 25px"
+            @click="saveToTable(indexEditItem)">
+            <span>Сохранить в таблицу</span>
+          </v-btn>
+        </div>
       </div>
     </v-form>
-    <div class="btnSection">
-      <v-btn
-        color="primary"
-        v-if="!showSaveTable"
-        @click="addItemToTable">
-        <span>Добавить</span>
-      </v-btn>
-      <v-btn
-        saveToTable
-        v-if="showSaveTable"
-        color="success"
-        style="margin-left: 25px"
-        @click="saveToTable(indexEditItem)">
-        <span>Сохранить в таблицу</span>
-      </v-btn>
-    </div>
     <v-data-table
       :items="valueProfile.dataTable"
       hide-actions
@@ -179,5 +180,17 @@
   }
   .titleEducation h2{
     font-weight: 400;
+  }
+  .itemCarBtn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+
+  }
+  .itemCarBtn > div {
+    margin-bottom: 0;
+    margin-top: 0;
   }
 </style>

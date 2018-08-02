@@ -202,10 +202,10 @@ export default {
       dataTable: []
     },
     discount: {
-      label: 'Дисконтная карта',
-      value: '',
-      dataArray: [
-      ]
+      data: {
+        discountValue: ''
+      },
+      dataTable: []
     }
   },
   loadingInput: {
