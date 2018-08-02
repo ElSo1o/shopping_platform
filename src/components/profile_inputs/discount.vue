@@ -31,6 +31,7 @@
         hide-actions
         class="elevation-1"
         hide-headers
+        no-data-text="Пока ничего не добавленно"
       >
         <template slot="items" slot-scope="props">
           <td>{{ props.item.discountValue }}</td>

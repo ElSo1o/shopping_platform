@@ -14,7 +14,7 @@
         style="padding: 0;"
       >
         <v-layout align-center justify-center row style="height: inherit;">
-          <v-flex xl7 lg8 md10 sm12 class="headerFlex">
+          <v-flex xl7 lg10 md10 sm12 class="headerFlex">
             <v-toolbar-title class="white--text" style="height: inherit">
               <div class="headerItems">
               <router-link :to="{name: 'Welcome'}" class="logoFlex">
@@ -78,7 +78,7 @@
     <v-content class="contentPage">
       <v-container fluid style="padding: 12px 0 24px 0">
         <v-layout align-center justify-center row>
-          <v-flex xl7 lg8 md10 sm12>
+          <v-flex xl7 lg10 md10 sm12>
             <v-card
               color="grey lighten-5"
             >

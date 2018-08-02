@@ -47,6 +47,7 @@
       class="elevation-1"
       :headers="header"
       :loading="loading"
+      no-data-text="Пока ничего не добавленно"
     >
       <template slot="items" slot-scope="props">
         <!--<td v-for="(value, i, key) in props.item" :key="key">{{value}}</td>-->
@@ -87,7 +88,6 @@ export default {
         {
           text: 'Язык',
           align: 'left',
-          sortable: false,
           value: 'lng'
         },
         { text: 'Уровень', value: 'level' },

@@ -55,10 +55,14 @@
         hide-actions
         class="elevation-1"
         :headers="header"
+        no-data-text="Пока ничего не добавленно"
         :loading="loading"
       >
         <template slot="items" slot-scope="props">
           <!--<td v-for="(value, i, key) in props.item" :key="key">{{value}}</td>-->
+          <v-flex xs12 sm6 md4>
+            <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+          </v-flex>
           <td>{{props.item.type}}</td>
           <td>{{props.item.level}}</td>
           <td>{{props.item.institute}}</td>
@@ -96,7 +100,6 @@ export default {
         {
           text: 'Тип',
           align: 'left',
-          sortable: false,
           value: 'type'
         },
         { text: 'Уровень', value: 'level' },

@@ -9,6 +9,7 @@
           v-model="drawer"
           hide-overlay
           stateless
+          v-if="!mobile"
         >
           <v-toolbar flat>
             <v-list class="pa-0">
@@ -65,12 +66,11 @@
         </v-navigation-drawer>
       </div>
       <div class="sectionInput">
-        <v-layout class="height">
+        <v-layout class="height" v-resize="onResize" >
           <v-flex>
-            <v-card class="height">
-              <v-toolbar card prominent>
-                <v-toolbar-title class="body-2 grey--text">Профиль</v-toolbar-title>
-
+            <v-card>
+              <v-toolbar card prominent v-if="!mobile">
+                <v-toolbar-title class="body-2 grey--text" >Профиль</v-toolbar-title>
                 <v-spacer></v-spacer>
 
                 <v-btn
@@ -79,9 +79,23 @@
                   <v-icon>more_vert</v-icon>
                 </v-btn>
               </v-toolbar>
+              <v-tabs
+                fixed-tabs
+                color="grey lighten-4"
+                icons-and-text
+                v-if="mobile"
+              >
+                <v-tab
+                  v-for="item in itemsMenu"
+                  :key="item.title"
+                  @click="nowComponent = item.component"
+                >
+                  {{ item.title }}
+                  <v-icon>{{item.icon}}</v-icon>
+                </v-tab>
+              </v-tabs>
 
               <v-divider></v-divider>
-
               <v-card-text class="contentInputs">
                 <keep-alive>
                   <component v-bind:is="nowComponent" class="inputsGroup" ref="component"></component>
@@ -212,7 +226,12 @@ export default {
       text: 'Заполните все обязательные поля',
       mini: false,
       right: null,
-      nowComponent: 'personal'
+      nowComponent: 'personal',
+      mobile: false,
+      windowSize: {
+        x: 0,
+        y: 0
+      }
     }
   },
   methods: {
@@ -222,7 +241,6 @@ export default {
     updateProfile (e) {
       this.$store.commit('dataStore/switchLoadingInput', true)
       if (typeof this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent].dataTable !== 'undefined' || this.$refs.component.$refs.form.validate()) {
-        // console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
         this.$store.dispatch('dataStore/updateUserProfile',
           {
             data: this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent],
@@ -238,6 +256,14 @@ export default {
     },
     deleteProfile (e) {
       this.$store.dispatch('dataStore/deleteProfile', this.userProfile)
+    },
+    onResize () {
+      if (window.innerWidth <= 1225) {
+        this.mobile = true
+      } else {
+        this.mobile = false
+      }
+      this.windowSize = { x: window.innerWidth, y: window.innerHeight }
     }
   },
   computed: {
@@ -293,7 +319,7 @@ export default {
   }
   .contentInputs{
     height: 100%;
-    padding: 0 24px;
+    padding: 0 14px;
   }
   .btnSave{
     position: absolute;
@@ -322,6 +348,9 @@ export default {
     }
     .btnSave > div:last-child{
       margin-top: 15px;
+    }
+    .contentInputs{
+      padding: 0 15px 20px 15px;
     }
   }
 </style>
