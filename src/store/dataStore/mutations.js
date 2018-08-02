@@ -15,7 +15,7 @@ export const profileUserFromDb = (state, data) => {
   data.forEach((item, i) => {
     for (let key in state.dataInputProfile) {
       if (item.id === key) {
-        console.log(state.dataInputProfile[key].dataTable)
+        // console.log(state.dataInputProfile[key].dataTable)
         if (typeof state.dataInputProfile[key].dataTable === 'undefined') {
           state.dataInputProfile[key] = item.data()
         } else {
@@ -44,6 +44,7 @@ export const updateIconMenu = (state, nameComponent) => {
   })
 }
 export const addDataToTable = (state, data) => {
+  console.log(data)
   for (let key in state.dataInputProfile) {
     if (key === data.key) {
       state.dataInputProfile[key].dataTable.unshift(data.value)

@@ -185,24 +185,21 @@ export default {
       ]
     },
     car: {
-      inputs: {
+      data: {
         mark: {
-          value: '',
-          label: 'Марка'
+          value: ''
         },
         model: {
-          value: '',
-          label: 'Модель'
+          value: ''
         },
         years: {
-          value: '',
-          label: 'Год выпуска'
+          value: ''
+        },
+        guarantee: {
+          value: false
         }
       },
-      guarantee: {
-        label: 'На гарантии',
-        value: false
-      }
+      dataTable: []
     },
     discount: {
       label: 'Дисконтная карта',

@@ -221,7 +221,7 @@ export default {
     },
     updateProfile (e) {
       this.$store.commit('dataStore/switchLoadingInput', true)
-      if (this.$refs.component.$refs.form.validate() || typeof this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent].dataTable !== 'undefined') {
+      if (typeof this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent].dataTable !== 'undefined' || this.$refs.component.$refs.form.validate()) {
         // console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
         this.$store.dispatch('dataStore/updateUserProfile',
           {
