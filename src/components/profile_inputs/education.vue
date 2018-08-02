@@ -102,7 +102,7 @@ export default {
         { text: 'Уровень', value: 'level' },
         { text: 'Учебное заведение', value: 'institute' },
         { text: 'Специальность', value: 'specialty' },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: 'Изменить/удалить', value: 'name', sortable: false }
       ],
       typeRules: [
         v => !!v || 'Обязательное поле'
@@ -130,11 +130,6 @@ export default {
           specialty: this.valueProfile.specialty
         }
       })
-      // for (let key in this.valueProfile) {
-      //   if (typeof this.valueProfile[key] === 'string') {
-      //     this.valueProfile[key] = ''
-      //   }
-      // }
     },
     editItem (item) {
       this.indexEditItem = this.valueProfile.dataTable.indexOf(item)
@@ -150,7 +145,7 @@ export default {
         key: 'education',
         index: this.valueProfile.dataTable.indexOf(item)
       })
-      this.valueProfile.value = ''
+      // this.valueProfile.value = ''
     },
     addItemToTable () {
       if (this.$refs.form.validate()) {

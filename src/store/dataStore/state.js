@@ -97,10 +97,9 @@ export default {
       dataTable: []
     },
     language: {
-      lng: '',
       level: {
-        template: ['Начальный', 'Средний', 'Продвинутый', 'Владею в совершенстве', 'Родной'],
-        value: 0
+        value: 0,
+        lng: ''
       },
       dataTable: []
     },
