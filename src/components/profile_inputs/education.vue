@@ -186,11 +186,4 @@ export default {
   .titleEducation h2{
     font-weight: 400;
   }
-  .btnSection{
-    text-align: right;
-    margin-bottom: 20px;
-  }
-  .btnSection > button{
-    margin: 0;
-  }
 </style>

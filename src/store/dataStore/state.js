@@ -104,20 +104,15 @@ export default {
       dataTable: []
     },
     work: {
-      sphere: {
-        value: ''
-      },
-      organization: {
-        value: ''
-      },
-      position: {
-        value: ''
-      },
-      period: {
-        value: '',
+      data: {
+        sphere: '',
+        organization: '',
+        position: '',
+        periodWith: '',
         nowPeriod: false,
         periodTo: ''
-      }
+      },
+      dataTable: []
     },
     hobby: {
       itemsValueFirst: [

@@ -15,8 +15,12 @@ export const profileUserFromDb = (state, data) => {
   data.forEach((item, i) => {
     for (let key in state.dataInputProfile) {
       if (item.id === key) {
-        console.log(state.dataInputProfile[key])
-        state.dataInputProfile[key] = item.data()
+        console.log(state.dataInputProfile[key].dataTable)
+        if (typeof state.dataInputProfile[key].dataTable === 'undefined') {
+          state.dataInputProfile[key] = item.data()
+        } else {
+          state.dataInputProfile[key].dataTable = item.data().dataTable
+        }
       }
     }
     state.itemsMenu.forEach(itemMenu => {

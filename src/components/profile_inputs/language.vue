@@ -138,11 +138,10 @@ export default {
     },
     addItemToTable () {
       if (this.$refs.form.validate()) {
-        console.log(this.valueProfile)
-        let repeadValue = this.valueProfile.dataTable.findIndex(item => {
-          for (let key in this.valueProfile) {
-            if (typeof this.valueProfile[key] === 'string' || 'number') {
-              return this.valueProfile[key] === item[key]
+        let repeadValue = this.valueProfile.dataTable.findIndex((item, i) => {
+          for (let key in this.valueProfile.level) {
+            if (typeof this.valueProfile.level[key] === 'string') {
+              return this.valueProfile.level[key] === item[key]
             }
           }
         })
@@ -176,12 +175,5 @@ export default {
   }
   .sliderLng{
     margin-top: 10px;
-  }
-  .btnSection{
-    text-align: right;
-    margin-bottom: 20px;
-  }
-  .btnSection > button{
-    margin: 0;
   }
 </style>

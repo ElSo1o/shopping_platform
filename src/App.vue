@@ -52,4 +52,11 @@ html, body {
   top: 50%;
   transform: translateY(-50%);
 }
+.btnSection{
+  text-align: right;
+  margin-bottom: 20px;
+}
+.btnSection > button{
+  margin: 0;
+}
 </style>
