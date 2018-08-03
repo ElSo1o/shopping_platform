@@ -58,6 +58,7 @@ html, body {
 }
 .btnSection > button{
   margin: 0;
+  z-index: 3;
 }
 .mainHobby label{
   font-size: 14px!important;

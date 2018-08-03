@@ -79,13 +79,7 @@
         showSaveTable: false,
         indexEditItem: null,
         nameRules: [
-          v => {
-            if (this.valueProfile.dataTable.length !== 0) {
-              return true
-            } else {
-              return 'Введите адрес'
-            }
-          }
+          v => !!v || 'Обязательное поле'
         ],
         center: { lat: 45.508, lng: -73.587 },
         markers: [],

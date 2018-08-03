@@ -209,7 +209,7 @@ export default {
           position: this.valueProfile.data.position,
           periodWith: this.valueProfile.data.periodWith,
           nowPeriod: this.valueProfile.data.nowPeriod,
-          periodTo: this.valueProfile.data.periodTo
+          periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = '' : this.valueProfile.data.periodTo
         }
       })
     },
@@ -248,7 +248,7 @@ export default {
                 position: this.valueProfile.data.position,
                 periodWith: this.valueProfile.data.periodWith,
                 nowPeriod: this.valueProfile.data.nowPeriod,
-                periodTo: this.valueProfile.data.periodTo
+                periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = '' : this.valueProfile.data.periodTo
               }
             })
         } else {
@@ -274,6 +274,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
   .workPicker{
     flex-basis: 33%;
@@ -288,5 +289,20 @@ export default {
     top: 60%;
     transform: translateY(-50%);
     z-index: 3;
+  }
+  @media screen and (max-width: 768px) {
+    .workPicker {
+      flex-basis: 100%;
+    }
+    .switchPicker{
+      top: 115%;
+    }
+  }
+  @media screen and (max-width: 460px) {
+    .btnSection{
+      margin-bottom: 0;
+      margin-top: 40px;
+      text-align: center;
+    }
   }
 </style>

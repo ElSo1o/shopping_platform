@@ -60,8 +60,18 @@ export const writeUserToFireStore = async (state, user) => {
 }
 export const updateUserProfile = async (state, data) => {
   // console.log(data.filled = true)
-  console.log(data)
-  data.data.filled = true
+  // console.log(state.dataInputProfile[data.key])
+  // data.data.filled = true
+  if (typeof data.data.dataTable === 'undefined') {
+    data.data.filled = true
+  } else {
+    if (data.data.dataTable.length === 0) {
+      data.data.filled = false
+    } else {
+      data.data.filled = true
+    }
+  }
+  console.log(data.data)
   await firebaseApp.firestore().collection(`users`).doc(data.uid).collection('info').doc(data.key).set(data.data).then(() => {
     console.log('Document successfully written!')
     state.commit('switchLoadingInput', false)

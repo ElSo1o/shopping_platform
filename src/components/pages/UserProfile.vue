@@ -239,17 +239,26 @@ export default {
       console.log(component)
     },
     updateProfile (e) {
+      const updateData = this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent]
       this.$store.commit('dataStore/switchLoadingInput', true)
-      if (typeof this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent].dataTable !== 'undefined' || this.$refs.component.$refs.form.validate()) {
+      if (typeof updateData.dataTable !== 'undefined' && updateData.dataTable.length !== 0) {
         this.$store.dispatch('dataStore/updateUserProfile',
           {
-            data: this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent],
+            data: updateData,
+            key: this.nowComponent,
+            uid: this.$store.getters['dataStore/getUser'].uid
+          })
+        this.$store.commit('dataStore/updateIconMenu', this.nowComponent)
+      } else if (this.$refs.component.$refs.form.validate()) {
+        this.$store.dispatch('dataStore/updateUserProfile',
+          {
+            data: updateData,
             key: this.nowComponent,
             uid: this.$store.getters['dataStore/getUser'].uid
           })
         this.$store.commit('dataStore/updateIconMenu', this.nowComponent)
       } else {
-        console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
+        // console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
         this.$store.commit('dataStore/switchLoadingInput', false)
         this.snackbar = true
       }
