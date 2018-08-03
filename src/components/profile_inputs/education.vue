@@ -60,9 +60,9 @@
       >
         <template slot="items" slot-scope="props">
           <!--<td v-for="(value, i, key) in props.item" :key="key">{{value}}</td>-->
-          <v-flex xs12 sm6 md4>
-            <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
-          </v-flex>
+          <!--<v-flex xs12 sm6 md4>-->
+            <!--<v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>-->
+          <!--</v-flex>-->
           <td>{{props.item.type}}</td>
           <td>{{props.item.level}}</td>
           <td>{{props.item.institute}}</td>

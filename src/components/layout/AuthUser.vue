@@ -1,6 +1,7 @@
 <template>
-  <v-app>
+  <v-app v-resize="onResize">
     <v-navigation-drawer
+      v-if="mobileMenu"
       app
       v-model="drawerShow"
       absolute
@@ -156,6 +157,7 @@ export default {
         }
       ],
       drawerShow: false,
+      mobileMenu: false,
       itemsMobileMenu: [
         { title: 'Главная', icon: 'dashboard', link: 'welcome' },
         { title: 'Профиль', icon: 'account_box', link: 'profile' },
@@ -180,6 +182,13 @@ export default {
     },
     routerPush (item) {
       this.$router.push(`/auth/${item.link}`)
+    },
+    onResize () {
+      if (window.innerWidth <= 960) {
+        this.mobileMenu = true
+      } else {
+        this.mobileMenu = false
+      }
     }
   }
 }
