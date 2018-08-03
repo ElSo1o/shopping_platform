@@ -66,8 +66,8 @@ export const saveDataTable = (state, data) => {
     }
   }
 }
-export const showRepeat = (state, boolean) => {
-  state.showRepeat.show = boolean
+export const showRepeat = (state, data) => {
+  state.showRepeat = data
 }
 export const showSaveSuccess = (state, data) => {
   state.itemsMenu.forEach(item => {

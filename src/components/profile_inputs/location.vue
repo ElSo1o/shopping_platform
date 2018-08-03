@@ -175,7 +175,6 @@
           let repeadValue = this.valueProfile.dataTable.findIndex(item => {
             for (let key in this.valueProfile) {
               if (key === 'value') {
-                console.log(this.valueProfile[key], item)
                 return this.valueProfile[key] === item
               }
             }
@@ -183,7 +182,7 @@
           if (repeadValue === -1) {
             this.$store.commit('dataStore/addDataToTable', {key: 'location', value: this.valueProfile.value})
           } else {
-            this.$store.commit('dataStore/showRepeat', true)
+            this.$store.commit('dataStore/showRepeat', {show: true, input: this.$refs.form.$children[repeadValue].$el.getElementsByTagName('label')[0].innerText})
           }
         } else {
           return false

@@ -7,6 +7,7 @@
             v-model="valueProfile.data.discountValue"
             :loading="loading"
             label="Дисконтная карта"
+            :rules="rules"
             required
           ></v-text-field>
         </v-form>
@@ -64,7 +65,10 @@ export default {
       valid: false,
       indexEditItem: null,
       dialog: false,
-      showSaveTable: false
+      showSaveTable: false,
+      rules: [
+        v => !!v || 'Обязательное поле'
+      ]
     }
   },
   computed: {
@@ -122,7 +126,7 @@ export default {
               }
             })
         } else {
-          this.$store.commit('dataStore/showRepeat', true)
+          this.$store.commit('dataStore/showRepeat', {show: true, input: this.$refs.form.$children[repeadValue].$el.getElementsByTagName('label')[0].innerText})
         }
       } else {
         return false

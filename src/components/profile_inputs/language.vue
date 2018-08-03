@@ -170,7 +170,7 @@ export default {
               }
             })
         } else {
-          this.$store.commit('dataStore/showRepeat', true)
+          this.$store.commit('dataStore/showRepeat', {show: true, input: this.$refs.form.$children[repeadValue].$el.getElementsByTagName('label')[0].innerText})
         }
       } else {
         return false

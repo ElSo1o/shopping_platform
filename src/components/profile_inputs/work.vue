@@ -231,13 +231,16 @@ export default {
       if (this.$refs.form.validate()) {
         let repeadValue = this.valueProfile.dataTable.findIndex((item, i) => {
           for (let key in this.valueProfile.data) {
-            return this.valueProfile.data['organization'] === item['organization']
+            if (key === 'organization') {
+              return this.valueProfile.data[key] === item[key]
+            }
+            // return this.valueProfile.data['organization'] === item['organization']
             // if (typeof this.valueProfile.data[key] === 'string') {
             //   return this.valueProfile.data[key] === item[key]
             // }
           }
         })
-        console.log(repeadValue)
+        console.log(repeadValue, this.$refs.form, this.valueProfile.data['organization'])
         if (repeadValue === -1) {
           this.$store.commit('dataStore/addDataToTable',
             {
@@ -252,7 +255,7 @@ export default {
               }
             })
         } else {
-          this.$store.commit('dataStore/showRepeat', true)
+          this.$store.commit('dataStore/showRepeat', {show: true, input: 'Организация'})
         }
       } else {
         return false

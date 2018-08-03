@@ -167,19 +167,19 @@
                   </v-btn>
                 </v-snackbar>
                 <v-snackbar
-                  v-model="showRepeat"
+                  v-model="showRepeat.show"
                   :color="color"
                   top
                   right
                   :multi-line="mode === 'multi-line'"
-                  :timeout="timeout"
+                  :timeout="3000"
                   :vertical="mode === 'vertical'"
                 >
-                  {{repeatValue }}
+                  Поле c именем {{showRepeat.input}} одинаковые!
                   <v-btn
                     dark
                     flat
-                    @click="showRepeat = false "
+                    @click="showRepeat = {show: false, input: null} "
                   >
                     Закрыть
                   </v-btn>
@@ -237,7 +237,6 @@ export default {
       drawer: true,
       dialog: false,
       snackbar: false,
-      repeatValue: 'Такое поле уже существует в таблице',
       color: 'error',
       mode: '',
       timeout: 6000,
@@ -307,7 +306,7 @@ export default {
     },
     showRepeat: {
       get: function () {
-        return this.$store.getters['dataStore/getShowRepeat'].show
+        return this.$store.getters['dataStore/getShowRepeat']
       },
       set: function (newValue) {
         this.$store.commit('dataStore/showRepeat', newValue)

@@ -172,7 +172,7 @@ export default {
               }
             })
         } else {
-          this.$store.commit('dataStore/showRepeat', true)
+          this.$store.commit('dataStore/showRepeat', {show: true, input: 'Test'})
         }
       } else {
         return false

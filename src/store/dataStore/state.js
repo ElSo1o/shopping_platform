@@ -230,6 +230,7 @@ export default {
     { title: 'Дисконтные программы', icon: 'timeline', component: 'discount', filled: false }
   ],
   showRepeat: {
-    show: false
+    show: false,
+    input: null
   }
 }
