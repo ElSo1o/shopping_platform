@@ -169,14 +169,24 @@
           key: 'location',
           index: this.valueProfile.dataTable.indexOf(item)
         })
-        this.valueProfile.value = ''
       },
       addItemToTable () {
-        if (this.valueProfile.value === '') {
-          return false
+        if (this.$refs.form.validate()) {
+          let repeadValue = this.valueProfile.dataTable.findIndex(item => {
+            for (let key in this.valueProfile) {
+              if (key === 'value') {
+                console.log(this.valueProfile[key], item)
+                return this.valueProfile[key] === item
+              }
+            }
+          })
+          if (repeadValue === -1) {
+            this.$store.commit('dataStore/addDataToTable', {key: 'location', value: this.valueProfile.value})
+          } else {
+            this.$store.commit('dataStore/showRepeat', true)
+          }
         } else {
-          this.$store.commit('dataStore/addDataToTable', {key: 'location', value: this.valueProfile.value})
-          this.valueProfile.value = ''
+          return false
         }
       }
     },
@@ -199,6 +209,18 @@
     align-items: center;
   }
   .headerLocation > form{
-    flex-basis: 50%;
+    flex-basis: 75%;
+  }
+  @media screen and (max-width: 600px) {
+    .headerLocation{
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .headerLocation > form{
+      flex-basis: 100%;
+    }
+    .headerLocation > button{
+      margin-bottom: 20px;
+    }
   }
 </style>

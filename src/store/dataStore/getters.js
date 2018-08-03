@@ -22,3 +22,9 @@ export const getItemsMenu = (state) => {
 export const getShowRepeat = (state) => {
   return state.showRepeat
 }
+export const getWarningProfile = (state) => {
+  return state.showWarningProfile.show
+}
+export const getShowSuccess = (state) => {
+  return state.successSaveData
+}

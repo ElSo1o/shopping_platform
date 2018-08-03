@@ -209,8 +209,15 @@ export default {
       dataTable: []
     }
   },
+  showWarningProfile: {
+    show: true
+  },
   loadingInput: {
     loading: false
+  },
+  successSaveData: {
+    show: false,
+    component: null
   },
   itemsMenu: [
     { title: 'Основная информация', icon: 'dashboard', sure: true, component: 'personal', filled: false },

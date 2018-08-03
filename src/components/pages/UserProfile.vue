@@ -184,6 +184,24 @@
                     Закрыть
                   </v-btn>
                 </v-snackbar>
+                <v-snackbar
+                  v-model="showSuccessSave.show"
+                  color="success"
+                  top
+                  right
+                  :multi-line="mode === 'multi-line'"
+                  :timeout="4000"
+                  :vertical="mode === 'vertical'"
+                >
+                  Документ {{showSuccessSave.component}} сохранен
+                  <v-btn
+                    dark
+                    flat
+                    @click="showSuccessSave = {show: false, component: null}"
+                  >
+                    Закрыть
+                  </v-btn>
+                </v-snackbar>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -293,6 +311,14 @@ export default {
       },
       set: function (newValue) {
         this.$store.commit('dataStore/showRepeat', newValue)
+      }
+    },
+    showSuccessSave: {
+      get: function () {
+        return this.$store.getters['dataStore/getShowSuccess']
+      },
+      set: function (data) {
+        this.$store.commit('dataStore/showSaveSuccess', data)
       }
     }
   }

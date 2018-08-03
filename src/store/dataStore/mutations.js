@@ -69,3 +69,18 @@ export const saveDataTable = (state, data) => {
 export const showRepeat = (state, boolean) => {
   state.showRepeat.show = boolean
 }
+export const showSaveSuccess = (state, data) => {
+  state.itemsMenu.forEach(item => {
+    if (item.component === data.component) {
+      data.component = item.title
+    }
+  })
+  state.successSaveData = data
+}
+export const showWarningProfile = (state, data) => {
+  if (data.location && data.personal) {
+    state.showWarningProfile.show = false
+  } else {
+    state.showWarningProfile.show = true
+  }
+}

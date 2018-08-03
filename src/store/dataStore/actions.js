@@ -59,6 +59,10 @@ export const writeUserToFireStore = async (state, user) => {
   })
 }
 export const updateUserProfile = async (state, data) => {
+  let dataShowWarning = {
+    location: false,
+    personal: false
+  }
   if (typeof data.data.dataTable === 'undefined') {
     data.data.filled = true
     state.commit('updateIconMenu', {name: data.key, show: true})
@@ -71,9 +75,18 @@ export const updateUserProfile = async (state, data) => {
       state.commit('updateIconMenu', {name: data.key, show: true})
     }
   }
+  for (let key in state.dataInputProfile) {
+    if (key === 'location') {
+      dataShowWarning.location = state.dataInputProfile[key].filled
+    } else if (key === 'personal') {
+      dataShowWarning.personal = state.dataInputProfile[key].filled
+    }
+  }
+  // state.commit('showWarningProfile', dataShowWarning)
   console.log(data.data)
   await firebaseApp.firestore().collection(`users`).doc(data.uid).collection('info').doc(data.key).set(data.data).then(() => {
     console.log('Document successfully written!')
+    state.commit('showSaveSuccess', {show: true, component: data.key})
     state.commit('switchLoadingInput', false)
   }).catch((error) => {
     console.error('Error adding document: ', error)

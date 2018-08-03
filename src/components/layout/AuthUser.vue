@@ -4,7 +4,6 @@
       v-if="mobileMenu"
       app
       v-model="drawerShow"
-      absolute
       >
       <v-toolbar >
         <v-list class="pa-0">
@@ -42,7 +41,7 @@
         flat
         dense
         fixed
-        style="padding: 0;"
+        style="padding: 0; z-index: 4;"
       >
         <v-layout align-center justify-center row style="height: inherit;">
           <v-flex xl7 lg10 md10 sm12 class="headerFlex">
@@ -113,7 +112,7 @@
             <v-card
               color="grey lighten-5"
             >
-              <div class="warningSection" v-if="getProfileData.profile.stepper === 1">
+              <div class="warningSection" v-if="getWarningProfile">
                 <router-link :to="{name: 'UserProfile'}">
                   <v-icon dark class="warningSectionIcon">info</v-icon>
                   <h4>Для начала работы Вам необходимо заполнить профиль</h4>
@@ -171,6 +170,9 @@ export default {
     },
     getProfileData () {
       return this.$store.getters['dataStore/getAuthUser']
+    },
+    getWarningProfile () {
+      return this.$store.getters['dataStore/getWarningProfile']
     }
   },
   methods: {
