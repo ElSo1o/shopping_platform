@@ -59,16 +59,16 @@ export const writeUserToFireStore = async (state, user) => {
   })
 }
 export const updateUserProfile = async (state, data) => {
-  // console.log(data.filled = true)
-  // console.log(state.dataInputProfile[data.key])
-  // data.data.filled = true
   if (typeof data.data.dataTable === 'undefined') {
     data.data.filled = true
+    state.commit('updateIconMenu', {name: data.key, show: true})
   } else {
     if (data.data.dataTable.length === 0) {
       data.data.filled = false
+      state.commit('updateIconMenu', {name: data.key, show: false})
     } else {
       data.data.filled = true
+      state.commit('updateIconMenu', {name: data.key, show: true})
     }
   }
   console.log(data.data)

@@ -248,7 +248,6 @@ export default {
             key: this.nowComponent,
             uid: this.$store.getters['dataStore/getUser'].uid
           })
-        this.$store.commit('dataStore/updateIconMenu', this.nowComponent)
       } else if (this.$refs.component.$refs.form.validate()) {
         this.$store.dispatch('dataStore/updateUserProfile',
           {
@@ -256,9 +255,9 @@ export default {
             key: this.nowComponent,
             uid: this.$store.getters['dataStore/getUser'].uid
           })
-        this.$store.commit('dataStore/updateIconMenu', this.nowComponent)
       } else {
-        // console.log(this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent])
+        if (updateData.dataTable.length === 0) {
+        }
         this.$store.commit('dataStore/switchLoadingInput', false)
         this.snackbar = true
       }

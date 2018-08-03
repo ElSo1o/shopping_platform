@@ -160,6 +160,7 @@ export default {
     }
     .item {
       flex-basis: 100%;
+      margin-top: 20px;
     }
   }
 </style>

@@ -1,9 +1,39 @@
 <template>
   <v-app>
-    <v-navigation-drawer app v-model="drawerShow"
-                         absolute
-                         temporary>
+    <v-navigation-drawer
+      app
+      v-model="drawerShow"
+      absolute
+      >
+      <v-toolbar >
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img :src="getProfileData.photoURL">
+            </v-list-tile-avatar>
 
+            <v-list-tile-content>
+              <v-list-tile-title  color="primary"><h5>{{getProfileData.email}}</h5></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+
+      <v-list>
+        <v-list-tile
+          v-for="item in itemsMobileMenu"
+          :key="item.title"
+          @click="routerPush(item)"
+        >
+          <v-list-tile-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-navigation-drawer>
     <v-card flat center>
       <v-toolbar
@@ -125,7 +155,12 @@ export default {
           icon: 'exit_to_app'
         }
       ],
-      drawerShow: false
+      drawerShow: false,
+      itemsMobileMenu: [
+        { title: 'Главная', icon: 'dashboard', link: 'welcome' },
+        { title: 'Профиль', icon: 'account_box', link: 'profile' },
+        { title: 'Баланс', icon: 'gavel', link: 'balance' }
+      ]
     }
   },
   computed: {
@@ -142,6 +177,9 @@ export default {
         this.$store.dispatch('dataStore/singInUser', {displayName: null})
         setTimeout(() => { this.$router.push({name: 'MainSection'}) }, 0)
       }).catch(err => console.log(err))
+    },
+    routerPush (item) {
+      this.$router.push(`/auth/${item.link}`)
     }
   }
 }

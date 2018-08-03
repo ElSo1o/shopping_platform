@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-resize="onResize">
     <div class="titleEducation">
       <h2>Укажите языки, которыми владеете</h2>
     </div>
@@ -14,6 +14,7 @@
         ></v-select>
         <div class="sliderLng">
           <v-slider
+            v-if="!this.mobile"
             v-model="valueProfile.level.value"
             :tick-labels="template"
             :max="4"
@@ -22,6 +23,15 @@
             ticks="always"
             tick-size="3"
           ></v-slider>
+          {{valueProfile.level.valueMobile}}
+          <v-select
+            v-if="this.mobile"
+            :items="template"
+            :loading="loading"
+            :disabled="isEnterLng"
+            v-model="valueProfile.level.valueMobile"
+            label="Уровень языка"
+          ></v-select>
         </div>
       </div>
     </v-form>
@@ -52,7 +62,8 @@
       <template slot="items" slot-scope="props">
         <!--<td v-for="(value, i, key) in props.item" :key="key">{{value}}</td>-->
         <td>{{props.item.lng}}</td>
-        <td>{{template[props.item.value]}}</td>
+        <td v-if="props.item.value !== null">{{template[props.item.value]}}</td>
+        <td v-else>{{props.item.valueMobile}}</td>
         <td class="justify-center align-center layout px-0">
           <v-icon
             small
@@ -80,6 +91,7 @@ export default {
     return {
       valid: false,
       isEnterLng: true,
+      mobile: false,
       valueSlider: 0,
       showSaveTable: false,
       itemsLanguage: ['Русский', 'Украинский', 'Английский'],
@@ -118,7 +130,8 @@ export default {
         index: i,
         value: {
           value: this.valueProfile.level.value,
-          lng: this.valueProfile.level.lng
+          lng: this.valueProfile.level.lng,
+          valueMobile: this.valueProfile.level.valueMobile
         }
       })
     },
@@ -152,7 +165,8 @@ export default {
               key: 'language',
               value: {
                 value: this.valueProfile.level.value,
-                lng: this.valueProfile.level.lng
+                lng: this.valueProfile.level.lng,
+                valueMobile: this.valueProfile.level.valueMobile
               }
             })
         } else {
@@ -161,6 +175,14 @@ export default {
       } else {
         return false
       }
+    },
+    onResize () {
+      if (window.innerWidth <= 655) {
+        this.mobile = true
+      } else {
+        this.mobile = false
+      }
+      this.windowSize = { x: window.innerWidth, y: window.innerHeight }
     }
   }
 }

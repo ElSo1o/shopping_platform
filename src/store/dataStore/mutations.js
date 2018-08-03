@@ -38,8 +38,8 @@ export const setGeoAddress = (state, data) => {
 }
 export const updateIconMenu = (state, nameComponent) => {
   state.itemsMenu.forEach(itemMenu => {
-    if (itemMenu.component === nameComponent) {
-      itemMenu.filled = true
+    if (itemMenu.component === nameComponent.name) {
+      itemMenu.filled = nameComponent.show
     }
   })
 }

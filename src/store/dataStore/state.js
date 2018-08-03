@@ -98,8 +98,9 @@ export default {
     },
     language: {
       level: {
-        value: 0,
-        lng: ''
+        value: null,
+        lng: '',
+        valueMobile: ''
       },
       dataTable: []
     },
