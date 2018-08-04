@@ -91,15 +91,22 @@ export const updateUserProfile = async (state, data) => {
       state.commit('updateIconMenu', {name: data.key, show: true})
     }
   }
-  for (let key in state.dataInputProfile) {
-    if (key === 'location') {
-      dataShowWarning.location = state.dataInputProfile[key].filled
-    } else if (key === 'personal') {
-      dataShowWarning.personal = state.dataInputProfile[key].filled
+  // for (let key in state.dataInputProfile) {
+  //   if (key === 'location') {
+  //     dataShowWarning.location = state.dataInputProfile[key].filled
+  //   } else if (key === 'personal') {
+  //     dataShowWarning.personal = state.dataInputProfile[key].filled
+  //   }
+  // }
+  state.state.itemsMenu.forEach(item => {
+    if (item.component === 'location') {
+      dataShowWarning.location = item.filled
+    } else if (item.component === 'personal') {
+      dataShowWarning.personal = item.filled
     }
-  }
-  // state.commit('showWarningProfile', dataShowWarning)
-  // console.log(data.data)
+  })
+  // console.log(dataShowWarning, state.state)
+  state.commit('showWarningProfile', dataShowWarning)
   await firebaseApp.firestore().collection(`users`).doc(data.uid).collection('info').doc(data.key).set(data.data).then(() => {
     console.log('Document successfully written!')
     state.commit('showSaveSuccess', {show: true, component: data.key})

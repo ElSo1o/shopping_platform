@@ -2,6 +2,7 @@
 export const someMutation = (state) => {
 }
 */
+import store from '../index'
 export const sinInUser = (state, data) => {
   state.user = data
 }
@@ -12,6 +13,10 @@ export const dataUser = (state, data) => {
   state.authUser = data
 }
 export const profileUserFromDb = (state, data) => {
+  let dataShowWarning = {
+    location: false,
+    personal: false
+  }
   data.forEach((item, i) => {
     for (let key in state.dataInputProfile) {
       if (item.id === key) {
@@ -26,9 +31,15 @@ export const profileUserFromDb = (state, data) => {
     state.itemsMenu.forEach(itemMenu => {
       if (item.id === itemMenu.component) {
         itemMenu.filled = item.data().filled
+      } else if (item.id === 'location') {
+        dataShowWarning.location = item.data().filled
+      } else if (item.id === 'personal') {
+        dataShowWarning.personal = item.data().filled
       }
     })
   })
+  console.log(state)
+  store.commit('dataStore/showWarningProfile', dataShowWarning)
 }
 export const switchLoadingInput = (state, boolean) => {
   state.loadingInput.loading = boolean
@@ -80,7 +91,15 @@ export const showSaveSuccess = (state, data) => {
 export const showWarningProfile = (state, data) => {
   if (data.location && data.personal) {
     state.showWarningProfile.show = false
+    state.authUser.profile.stepper = 2
+    state.authUser.profile.welcome[0].active = false
+    state.authUser.profile.welcome[0].complete = true
+    state.authUser.profile.welcome[1].active = true
   } else {
     state.showWarningProfile.show = true
+    state.authUser.profile.stepper = 1
+    state.authUser.profile.welcome[0].active = true
+    state.authUser.profile.welcome[0].complete = false
+    state.authUser.profile.welcome[1].active = false
   }
 }
