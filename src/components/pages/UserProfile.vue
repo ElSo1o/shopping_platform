@@ -68,7 +68,7 @@
       <div class="sectionInput">
         <v-layout class="height" v-resize="onResize" >
           <v-flex>
-            <v-card>
+            <v-card class="profileToolbar">
               <v-toolbar card prominent v-if="!mobile">
                 <v-toolbar-title class="body-2 grey--text" >Профиль</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -362,7 +362,7 @@ export default {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    padding: 0 24px;
+    padding: 0 16px;
   }
   .btnSave p {
     margin: 0;

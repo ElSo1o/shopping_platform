@@ -209,7 +209,7 @@ export default {
           position: this.valueProfile.data.position,
           periodWith: this.valueProfile.data.periodWith,
           nowPeriod: this.valueProfile.data.nowPeriod,
-          periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = '' : this.valueProfile.data.periodTo
+          periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = 'Сейчас работаю' : this.valueProfile.data.periodTo
         }
       })
     },
@@ -251,7 +251,7 @@ export default {
                 position: this.valueProfile.data.position,
                 periodWith: this.valueProfile.data.periodWith,
                 nowPeriod: this.valueProfile.data.nowPeriod,
-                periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = '' : this.valueProfile.data.periodTo
+                periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = 'Сейчас работаю' : this.valueProfile.data.periodTo
               }
             })
         } else {

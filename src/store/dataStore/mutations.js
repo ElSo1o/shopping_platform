@@ -61,8 +61,8 @@ export const deleteDataTable = (state, info) => {
 export const saveDataTable = (state, data) => {
   for (let key in state.dataInputProfile) {
     if (key === data.key) {
-      state.dataInputProfile[key].dataTable.splice(data.index, 1)
-      state.dataInputProfile[key].dataTable.unshift(data.value)
+      state.dataInputProfile[key].dataTable.splice(data.index, 1, data.value)
+      // state.dataInputProfile[key].dataTable.unshift(data.value)
     }
   }
 }

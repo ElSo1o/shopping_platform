@@ -63,4 +63,10 @@ html, body {
 .mainHobby label{
   font-size: 14px!important;
 }
+.toolbarUser > nav > div{
+  padding: 0;
+}
+.profileToolbar > nav > div{
+  padding: 0 14px;
+}
 </style>

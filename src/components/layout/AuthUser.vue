@@ -35,13 +35,12 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-card flat center>
+    <v-card flat center class="toolbarUser">
       <v-toolbar
-        color="grey lighten-4"
+        color="grey lighten-4 userToolbar"
         flat
         dense
         fixed
-        style="padding: 0; z-index: 4;"
       >
         <v-layout align-center justify-center row style="height: inherit;">
           <v-flex xl7 lg10 md10 sm12 class="headerFlex">
@@ -289,5 +288,9 @@ export default {
   .warningSectionIcon{
     color: red!important;
     margin-right: 4px;
+  }
+  .userToolbar{
+    padding: 0;
+    z-index: 4;
   }
 </style>

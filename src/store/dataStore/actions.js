@@ -64,8 +64,24 @@ export const updateUserProfile = async (state, data) => {
     personal: false
   }
   if (typeof data.data.dataTable === 'undefined') {
-    data.data.filled = true
-    state.commit('updateIconMenu', {name: data.key, show: true})
+    if (data.key === 'hobby') {
+      const itemFirst = data.data['itemsValueFirst'].findIndex(item => item.value)
+      const itemSecond = data.data['itemsValueSecond'].findIndex(item => item.value)
+      console.log(data.data['itemsValueFirst'].findIndex(item => item.value))
+      if (itemFirst === -1 && itemSecond === -1) {
+        data.data.filled = false
+        state.commit('updateIconMenu', {name: data.key, show: false})
+      } else {
+        data.data.filled = true
+        state.commit('updateIconMenu', {name: data.key, show: true})
+      }
+      // for (let key in data.data) {
+      //   console.log(data.data['itemsValueFirst'].findIndex(item => item.value))
+      // }
+    } else {
+      data.data.filled = true
+      state.commit('updateIconMenu', {name: data.key, show: true})
+    }
   } else {
     if (data.data.dataTable.length === 0) {
       data.data.filled = false
@@ -83,7 +99,7 @@ export const updateUserProfile = async (state, data) => {
     }
   }
   // state.commit('showWarningProfile', dataShowWarning)
-  console.log(data.data)
+  // console.log(data.data)
   await firebaseApp.firestore().collection(`users`).doc(data.uid).collection('info').doc(data.key).set(data.data).then(() => {
     console.log('Document successfully written!')
     state.commit('showSaveSuccess', {show: true, component: data.key})
