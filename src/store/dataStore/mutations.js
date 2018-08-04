@@ -12,7 +12,7 @@ export const stateSpinner = (state, data) => {
 export const dataUser = (state, data) => {
   state.authUser = data
 }
-export const profileUserFromDb = (state, data) => {
+export const profileUserFromDb = async (state, data) => {
   let dataShowWarning = {
     location: false,
     personal: false
@@ -39,7 +39,8 @@ export const profileUserFromDb = (state, data) => {
     })
   })
   console.log(state)
-  store.commit('dataStore/showWarningProfile', dataShowWarning)
+  await store.commit('dataStore/showWarningProfile', dataShowWarning)
+  await store.commit('dataStore/stateSpinner', false)
 }
 export const switchLoadingInput = (state, boolean) => {
   state.loadingInput.loading = boolean

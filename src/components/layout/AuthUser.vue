@@ -1,73 +1,74 @@
 <template>
-  <v-app v-resize="onResize">
-    <v-navigation-drawer
-      v-if="mobileMenu"
-      app
-      v-model="drawerShow"
+  <div>
+    <v-app v-if="!storeSpinner" v-resize="onResize">
+      <v-navigation-drawer
+        v-if="mobileMenu"
+        app
+        v-model="drawerShow"
       >
-      <v-toolbar >
-        <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img :src="getProfileData.photoURL">
-            </v-list-tile-avatar>
+        <v-toolbar >
+          <v-list class="pa-0">
+            <v-list-tile avatar>
+              <v-list-tile-avatar>
+                <img :src="getProfileData.photoURL">
+              </v-list-tile-avatar>
+
+              <v-list-tile-content>
+                <v-list-tile-title  color="primary"><h5>{{getProfileData.email}}</h5></v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-toolbar>
+
+        <v-list>
+          <v-list-tile
+            v-for="item in itemsMobileMenu"
+            :key="item.title"
+            @click="routerPush(item)"
+          >
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title  color="primary"><h5>{{getProfileData.email}}</h5></v-list-tile-title>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-      </v-toolbar>
-
-      <v-list>
-        <v-list-tile
-          v-for="item in itemsMobileMenu"
-          :key="item.title"
-          @click="routerPush(item)"
+      </v-navigation-drawer>
+      <v-card flat center class="toolbarUser">
+        <v-toolbar
+          color="grey lighten-4 userToolbar"
+          flat
+          dense
+          fixed
         >
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-card flat center class="toolbarUser">
-      <v-toolbar
-        color="grey lighten-4 userToolbar"
-        flat
-        dense
-        fixed
-      >
-        <v-layout align-center justify-center row style="height: inherit;">
-          <v-flex xl7 lg10 md10 sm12 class="headerFlex">
-            <v-toolbar-title class="white--text" style="height: inherit">
-              <div class="headerItems">
-              <router-link :to="{name: 'Welcome'}" class="logoFlex">
-                <img class="pull-left hidden-sm" src="../../assets/logo.png" alt="Mystery Shopper Platform">
-                <div>
-                  <span>Mystery Shopper Platform</span>
-                  <small>Тайный покупатель</small>
+          <v-layout align-center justify-center row style="height: inherit;">
+            <v-flex xl7 lg10 md10 sm12 class="headerFlex">
+              <v-toolbar-title class="white--text" style="height: inherit">
+                <div class="headerItems">
+                  <router-link :to="{name: 'Welcome'}" class="logoFlex">
+                    <img class="pull-left hidden-sm" src="../../assets/logo.png" alt="Mystery Shopper Platform">
+                    <div>
+                      <span>Mystery Shopper Platform</span>
+                      <small>Тайный покупатель</small>
+                    </div>
+                  </router-link>
+                  <v-toolbar-items class="hidden-sm-and-down">
+                    <v-btn flat color="grey darken-1" class="textTransform">
+                      <router-link :to="{path: `/auth/welcome`}" class="listMenuLink listMenu">Поиск вакансий</router-link>
+                    </v-btn>
+                    <v-btn flat color="grey darken-1" class="textTransform">
+                      <router-link :to="{path: `/auth/welcome`}" class="listMenuLink listMenu">Сообщения</router-link>
+                    </v-btn>
+                    <v-btn flat color="grey darken-1" class="textTransform">
+                      Справка
+                    </v-btn>
+                  </v-toolbar-items>
                 </div>
-              </router-link>
-              <v-toolbar-items class="hidden-sm-and-down">
-                <v-btn flat color="grey darken-1" class="textTransform">
-                  <router-link :to="{path: `/auth/welcome`}" class="listMenuLink listMenu">Поиск вакансий</router-link>
-                </v-btn>
-                <v-btn flat color="grey darken-1" class="textTransform">
-                  <router-link :to="{path: `/auth/welcome`}" class="listMenuLink listMenu">Сообщения</router-link>
-                </v-btn>
-                <v-btn flat color="grey darken-1" class="textTransform">
-                  Справка
-                </v-btn>
-              </v-toolbar-items>
-            </div>
-            </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-toolbar-items class="hidden-sm-and-down" style="height: inherit">
+              </v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items class="hidden-sm-and-down" style="height: inherit">
                 <v-menu :nudge-width="70" bottom left offset-y
                         origin="top right"
                         transition="scale-transition" >
@@ -96,39 +97,41 @@
                   </v-list>
                 </v-menu>
               </v-toolbar-items>
-            <v-btn icon flat class="hidden-md-and-up textTransform" color="grey darken-1"  @click="drawerShow = !drawerShow">
-              <v-icon dark>list</v-icon>
-            </v-btn>
-          <!--<v-toolbar-side-icon right color="green"></v-toolbar-side-icon>-->
-          </v-flex>
-        </v-layout>
-      </v-toolbar>
-    </v-card>
-    <v-content class="contentPage">
-      <v-container fluid style="padding: 12px 0 24px 0">
-        <v-layout align-center justify-center row>
-          <v-flex xl7 lg10 md10 sm12>
-            <v-card
-              color="grey lighten-5"
-            >
-              <div class="warningSection" v-if="getWarningProfile">
-                <router-link :to="{name: 'UserProfile'}">
-                  <v-icon dark class="warningSectionIcon">info</v-icon>
-                  <h4>Для начала работы Вам необходимо заполнить профиль</h4>
-                </router-link>
-              </div>
-            </v-card>
-            <v-card
-              color="grey lighten-5"
-            >
-              <router-view></router-view>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-    <v-footer app></v-footer>
-  </v-app>
+              <v-btn icon flat class="hidden-md-and-up textTransform" color="grey darken-1"  @click="drawerShow = !drawerShow">
+                <v-icon dark>list</v-icon>
+              </v-btn>
+              <!--<v-toolbar-side-icon right color="green"></v-toolbar-side-icon>-->
+            </v-flex>
+          </v-layout>
+        </v-toolbar>
+      </v-card>
+      <v-content class="contentPage">
+        <v-container fluid style="padding: 12px 0 24px 0">
+          <v-layout align-center justify-center row>
+            <v-flex xl7 lg10 md10 sm12>
+              <v-card
+                color="grey lighten-5"
+              >
+                <div class="warningSection" v-if="getWarningProfile">
+                  <router-link :to="{name: 'UserProfile'}">
+                    <v-icon dark class="warningSectionIcon">info</v-icon>
+                    <h4>Для начала работы Вам необходимо заполнить профиль</h4>
+                  </router-link>
+                </div>
+              </v-card>
+              <v-card
+                color="grey lighten-5"
+              >
+                <router-view></router-view>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-content>
+      <v-footer app></v-footer>
+    </v-app>
+  </div>
+
 </template>
 
 <script>
@@ -172,6 +175,9 @@ export default {
     },
     getWarningProfile () {
       return this.$store.getters['dataStore/getWarningProfile']
+    },
+    storeSpinner () {
+      return this.$store.getters['dataStore/getSpinner'].show
     }
   },
   methods: {

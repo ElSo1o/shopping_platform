@@ -19,7 +19,7 @@ const authUser = async (to, from, next) => {
         next({name: 'MainSection'})
       }
     }
-    store.commit('dataStore/stateSpinner', false)
+    // store.commit('dataStore/stateSpinner', false)
   })
 }
 export default authUser
