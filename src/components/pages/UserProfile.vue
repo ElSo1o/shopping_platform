@@ -273,8 +273,8 @@ export default {
             uid: this.$store.getters['dataStore/getUser'].uid
           })
       } else {
-        if (updateData.dataTable.length === 0) {
-        }
+        // if (updateData.dataTable.length === 0) {
+        // }
         this.$store.commit('dataStore/switchLoadingInput', false)
         this.snackbar = true
       }
