@@ -17,7 +17,7 @@ export const profileUserFromDb = async (state, data) => {
     location: false,
     personal: false
   }
-  data.forEach((item, i) => {
+  await data.forEach((item, i) => {
     for (let key in state.dataInputProfile) {
       if (item.id === key) {
         // console.log(state.dataInputProfile[key].dataTable)

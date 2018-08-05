@@ -258,6 +258,7 @@ export default {
     updateProfile (e) {
       const updateData = this.$store.getters['dataStore/getDataInputProfile'][this.nowComponent]
       this.$store.commit('dataStore/switchLoadingInput', true)
+      // console.log(typeof updateData.dataTable, updateData.dataTable.length)
       if (typeof updateData.dataTable !== 'undefined' && updateData.dataTable.length !== 0) {
         this.$store.dispatch('dataStore/updateUserProfile',
           {
@@ -273,21 +274,25 @@ export default {
             uid: this.$store.getters['dataStore/getUser'].uid
           })
       } else {
-        // if (updateData.dataTable.length === 0) {
-        // }
-        this.$store.commit('dataStore/switchLoadingInput', false)
-        this.snackbar = true
+        if (typeof updateData.dataTable === 'object') {
+          this.$store.dispatch('dataStore/updateUserProfile',
+            {
+              data: updateData,
+              key: this.nowComponent,
+              uid: this.$store.getters['dataStore/getUser'].uid
+            })
+        } else {
+          console.log(typeof updateData.dataTable)
+          this.$store.commit('dataStore/switchLoadingInput', false)
+          this.snackbar = true
+        }
       }
     },
     deleteProfile (e) {
       this.$store.dispatch('dataStore/deleteProfile', this.userProfile)
     },
     onResize () {
-      if (window.innerWidth <= 1225) {
-        this.mobile = true
-      } else {
-        this.mobile = false
-      }
+      window.innerWidth <= 1225 ? this.mobile = true : this.mobile = false
       this.windowSize = { x: window.innerWidth, y: window.innerHeight }
     }
   },

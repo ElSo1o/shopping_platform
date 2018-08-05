@@ -139,7 +139,8 @@
         <td>{{props.item.organization}}</td>
         <td>{{props.item.position}}</td>
         <td>{{props.item.periodWith}}</td>
-        <td>{{props.item.periodTo}}</td>
+        <td v-if="props.item.periodTo === ''">Сейчас работаю</td>
+        <td v-else>{{props.item.periodTo}}</td>
         <td class="justify-center align-center layout px-0">
           <v-icon
             small
@@ -209,7 +210,7 @@ export default {
           position: this.valueProfile.data.position,
           periodWith: this.valueProfile.data.periodWith,
           nowPeriod: this.valueProfile.data.nowPeriod,
-          periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = 'Сейчас работаю' : this.valueProfile.data.periodTo
+          periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = '' : this.valueProfile.data.periodTo
         }
       })
     },
@@ -251,7 +252,7 @@ export default {
                 position: this.valueProfile.data.position,
                 periodWith: this.valueProfile.data.periodWith,
                 nowPeriod: this.valueProfile.data.nowPeriod,
-                periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = 'Сейчас работаю' : this.valueProfile.data.periodTo
+                periodTo: this.valueProfile.data.nowPeriod ? this.valueProfile.data.periodTo = '' : this.valueProfile.data.periodTo
               }
             })
         } else {

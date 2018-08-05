@@ -191,11 +191,7 @@ export default {
       this.$router.push(`/auth/${item.link}`)
     },
     onResize () {
-      if (window.innerWidth <= 960) {
-        this.mobileMenu = true
-      } else {
-        this.mobileMenu = false
-      }
+      window.innerWidth <= 960 ? this.mobileMenu = true : this.mobileMenu = false
     }
   }
 }
