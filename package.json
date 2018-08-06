@@ -1,7 +1,7 @@
 {
-  "name": "mystery_platform",
+  "name": "user_profile",
   "version": "1.0.0",
-  "description": "Vue project Mystery platform",
+  "description": "Vue project users platform",
   "author": "ElSolo <ElSolo1991@mail.ru>",
   "private": true,
   "jest": {

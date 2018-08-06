@@ -1,6 +1,6 @@
-# mystery_platform_test_task
+# Shopping platform
 
-> Vue project Mystery platform
+> Vue project Shopping platform
 
 ## Build Setup
 

@@ -50,8 +50,8 @@
                   <router-link :to="{name: 'Welcome'}" class="logoFlex">
                     <img class="pull-left hidden-sm" src="../../assets/logo.png" alt="Mystery Shopper Platform">
                     <div>
-                      <span>Mystery Shopper Platform</span>
-                      <small>Тайный покупатель</small>
+                      <span>Shopping Platform</span>
+                      <small>Наш покупатель</small>
                     </div>
                   </router-link>
                   <v-toolbar-items class="hidden-sm-and-down">
@@ -128,7 +128,11 @@
           </v-layout>
         </v-container>
       </v-content>
-      <v-footer app></v-footer>
+      <v-footer app center class="flexFooter">
+        <v-flex xl7 lg10 md10 sm12>
+          <p>&copy; {{new Date().getFullYear()}} by <span @click="redirectFooter" class="copyright">ElSolo</span></p>
+        </v-flex>
+      </v-footer>
     </v-app>
   </div>
 
@@ -192,6 +196,9 @@ export default {
     },
     onResize () {
       window.innerWidth <= 960 ? this.mobileMenu = true : this.mobileMenu = false
+    },
+    redirectFooter () {
+      window.open('https://elsolo.herokuApp.com')
     }
   }
 }
@@ -290,6 +297,28 @@ export default {
   .warningSectionIcon{
     color: red!important;
     margin-right: 4px;
+  }
+  .flexFooter {
+    justify-content: center;
+    height: 48px!important;
+  }
+  .flexFooter > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+  .flexFooter p {
+    margin-bottom: 0;
+  }
+  .copyright{
+    cursor: pointer;
+    font-weight: 600;
+    color: #64b5f6;
+    transition: 0.5s;
+  }
+  .copyright:hover{
+    color: #4e8abb;
   }
   .userToolbar{
     padding: 0;

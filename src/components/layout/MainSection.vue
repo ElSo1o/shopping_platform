@@ -1,24 +1,29 @@
 <template>
   <v-app>
-    <v-toolbar dark dense color="blue lighten-4">
-      <v-toolbar-title class="white--text">msp4.me</v-toolbar-title>
+    <v-toolbar dark dense color="primary">
+      <v-toolbar-title class="white--text">main page</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-menu :nudge-width="100" bottom right offset-y auto>
-        <v-btn  icon slot="activator">
-          <v-icon>more_vert</v-icon>
-        </v-btn>
-        <v-list>
-          <v-list-tile
-            v-for="(item, i, key) in itemToolbar"
-            :key="key"
-            @click="">
-            <v-list-tile-title v-text="item.title" @click="dialog = true" bottom></v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
+      <!--<v-menu :nudge-width="100" bottom right offset-y auto>-->
+        <!--<v-btn  slot="activator">-->
+          <!--<v-bottom-sheet-transition>Вход</v-bottom-sheet-transition>-->
+          <!--<v-icon>more_vert</v-icon>-->
+        <!--</v-btn>-->
+        <!--<v-list>-->
+          <!--<v-list-tile-->
+            <!--v-for="(item, i, key) in itemToolbar"-->
+            <!--:key="key"-->
+            <!--@click="">-->
+            <!--<v-list-tile-title v-text="item.title" @click="dialog = true" bottom></v-list-tile-title>-->
+          <!--</v-list-tile>-->
+        <!--</v-list>-->
+      <!--</v-menu>-->
     </v-toolbar>
     <v-content class="contentSection">
-      <v-container fluid>
+      <v-container fluid style="height: 100%">
+        <div class="mainContent">
+          <h2>Войдите для ознакомления с работой</h2>
+          <v-btn @click.native="dialog = true" color="primary">Войти</v-btn>
+        </div>
         <v-dialog v-model="dialog"
                   width="600px"
                   color="blue lighten-4"
@@ -35,7 +40,7 @@
               </div>
             </div>
             <div>
-              <v-btn color="blue darken-1" flat @click.native="dialog = false">Закрыть</v-btn>
+              <v-btn color="primary" flat @click.native="dialog = false">Закрыть</v-btn>
             </div>
             <div>
             </div>
@@ -43,7 +48,7 @@
         </v-dialog>
       </v-container>
     </v-content>
-    <v-footer app dark color="blue lighten-4"></v-footer>
+    <v-footer app dark color="primary"></v-footer>
   </v-app>
 </template>
 
@@ -111,5 +116,15 @@ h1, h2, h3 {
 }
 .contentSection{
   background: #f0ffff;
+}
+.mainContent {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.mainContent > h2 {
+  font-size: 21px;
 }
 </style>
