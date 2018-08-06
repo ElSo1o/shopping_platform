@@ -48,7 +48,7 @@
               <v-toolbar-title class="white--text" style="height: inherit">
                 <div class="headerItems">
                   <router-link :to="{name: 'Welcome'}" class="logoFlex">
-                    <img class="pull-left hidden-sm" src="../../assets/logo.png" alt="Mystery Shopper Platform">
+                    <img class="pull-left hidden-sm" src="../../assets/logo.png" alt="Shopping Platform">
                     <div>
                       <span>Shopping Platform</span>
                       <small>Наш покупатель</small>

@@ -104,7 +104,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
     // service worker caching
     new SWPrecacheWebpackPlugin({
-      cacheId: 'mystery_platform_test_task',
+      cacheId: 'shopping_platform',
       filename: 'service-worker.js',
       staticFileGlobs: ['public/**/*.{js,html,css}'],
       minify: true,
