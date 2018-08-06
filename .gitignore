@@ -10,7 +10,7 @@ selenium-debug.log
 
 # Editor directories and files
 src/firebase/index.js
-.public/
+/public/
 .idea
 *.suo
 *.ntvs*
