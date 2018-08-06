@@ -38,7 +38,7 @@ export const profileUserFromDb = async (state, data) => {
       }
     })
   })
-  console.log(state)
+  // console.log(state)
   await store.commit('dataStore/showWarningProfile', dataShowWarning)
   await store.commit('dataStore/stateSpinner', false)
 }

@@ -37,7 +37,7 @@ export const singInUser = (state, user) => {
 }
 export const checkUserFromFireStore = async (state, user) => {
   await firebaseApp.firestore().collection(`users`).doc(user.uid).get().then((querySnapshot) => {
-    console.log(querySnapshot.data())
+    // console.log(querySnapshot.data())
     firebaseApp.firestore().collection(`users`).doc(user.uid).collection('info').get().then((querySnapshots) => {
       state.commit('profileUserFromDb', querySnapshots.docs)
       // console.log(querySnapshots.docs[0].data())
